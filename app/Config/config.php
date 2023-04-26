@@ -4,7 +4,7 @@
  * database configuration
  */
 
-define('DB_NAME', 'pharmacy_system');
+define('DB_NAME', 'php');
 define('HOST', 'localhost');
 define('PORT', 3306);
 define('USER', 'amr');

@@ -8,4 +8,9 @@ class HomeController extends Controller
         $data['content'] = "Content of home page";
         View::load('Home/index', $data);
     }
+
+    public function test($arr = [])
+    {
+        var_dump($arr);
+    }
 }

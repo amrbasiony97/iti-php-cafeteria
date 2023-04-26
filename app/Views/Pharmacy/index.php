@@ -2,10 +2,10 @@
 <a href="<?php route('pharmacy/index') ?>">Pharmacy</a>
     <h1>hello world</h1>
 
-<ul>
+    <ul>
     <?php 
         foreach($pharmacies as $pharmacy){
-            echo "<li>{$pharmacy['name']}</li>";
+            echo "<li>{$pharmacy['created_at']}</li>";
 
         }
     ?>

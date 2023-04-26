@@ -30,16 +30,13 @@ class Database
     {
         self::connect();
         try {
-            $query = "INSERT INTO {$table} (name, email, password, room_no, ext, image)
-                    VALUES (:name, :email, :password, :room_no, :ext, :image)";
+            $keys = array_keys($record);
+            $placeholders = implode(',', array_fill(0, count($keys), '?'));
+
+            $query = "INSERT INTO {$table} (" . implode(',', $keys) . ") VALUES ({$placeholders})";
             $stmt = self::$connection->prepare($query);
-            $stmt->bindParam(":name", $record['name'], PDO::PARAM_STR);
-            $stmt->bindParam(":email", $record['email'], PDO::PARAM_STR);
-            $stmt->bindParam(":password", $record['password'], PDO::PARAM_STR);
-            $stmt->bindParam(":room_no", $record['room_no'], PDO::PARAM_STR);
-            $stmt->bindParam(":ext", $record['ext'], PDO::PARAM_INT);
-            $stmt->bindParam(":image", $record['image'], PDO::PARAM_STR);
-            $stmt->execute();
+
+            $stmt->execute(array_values($record));
             return $stmt->rowCount();
         } catch (Exception $e) {
             echo 'Error: '. $e->getMessage();
