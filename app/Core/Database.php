@@ -60,18 +60,30 @@ class Database
     {
         self::connect();
         try {
-            $query = "UPDATE {$table} SET name = :name, email = :email, 
-            password = :password, room_no = :room_no, ext = :ext, image = :image
-            WHERE id = :id";
+            // $query = "UPDATE {$table} SET name = :name, email = :email, 
+            // password = :password, room_no = :room_no, ext = :ext, image = :image
+            // WHERE id = :id";
+            // $stmt = self::$connection->prepare($query);
+            // $stmt->bindParam(":name", $record['name'], PDO::PARAM_STR);
+            // $stmt->bindParam(":email", $record['email'], PDO::PARAM_STR);
+            // $stmt->bindParam(":password", $record['password'], PDO::PARAM_STR);
+            // $stmt->bindParam(":room_no", $record['room_no'], PDO::PARAM_STR);
+            // $stmt->bindParam(":ext", $record['ext'], PDO::PARAM_INT);
+            // $stmt->bindParam(":image", $record['image'], PDO::PARAM_STR);
+            // $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+            // $stmt->execute();
+            // return $stmt->rowCount();
+
+            $keys = array_keys($record);
+            $placeholders = implode('=?,', $keys) . '=?';
+
+            $query = "UPDATE {$table} SET {$placeholders} WHERE id = ?";
             $stmt = self::$connection->prepare($query);
-            $stmt->bindParam(":name", $record['name'], PDO::PARAM_STR);
-            $stmt->bindParam(":email", $record['email'], PDO::PARAM_STR);
-            $stmt->bindParam(":password", $record['password'], PDO::PARAM_STR);
-            $stmt->bindParam(":room_no", $record['room_no'], PDO::PARAM_STR);
-            $stmt->bindParam(":ext", $record['ext'], PDO::PARAM_INT);
-            $stmt->bindParam(":image", $record['image'], PDO::PARAM_STR);
-            $stmt->bindParam(":id", $id, PDO::PARAM_INT);
-            $stmt->execute();
+
+            $values = array_values($record);
+            $values[] = $id;
+
+            $stmt->execute($values);
             return $stmt->rowCount();
         } catch (Exception $e) {
             echo 'Error: '. $e->getMessage();
