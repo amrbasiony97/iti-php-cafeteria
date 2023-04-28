@@ -51,11 +51,12 @@ class App
                 call_user_func_array([$controller, $this->action], $this->params);
             }
             else {
-                echo "Method does not exist";
+                View::load('Error/404');
             }
         }
         else {
-            echo "This controller: ". $this->controller ." does not exist";
+            echo "not found";
+            // View::load('Error/404');
         }
     }
 }

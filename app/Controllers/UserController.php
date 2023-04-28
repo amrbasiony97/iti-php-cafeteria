@@ -4,7 +4,7 @@ class UserController
 {
     public function index()
     {
-        var_dump(User::getAll());
+        View::load('User/index', ['users' => User::getAll()]);
     }
 
     public function store()
