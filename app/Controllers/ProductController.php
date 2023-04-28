@@ -12,8 +12,28 @@ class ProductController
         $allProducts = Product::getAll();
         // var_dump($allProducts);
         // echo "This is Index For Product" ;
-        View::load('Product/index',$data =  [
+        View::load('Product/index', $data =  [
             'allData' => $allProducts
         ]);
+    }
+
+
+    public function create()
+    {
+    }
+    public function store()
+    {
+    }
+
+    public function edit()
+    {
+    }
+
+    public function update()
+    {
+    }
+
+    public function destroy()
+    {
     }
 }
