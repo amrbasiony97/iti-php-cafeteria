@@ -4,10 +4,10 @@
  * database configuration
  */
 
-define('DB_NAME', 'php');
+define('DB_NAME', 'cafeteria');
 define('HOST', 'localhost');
 define('PORT', 3306);
-define('USER', 'amr');
-define('PASSWORD', 'Abcd@1234');
+define('USER', 'ayman');
+define('PASSWORD', '1994');
 
 define('BASE_URL', 'http://localhost/cafeteria/public/');
