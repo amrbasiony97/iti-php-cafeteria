@@ -2,10 +2,8 @@
 
 class HomeController extends Controller
 {
-    public function index($id = [])
+    public function index()
     {
-        $data['title'] = "Home Page";
-        $data['content'] = "Content of home page";
-        View::load('Home/index', $data);
+        View::load('Home/index');
     }
 }
