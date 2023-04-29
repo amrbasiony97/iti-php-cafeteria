@@ -9,3 +9,8 @@ function asset($url = "")
 {
     echo BASE_URL.DS.'assets'.DS.$url;
 }
+
+function uploads($url = "")
+{
+    echo BASE_URL.DS.'uploads'.DS.$url;
+}

@@ -7,6 +7,11 @@ class UserController
         View::load('User/index', ['users' => User::getAll()]);
     }
 
+    public function create()
+    {
+        View::load('User/create');
+    }
+
     public function store()
     {
         $count = Database::insert('users', [
@@ -26,16 +31,14 @@ class UserController
         }
     }
 
-    public function delete($id = '')
+    public function show($id)
     {
-        $count = Database::delete('users', $id);
+        View::load('User/show');
+    }
 
-        if ($count) {
-            echo 'User deleted successfully';
-        }
-        else {
-            echo 'User not found';
-        }
+    public function edit($id)
+    {
+        View::load('User/edit');
     }
 
     public function update($id)
@@ -54,6 +57,18 @@ class UserController
         }
         else {
             echo 'User not updated';
+        }
+    }
+
+    public function destroy($id)
+    {
+        $count = Database::delete('users', $id);
+
+        if ($count) {
+            echo 'User deleted successfully';
+        }
+        else {
+            echo 'User not found';
         }
     }
 }
