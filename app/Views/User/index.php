@@ -78,13 +78,13 @@ ob_start();
                                       </td>";
                                 echo "<td>{$user['ext']}</td>";
                                 echo "<td>
-                                        <a class='btn btn-primary' href=";
-                                        echo route("User/edit/{$user['id']}");
+                                        <a class='btn btn-primary' href='";
+                                        echo route("User/edit/{$user['id']}'");
                                         echo "role='button'>
                                             <i class='fa fa-pencil'></i>
                                         </a>
-                                        <a class='btn btn-danger' href=";
-                                        echo route("User/delete/{$user['id']}");
+                                        <a class='btn btn-danger' href='";
+                                        echo route("User/delete/{$user['id']}'");
                                         echo "role='button'>
                                             <i class='fa fa-trash'></i>
                                         </a>
