@@ -8,6 +8,7 @@ define("CONTROLLERS",APP.'Controllers'.DS);
 define("MODELS",APP.'Models'.DS);
 define("VIEWS",APP.'Views'.DS);
 define("UPLOADS",ROOT_PATH.'public'.DS.'uploads'.DS);
+define("ASSETS",ROOT_PATH.'public'.DS.'assets'.DS);
 
 // Load configuration file
 require_once(CONFIG.'config.php');

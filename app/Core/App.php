@@ -39,7 +39,6 @@ class App
 
             // define params
             $this->params = !empty($url) ? array_values($url) : [];
-
         }
     }
 
@@ -55,8 +54,7 @@ class App
             }
         }
         else {
-            echo "not found";
-            // View::load('Error/404');
+            View::load('Error/404');
         }
     }
 }
