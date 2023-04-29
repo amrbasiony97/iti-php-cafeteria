@@ -11,14 +11,14 @@
   <title><?= $title ?></title>
 
   <!-- Bootstrap -->
-  <link href="<?php asset('vendors/bootstrap/dist/css/bootstrap.min.css') ?>" rel="stylesheet">
+  <link href="<?php asset('gentelella/vendors/bootstrap/dist/css/bootstrap.min.css') ?>" rel="stylesheet">
   <!-- Font Awesome -->
-  <link href="<?php asset('vendors/font-awesome/css/font-awesome.min.css') ?>" rel="stylesheet">
+  <link href="<?php asset('gentelella/vendors/font-awesome/css/font-awesome.min.css') ?>" rel="stylesheet">
   <!-- NProgress -->
-  <link href="<?php asset('vendors/nprogress/nprogress.css') ?>" rel="stylesheet">
+  <link href="<?php asset('gentelella/vendors/nprogress/nprogress.css') ?>" rel="stylesheet">
 
   <!-- Custom Theme Style -->
-  <link href="<?php asset('build/css/custom.min.css') ?>" rel="stylesheet">
+  <link href="<?php asset('gentelella/build/css/custom.min.css') ?>" rel="stylesheet">
 
   <!-- Extra CSS -->
   <?= $extra_css ?>
@@ -38,7 +38,7 @@
           <!-- menu profile quick info -->
           <div class="profile clearfix">
             <div class="profile_pic">
-              <img src="<?php asset('images/user.png') ?>" alt="..." class="img-circle profile_img">
+              <img src="<?php asset('gentelella/production/images/user.png') ?>" alt="..." class="img-circle profile_img">
             </div>
             <div class="profile_info">
               <span>Welcome,</span>
@@ -54,7 +54,7 @@
           <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
             <div class="menu_section">
               <ul class="nav side-menu">
-              <li><a><i class="fa fa-user"></i> Users <span class="fa fa-chevron-down"></span></a>
+                <li><a><i class="fa fa-user"></i> Users <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
                     <li><a href="<?php route('User/index') ?>">All Users</a></li>
                     <li><a href="<?php route('User/create') ?>">Add User</a></li>
@@ -96,35 +96,39 @@
       <!-- top navigation -->
       <div class="top_nav">
         <div class="nav_menu">
-          <div class="nav toggle">
-            <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-          </div>
-          <nav class="nav navbar-nav">
-            <ul class=" navbar-right">
-              <li class="nav-item dropdown open" style="padding-left: 15px;">
-                <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                  <img src="<?php asset('images/user.png') ?>" alt="">John Doe
+          <nav>
+            <div class="nav toggle">
+              <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+            </div>
+
+            <ul class="nav navbar-nav navbar-right">
+              <li class="">
+                <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                  <img src="<?php asset('gentelella/production/images/user.png') ?>" alt="">John Doe
+                  <span class=" fa fa-angle-down"></span>
                 </a>
-                <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="javascript:;"> Profile</a>
-                  <a class="dropdown-item" href="javascript:;">
-                    <span class="badge bg-red pull-right">50%</span>
-                    <span>Settings</span>
-                  </a>
-                  <a class="dropdown-item" href="javascript:;">Help</a>
-                  <a class="dropdown-item" href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
-                </div>
+                <ul class="dropdown-menu dropdown-usermenu pull-right">
+                  <li><a href="javascript:;"> Profile</a></li>
+                  <li>
+                    <a href="javascript:;">
+                      <span class="badge bg-red pull-right">50%</span>
+                      <span>Settings</span>
+                    </a>
+                  </li>
+                  <li><a href="javascript:;">Help</a></li>
+                  <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                </ul>
               </li>
 
-              <li role="presentation" class="nav-item dropdown open">
-                <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
+              <li role="presentation" class="dropdown">
+                <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
                   <i class="fa fa-envelope-o"></i>
                   <span class="badge bg-green">6</span>
                 </a>
-                <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
-                  <li class="nav-item">
-                    <a class="dropdown-item">
-                      <span class="image"><img src="<?php asset('images/user.png') ?>" alt="Profile Image" /></span>
+                <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+                  <li>
+                    <a>
+                      <span class="image"><img src="<?php asset('gentelella/production/images/user.png') ?>" alt="Profile Image" /></span>
                       <span>
                         <span>John Smith</span>
                         <span class="time">3 mins ago</span>
@@ -134,9 +138,9 @@
                       </span>
                     </a>
                   </li>
-                  <li class="nav-item">
-                    <a class="dropdown-item">
-                      <span class="image"><img src="<?php asset('images/user.png') ?>" alt="Profile Image" /></span>
+                  <li>
+                    <a>
+                      <span class="image"><img src="<?php asset('gentelella/production/images/user.png') ?>" alt="Profile Image" /></span>
                       <span>
                         <span>John Smith</span>
                         <span class="time">3 mins ago</span>
@@ -146,9 +150,9 @@
                       </span>
                     </a>
                   </li>
-                  <li class="nav-item">
-                    <a class="dropdown-item">
-                      <span class="image"><img src="<?php asset('images/user.png') ?>" alt="Profile Image" /></span>
+                  <li>
+                    <a>
+                      <span class="image"><img src="<?php asset('gentelella/production/images/user.png') ?>" alt="Profile Image" /></span>
                       <span>
                         <span>John Smith</span>
                         <span class="time">3 mins ago</span>
@@ -158,9 +162,9 @@
                       </span>
                     </a>
                   </li>
-                  <li class="nav-item">
-                    <a class="dropdown-item">
-                      <span class="image"><img src="<?php asset('images/user.png') ?>" alt="Profile Image" /></span>
+                  <li>
+                    <a>
+                      <span class="image"><img src="<?php asset('gentelella/production/images/user.png') ?>" alt="Profile Image" /></span>
                       <span>
                         <span>John Smith</span>
                         <span class="time">3 mins ago</span>
@@ -170,9 +174,9 @@
                       </span>
                     </a>
                   </li>
-                  <li class="nav-item">
+                  <li>
                     <div class="text-center">
-                      <a class="dropdown-item">
+                      <a>
                         <strong>See All Alerts</strong>
                         <i class="fa fa-angle-right"></i>
                       </a>
@@ -204,16 +208,16 @@
   </div>
 
   <!-- jQuery -->
-  <script src="<?php asset('vendors/jquery/dist/jquery.min.js') ?>"></script>
+  <script src="<?php asset('gentelella/vendors/jquery/dist/jquery.min.js') ?>"></script>
   <!-- Bootstrap -->
-  <script src="<?php asset('vendors/bootstrap/dist/js/bootstrap.bundle.min.js') ?>"></script>
+  <script src="<?php asset('gentelella/vendors/bootstrap/dist/js/bootstrap.min.js') ?>"></script>
   <!-- FastClick -->
-  <script src="<?php asset('vendors/fastclick/lib/fastclick.js') ?>"></script>
+  <script src="<?php asset('gentelella/vendors/fastclick/lib/fastclick.js') ?>"></script>
   <!-- NProgress -->
-  <script src="<?php asset('vendors/nprogress/nprogress.js') ?>"></script>
+  <script src="<?php asset('gentelella/vendors/nprogress/nprogress.js') ?>"></script>
 
   <!-- Custom Theme Scripts -->
-  <script src="<?php asset('build/js/custom.min.js') ?>"></script>
+  <script src="<?php asset('gentelella/build/js/custom.min.js') ?>"></script>
 
   <!-- Extra JS -->
   <?= $extra_js ?>

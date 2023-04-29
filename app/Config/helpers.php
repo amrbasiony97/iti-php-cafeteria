@@ -7,7 +7,7 @@ function route($url = "")
 
 function asset($url = "")
 {
-    echo BASE_URL.DS.'assets'.DS.$url;
+    echo BASE_URL.'assets'.DS.$url;
 }
 
 function uploads($url = "")
