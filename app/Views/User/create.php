@@ -34,40 +34,40 @@ ob_start();
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Name <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="both name(s) e.g John Doe" required="required" type="text">
+                                <input value="<?php if (!empty($data)) echo $data['name'] ?>" id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="both name(s) e.g John Doe" required="required" type="text">
                             </div>
                         </div>
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">Email <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="email" id="email" name="email" required="required" class="form-control col-md-7 col-xs-12">
+                                <input value="<?php if (!empty($data)) echo $data['email'] ?>" type="email" id="email" name="email" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
                         </div>
                         <div class="item form-group">
                             <label for="password" class="control-label col-md-3">Password <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="password" type="password" name="password" data-validate-length="6,8" class="form-control col-md-7 col-xs-12" required="required">
+                                <input value="<?php if (!empty($data)) echo $data['password'] ?>" id="password" type="password" name="password" data-validate-length="6,8" class="form-control col-md-7 col-xs-12" required="required">
                             </div>
                         </div>
                         <div class="item form-group">
                             <label for="password2" class="control-label col-md-3 col-sm-3 col-xs-12">Confirm Password <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="password2" type="password" name="password2" data-validate-linked="password" class="form-control col-md-7 col-xs-12" required="required">
+                                <input value="<?php if (!empty($data)) echo $data['password2'] ?>" id="password2" type="password" name="password2" data-validate-linked="password" class="form-control col-md-7 col-xs-12" required="required">
                             </div>
                         </div>
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="room_number">Room Number</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="number" id="room_number" name="room_number" class="form-control col-md-7 col-xs-12">
+                                <input value="<?php if (!empty($data)) echo $data['room_number'] ?>" type="number" id="room_number" name="room_number" class="form-control col-md-7 col-xs-12">
                             </div>
                         </div>
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="ext">Ext.</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="number" id="ext" name="ext" class="form-control col-md-7 col-xs-12">
+                                <input value="<?php if (!empty($data)) echo $data['ext'] ?>" type="number" id="ext" name="ext" class="form-control col-md-7 col-xs-12">
                             </div>
                         </div>
                         <div class="item form-group">
@@ -131,8 +131,16 @@ ob_start();
     <?php   }
         }
         ?>
+
+
     });
 </script>
+    
+<?php
+if (isset($url)) {
+    echo "<script>history.pushState(null, null, '$url');</script>";
+}
+?>
 
 <?php
 $extra_js = ob_get_clean();

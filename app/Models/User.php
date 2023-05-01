@@ -11,10 +11,6 @@ class User
 
     static function validateCreate()
     {
-        if (empty($_POST)) {
-            View::load('User/index', ['users' => User::getAll()]);
-            exit();
-        }
         $errors = [];
 
         // Validate name
@@ -33,8 +29,8 @@ class User
         Validate::password($_POST['password'], $errors);
         
         // Validate room number & ext
-        Validate::number($_POST['room_number'], $errors, 'Room number must be a number');
-        Validate::number($_POST['ext'], $errors, 'Ext must be a number');
+        Validate::number_nullable($_POST['room_number'], $errors, 'Room number must be a number');
+        Validate::number_nullable($_POST['ext'], $errors, 'Ext must be a number');
 
         // Validate image
         $image = Validate::image($errors);

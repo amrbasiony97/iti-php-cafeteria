@@ -2,6 +2,13 @@
 
 class Validate
 {
+    public static function request_method($method, $url)
+    {
+        if ($_SERVER['REQUEST_METHOD'] != $method) {
+            View::redirect($url, ['errors' => ['Invalid request']]);
+        }
+    }
+
     public static function empty($var, &$errors, $msg)
     {
         if (!isset($var) || empty($var)) {
@@ -35,6 +42,17 @@ class Validate
         $numberPattern = '/^[0-9]+$/';
         if (!preg_match_all($numberPattern, $number)) {
             array_push($errors, $msg);
+        }
+    }
+
+    public static function number_nullable(&$number, &$errors, $msg)
+    {
+        $numberPattern = '/^[0-9]*$/';
+        if (!preg_match_all($numberPattern, $number)) {
+            array_push($errors, $msg);
+        }
+        if (empty($number)) {
+            $number = null;
         }
     }
 

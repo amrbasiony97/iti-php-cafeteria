@@ -158,6 +158,13 @@ ob_start();
     <?php   } ?>
     });
 </script>
+
+<?php
+if (isset($url)) {
+    echo "<script>history.pushState(null, null, '$url');</script>";
+}
+?>
+
 <?php
 $extra_js = ob_get_clean();
 ?>

@@ -14,11 +14,14 @@ class UserController
 
     public function store()
     {
+        Validate::request_method('POST', 'User/create');
         $validate = User::validateCreate();
 
         if (!empty($validate['errors'])) {
-            View::load('User/create', ['errors' => $validate['errors']]);
-            exit();
+            View::redirect('User/create', [
+                'errors' => $validate['errors'],
+                'data' => $_POST
+            ]);
         } else {
             $file = $validate['imgPath'];
             $imgPath = end(explode('/', $file));
@@ -36,13 +39,13 @@ class UserController
         if ($result) {
             $imgPath = UPLOADS.$validate['imgPath'];
             move_uploaded_file($validate['fileTmp'], $imgPath);
-            View::load('User/index', [
+            View::redirect('User/index', [
                 'users' => User::getAll(),
                 'success' => 'User created successfully'
             ]);
         }
         else {
-            View::load('User/create', [
+            View::redirect('User/create', [
                 'errors' => ['User not created']
             ]);
         }
