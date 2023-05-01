@@ -13,6 +13,8 @@ ob_start();
     <link href="<?php asset('gentelella/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') ?>" rel="stylesheet">
     <link href="<?php asset('gentelella/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css') ?>" rel="stylesheet">
 
+    <!-- Toastr -->
+    <link rel="stylesheet" href="<?php asset('gentelella/vendors/toastr/toastr.min.css') ?>">
 
 <style>
     table img {
@@ -127,6 +129,35 @@ ob_start();
     <script src="<?php asset('gentelella/vendors/pdfmake/build/pdfmake.min.js') ?>"></script>
     <script src="<?php asset('gentelella/vendors/pdfmake/build/vfs_fonts.js') ?>"></script>
 
+    <!-- Toastr -->
+    <script src="<?php asset('gentelella/vendors/toastr/toastr.min.js') ?>"></script>
+
+<script>
+    $(document).ready(function() {
+        <?php
+        if (isset($success)) { ?>
+                toastr["success"]("<?php echo $success ?>")
+
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
+    <?php   } ?>
+    });
+</script>
 <?php
 $extra_js = ob_get_clean();
 ?>

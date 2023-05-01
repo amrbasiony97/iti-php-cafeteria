@@ -14,20 +14,37 @@ class UserController
 
     public function store()
     {
-        $count = Database::insert('users', [
-            'name' => 'Amr Basiony',
-            'email' => 'amrbasiony97@gmail.com',
-            'password' => 'password123',
-            'room_no' => '101',
-            'ext' => 123,
-            'image' => 'image1.jpg'
-        ]);
+        $validate = User::validateCreate();
 
-        if ($count) {
-            echo 'User created successfully';
+        if (!empty($validate['errors'])) {
+            View::load('User/create', ['errors' => $validate['errors']]);
+            exit();
+        } else {
+            $file = $validate['imgPath'];
+            $imgPath = end(explode('/', $file));
+            $result = Database::insert('users', [
+                'name' => $_POST['name'],
+                'email' => $_POST['email'],
+                'image' => $imgPath,
+                'password' => $_POST['password'],
+                'room_number' => $_POST['room_number'],
+                'ext' => $_POST['ext'],
+                'role' => 'customer'
+            ]);
+        }
+
+        if ($result) {
+            $imgPath = UPLOADS.$validate['imgPath'];
+            move_uploaded_file($validate['fileTmp'], $imgPath);
+            View::load('User/index', [
+                'users' => User::getAll(),
+                'success' => 'User created successfully'
+            ]);
         }
         else {
-            echo 'Error creating user';
+            View::load('User/create', [
+                'errors' => ['User not created']
+            ]);
         }
     }
 

@@ -4,6 +4,9 @@ $title = "Create User";
 ob_start();
 ?>
 
+    <!-- Toastr -->
+    <link rel="stylesheet" href="<?php asset('gentelella/vendors/toastr/toastr.min.css') ?>">
+
 <?php
 $extra_css = ob_get_clean();
 ?>
@@ -25,38 +28,13 @@ ob_start();
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
-                <div class="x_title">
-                    <h2>Form validation <small>sub title</small></h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Settings 1</a>
-                                </li>
-                                <li><a href="#">Settings 2</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li><a class="close-link"><i class="fa fa-close"></i></a>
-                        </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                </div>
                 <div class="x_content">
-
-                    <form class="form-horizontal form-label-left" novalidate>
-
-                        <p>For alternative validation library <code>parsleyJS</code> check out in the <a href="form.html">form page</a>
-                        </p>
-                        <span class="section">Personal Info</span>
-
+                    <form action="<?php route('user/store') ?>" method="POST" enctype="multipart/form-data" class="form-horizontal form-label-left" novalidate>
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Name <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="both name(s) e.g Jon Doe" required="required" type="text">
+                                <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="both name(s) e.g John Doe" required="required" type="text">
                             </div>
                         </div>
                         <div class="item form-group">
@@ -67,63 +45,40 @@ ob_start();
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">Confirm Email <span class="required">*</span>
+                            <label for="password" class="control-label col-md-3">Password <span class="required">*</span>
                             </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="email" id="email2" name="confirm_email" data-validate-linked="email" required="required" class="form-control col-md-7 col-xs-12">
-                            </div>
-                        </div>
-                        <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">Number <span class="required">*</span>
-                            </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="number" id="number" name="number" required="required" data-validate-minmax="10,100" class="form-control col-md-7 col-xs-12">
-                            </div>
-                        </div>
-                        <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="website">Website URL <span class="required">*</span>
-                            </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="url" id="website" name="website" required="required" placeholder="www.website.com" class="form-control col-md-7 col-xs-12">
-                            </div>
-                        </div>
-                        <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="occupation">Occupation <span class="required">*</span>
-                            </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="occupation" type="text" name="occupation" data-validate-length-range="5,20" class="optional form-control col-md-7 col-xs-12">
-                            </div>
-                        </div>
-                        <div class="item form-group">
-                            <label for="password" class="control-label col-md-3">Password</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input id="password" type="password" name="password" data-validate-length="6,8" class="form-control col-md-7 col-xs-12" required="required">
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label for="password2" class="control-label col-md-3 col-sm-3 col-xs-12">Repeat Password</label>
+                            <label for="password2" class="control-label col-md-3 col-sm-3 col-xs-12">Confirm Password <span class="required">*</span>
+                            </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input id="password2" type="password" name="password2" data-validate-linked="password" class="form-control col-md-7 col-xs-12" required="required">
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="telephone">Telephone <span class="required">*</span>
-                            </label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="room_number">Room Number</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="tel" id="telephone" name="phone" required="required" data-validate-length-range="8,20" class="form-control col-md-7 col-xs-12">
+                                <input type="number" id="room_number" name="room_number" class="form-control col-md-7 col-xs-12">
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="textarea">Textarea <span class="required">*</span>
-                            </label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="ext">Ext.</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <textarea id="textarea" required="required" name="textarea" class="form-control col-md-7 col-xs-12"></textarea>
+                                <input type="number" id="ext" name="ext" class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="image">Profile picture</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="file" id="image" name="image" class="form-control col-md-7 col-xs-12">
                             </div>
                         </div>
                         <div class="ln_solid"></div>
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-3">
-                                <button type="submit" class="btn btn-primary">Cancel</button>
                                 <button id="send" type="submit" class="btn btn-success">Submit</button>
                             </div>
                         </div>
@@ -143,8 +98,41 @@ $content = ob_get_clean();
 ob_start();
 ?>
 
-<!-- validator -->
-<script src="<?php asset('gentelella/vendors/validator/validator.js') ?>"></script>
+    <!-- validator -->
+    <script src="<?php asset('gentelella/vendors/validator/validator.js') ?>"></script>
+
+    <!-- Toastr -->
+    <script src="<?php asset('gentelella/vendors/toastr/toastr.min.js') ?>"></script>
+
+<script>
+    $(document).ready(function() {
+        <?php
+        if (isset($errors)) {
+            foreach ($errors as $error) { ?>
+                toastr["error"]("<?php echo $error ?>", "Error")
+
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
+    <?php   }
+        }
+        ?>
+    });
+</script>
 
 <?php
 $extra_js = ob_get_clean();
