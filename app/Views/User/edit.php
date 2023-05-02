@@ -29,49 +29,50 @@ ob_start();
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_content">
-                    <form action="<?php route("user/update/{}") ?>" method="POST" enctype="multipart/form-data" class="form-horizontal form-label-left" novalidate>
+                    <form action="<?php route('user/update') ?>" method="POST" enctype="multipart/form-data" class="form-horizontal form-label-left" novalidate>
+                        <input value="<?php echo $user['id'] ?>" name="id" type="hidden" />
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Name <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="both name(s) e.g John Doe" required="required" type="text">
+                                <input value="<?php echo $user['name'] ?>" id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="2" data-validate-words="1" name="name" placeholder="both name(s) e.g John Doe" required="required" type="text">
                             </div>
                         </div>
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">Email <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="email" id="email" name="email" required="required" class="form-control col-md-7 col-xs-12">
+                                <input value="<?php echo $user['email'] ?>" type="email" id="email" name="email" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label for="password" class="control-label col-md-3">Password <span class="required">*</span>
+                            <label for="password" class="control-label col-md-3">Password
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="password" type="password" name="password" data-validate-length="6,8" class="form-control col-md-7 col-xs-12" required="required">
+                                <input id="password" type="password" name="password" data-validate-length="6,8" class="form-control col-md-7 col-xs-12">
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label for="password2" class="control-label col-md-3 col-sm-3 col-xs-12">Confirm Password <span class="required">*</span>
+                            <label for="password2" class="control-label col-md-3">Confirm Password
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="password2" type="password" name="password2" data-validate-linked="password" class="form-control col-md-7 col-xs-12" required="required">
+                                <input id="password2" type="password" name="password2" data-validate-length="6,8" class="form-control col-md-7 col-xs-12">
                             </div>
                         </div>
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="room_number">Room Number</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="number" id="room_number" name="room_number" class="form-control col-md-7 col-xs-12">
+                                <input value="<?php if (!empty($user['room_number'])) echo $user['room_number'] ?>" type="number" id="room_number" name="room_number" class="form-control col-md-7 col-xs-12">
                             </div>
                         </div>
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="ext">Ext.</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="number" id="ext" name="ext" class="form-control col-md-7 col-xs-12">
+                                <input value="<?php if (!empty($user['ext'])) echo $user['ext'] ?>" type="number" id="ext" name="ext" class="form-control col-md-7 col-xs-12">
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="image">Profile picture</label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="image">Profile Picture</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input type="file" id="image" name="image" class="form-control col-md-7 col-xs-12">
                             </div>
@@ -131,8 +132,16 @@ ob_start();
     <?php   }
         }
         ?>
+
+
     });
 </script>
+    
+<?php
+if (isset($url)) {
+    echo "<script>history.pushState(null, null, '$url');</script>";
+}
+?>
 
 <?php
 $extra_js = ob_get_clean();

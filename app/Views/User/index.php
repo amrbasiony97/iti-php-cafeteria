@@ -134,9 +134,12 @@ ob_start();
 
 <script>
     $(document).ready(function() {
-        <?php
-        if (isset($success)) { ?>
+        <?php if (isset($success)) { ?>
                 toastr["success"]("<?php echo $success ?>")
+        <?php   }
+        if (isset($errors)) {
+                foreach ($errors as $error) { ?>
+                toastr["error"]("<?php echo $error ?>", "Error")
 
                 toastr.options = {
                     "closeButton": false,
@@ -155,7 +158,8 @@ ob_start();
                     "showMethod": "fadeIn",
                     "hideMethod": "fadeOut"
                 }
-    <?php   } ?>
+    <?php   }
+        } ?>
     });
 </script>
 

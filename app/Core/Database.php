@@ -56,6 +56,19 @@ class Database
         }
     }
 
+    static function select_one($table, $id)
+    {
+        self::connect();
+        try {
+            $query = "SELECT * FROM {$table} WHERE id = {$id};";
+            $stmt = self::$connection->prepare($query);
+            $stmt->execute();
+            return $stmt->fetch();
+        } catch (Exception $e) {
+            echo 'Error: '. $e->getMessage();
+        }
+    }
+
     static function update($table, $id, $record)
     {
         self::connect();

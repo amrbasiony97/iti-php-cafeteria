@@ -34,7 +34,7 @@ ob_start();
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Name <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input value="<?php if (!empty($data)) echo $data['name'] ?>" id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="both name(s) e.g John Doe" required="required" type="text">
+                                <input value="<?php if (!empty($data)) echo $data['name'] ?>" id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="2" data-validate-words="1" name="name" placeholder="both name(s) e.g John Doe" required="required" type="text">
                             </div>
                         </div>
                         <div class="item form-group">
@@ -71,7 +71,7 @@ ob_start();
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="image">Profile picture</label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="image">Profile Picture</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input type="file" id="image" name="image" class="form-control col-md-7 col-xs-12">
                             </div>

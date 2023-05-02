@@ -14,7 +14,7 @@ class UserController
 
     public function store()
     {
-        Validate::request_method('POST', 'User/create');
+        Validate::request_method('POST');
         $validate = User::validateCreate();
 
         if (!empty($validate['errors'])) {
@@ -53,30 +53,56 @@ class UserController
 
     public function show($id)
     {
-        View::load('User/show');
+        View::load('User/show', [
+            'user' => Database::select_one('users', $id)
+        ]);
     }
 
     public function edit($id)
     {
-        View::load('User/edit');
+        View::load('User/edit', [
+            'user' => Database::select_one('users', $id)
+        ]);
     }
 
-    public function update($id)
+    public function update()
     {
-        $count = Database::update('users', $id, [
-            'name' => 'Mohamed Ali',
-            'email' => 'amrbasiony97@gmail.com',
-            'password' => 'password',
-            'room_no' => '123',
-            'ext' => 456,
-            'image' => 'image20.jpg'
-        ]);
+        Validate::request_method('POST');
+        $validate = User::validateEdit();
 
-        if ($count) {
-            echo 'User updated successfully';
+        if (!empty($validate['errors'])) {
+            View::redirect('User/edit', [
+                'errors' => $validate['errors'],
+                'user' => $_POST
+            ]);
         }
         else {
-            echo 'User not updated';
+            $file = $validate['imgPath'];
+            $imgPath = end(explode('/', $file));
+            $result = Database::update('users', $_POST['id'], [
+                'name' => $_POST['name'],
+                'email' => $_POST['email'],
+                'image' => $imgPath,
+                'password' => $_POST['password'],
+                'room_number' => $_POST['room_number'],
+                'ext' => $_POST['ext'],
+                'role' => 'customer'
+            ]);
+        }
+
+        if ($result) {
+            $imgPath = UPLOADS.$validate['imgPath'];
+            move_uploaded_file($validate['fileTmp'], $imgPath);
+            View::redirect('User/index', [
+                'users' => User::getAll(),
+                'success' => 'User updated successfully'
+            ]);
+        }
+        else {
+            View::redirect('User/index', [
+                'users' => User::getAll(),
+                'success' => 'User not updated'
+            ]);
         }
     }
 

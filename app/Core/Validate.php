@@ -2,10 +2,13 @@
 
 class Validate
 {
-    public static function request_method($method, $url)
+    public static function request_method($method)
     {
         if ($_SERVER['REQUEST_METHOD'] != $method) {
-            View::redirect($url, ['errors' => ['Invalid request']]);
+            View::redirect('User/index', [
+                'errors' => ['Invalid request'],
+                'users' => User::getAll()
+            ]);
         }
     }
 
@@ -37,6 +40,13 @@ class Validate
         }
     }
 
+    public static function match_password($password, $confirm_password, &$errors)
+    {
+        if ($password != $confirm_password) {
+            array_push($errors, 'Passwords do not match');
+        }
+    }
+
     public static function number($number, &$errors, $msg)
     {
         $numberPattern = '/^[0-9]+$/';
@@ -56,7 +66,7 @@ class Validate
         }
     }
 
-    public static function image(&$errors)
+    public static function image(&$errors, $defaultImage = 'default.jpg')
     {
         $fileTmp = $_FILES['image']['tmp_name'];
         $fileType = $_FILES['image']['type'];
@@ -64,7 +74,7 @@ class Validate
         $isImage = explode("/", $fileType)[0] === 'image';
         $extension = '';
         if ($isImageEmpty) {
-            $imgPath = "default.jpg";
+            $imgPath = $defaultImage;
         }
         else if (!$isImage) {
             array_push($errors, 'Only images are allowed');
@@ -81,7 +91,11 @@ class Validate
         $id = floor(microtime(true) * 1000);
         if (!$isImageEmpty) {
             $fileName = $id . '.' . $extension;
-            $imgPath = "images/users/{$fileName}";
+            $imgPath = "images".DS."users".DS.$fileName;
+            if (empty($validate['errors']) && $defaultImage != 'default.jpg') {
+                $path = UPLOADS.'images'.DS.'users'.DS.$defaultImage;
+                unlink($path);
+            }
         }
 
         return [
