@@ -106,15 +106,28 @@ class UserController
         }
     }
 
-    public function destroy($id)
+    public function destroy()
     {
-        $count = Database::delete('users', $id);
+        Validate::request_method('POST');
+        
+        $imgPath = User::getImage($_POST['id']);
+        $result = Database::delete('users', $_POST['id']);
 
-        if ($count) {
-            echo 'User deleted successfully';
+        if ($result) {
+            // Delete image if exists
+            if ($imgPath != 'default.jpg') {
+                $path = UPLOADS.'images'.DS.'users'.DS.$imgPath;
+                unlink($path);
+            }
+            View::redirect('User/index', [
+                'users' => User::getAll(),
+                'success' => 'User deleted successfully'
+            ]);
         }
         else {
-            echo 'User not found';
+            View::redirect('User/index', [
+                'errors' => ['User not found']
+            ]);
         }
     }
 }

@@ -17,7 +17,7 @@ class User
         return $stmt->fetch()['email'];
     }
 
-    private static function getImage($id)
+    public static function getImage($id)
     {
         $connection = Database::connect();
         $stmt = $connection->prepare("SELECT image FROM users WHERE id = ?");
