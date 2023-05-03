@@ -1,3 +1,8 @@
+<?php
+$title = "Order List";
+ob_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -44,7 +49,9 @@
 
                   echo "
                   <tr>
-
+                  <td>
+                    <input type='hidden' name='order_products_id' value=" . "$product[5]" . " />
+                  </td>
                     <td class='product-thumbnail text-center'  style='max-width: 100px'>
                       <img src='../../public/assets/images/30cdadfe330b0b7e41a9db8eeb3c504f.png.webp'
                        alt='Image' class='img-fluid' />
@@ -82,7 +89,7 @@
                     <td>
                       <form action='http://localhost/php/iti-php-cafeteria/public/Order/delete' method='POST' 
                         class='text-center'> 
-                        <input type='hidden' name='id' value=" . "$product[5]" . " />
+                        <input type='hidden' name='order_products_id' value=" . "$product[5]" . " />
                         <button type='submit' class='btn btn-primary height-auto btn-sm'>
                         X
                         </button>
@@ -181,6 +188,60 @@
         </div> -->
     </div>
   </div>
+
+  <!-- JavaScript AJAX For INC & DEC Quantity -->
+
+  <script>
+    let incButtons = document.querySelectorAll(".increase-quantity-button");
+    incButtons.forEach(element => {
+      element.addEventListener('click', function() {
+
+        let order_products_id = this.parentNode.parentNode.parentNode.parentNode.parentNode.firstElementChild.firstElementChild.value;
+        let productCountInput = this.parentNode.parentNode.querySelector('input');
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'http://localhost/php/iti-php-cafeteria/public/Order/increase', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.responseType = 'json';
+        xhr.onload = function() {
+          if (xhr.status === 200) {
+            productCountInput.value = xhr.response[0]["product_count"];
+          } else {
+            console.log('Error: ' + xhr.statusText);
+          }
+        };
+        var params = "order_products_id=" + order_products_id;
+        xhr.send(params);
+      });
+    });
+
+    let decButtons = document.querySelectorAll(".decrease-quantity-button");
+    decButtons.forEach(element => {
+      element.addEventListener("click", function() {
+        let order_products_id = this.parentNode.parentNode.parentNode.parentNode.parentNode.firstElementChild.firstElementChild.value;
+        let productCountInput = this.parentNode.parentNode.querySelector('input');
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'http://localhost/php/iti-php-cafeteria/public/Order/decrease', true);
+
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.responseType = 'json';
+
+        xhr.onload = function() {
+          if (xhr.status === 200) {
+            productCountInput.value = xhr.response[0]["product_count"];
+          } else {
+            console.log('Error: ' + xhr.statusText);
+          }
+        };
+        var params = "order_products_id=" + order_products_id;
+        xhr.send(params);
+        console.log("DEC Button clicked!");
+      })
+    });
+  </script>
+
+
   <!-- @endsection @section('extra-js')
     <script>
       const formatter = new Intl.NumberFormat("en-US", {
