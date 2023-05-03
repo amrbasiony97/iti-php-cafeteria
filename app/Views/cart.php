@@ -73,7 +73,7 @@ ob_start();
                           &minus;
                         </button>
                         </div>
-                        <input type='text' class='form-control text-center' 
+                        <input type='text' class='form-control text-center product-count' 
                           placeholder='' aria-label='Example text with button addon' aria-describedby='button-addon1' value='$product[4]' />
                         <div class='input-group-append'>
                           <button class='btn btn-outline-primary increase-quantity-button js-btn-plus' type='submit'>
@@ -192,6 +192,7 @@ ob_start();
   <!-- JavaScript AJAX For INC & DEC Quantity -->
 
   <script>
+    //Handling Inc Button
     let incButtons = document.querySelectorAll(".increase-quantity-button");
     incButtons.forEach(element => {
       element.addEventListener('click', function() {
@@ -215,6 +216,8 @@ ob_start();
       });
     });
 
+
+    //Handling Dec Button
     let decButtons = document.querySelectorAll(".decrease-quantity-button");
     decButtons.forEach(element => {
       element.addEventListener("click", function() {
@@ -236,95 +239,97 @@ ob_start();
         };
         var params = "order_products_id=" + order_products_id;
         xhr.send(params);
-        console.log("DEC Button clicked!");
+      })
+    });
+
+
+    //Handling Input Specific Product Number
+    let productsCountInput = document.querySelectorAll(".product-count");
+    productsCountInput.forEach(function(element) {
+      element.addEventListener("blur", function() {
+        let order_products_id = element.parentNode.parentNode.parentNode.parentNode.firstElementChild.firstElementChild.value;
+
+        var xhr = new XMLHttpRequest();
+
+        // Set the HTTP method and URL for the request
+        xhr.open('POST', 'http://localhost/php/iti-php-cafeteria/public/Order/getAllProducts', true);
+
+        // Set the response type to JSON
+        xhr.responseType = 'json';
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        // Define the callback function to handle the response
+        xhr.onload = function() {
+          if (xhr.status === 200) {
+            let products = xhr.response[0];
+
+            let newTableBody = "";
+
+            products.forEach(product => {
+              newTableBody += `
+              <tr>
+                  <td>
+                    <input type='hidden' name='order_products_id' value="${product[5]}" />
+                  </td>
+
+                  <td class='product-thumbnail text-center'  style='max-width: 100px'>
+                      <img src='../../public/assets/images/30cdadfe330b0b7e41a9db8eeb3c504f.png.webp'
+                       alt='Image' class='img-fluid' />
+                  </td>
+
+                  <td class='product-name text-center align-middle'>
+                      <h2 class='h5 text-black'> ${product[1]} </h2>
+                  </td>
+
+                  <td class='text-center align-middle'>
+                      <h2> ${product[2]} </h2>
+                  </td>
+
+                  
+                  <td class='align-middle'>
+                    <div class='text-center' >
+                        <div class='input-group mb-3' style='max-width: 150px'>
+                          <div class='input-group-prepend'>
+                        <button class='btn btn-outline-primary decrease-quantity-button js-btn-minus' type='submit'>
+                          &minus;
+                        </button>
+                        </div>
+                        <input type='text' class='form-control text-center product-count' 
+                          placeholder='' aria-label='Example text with button addon' aria-describedby='button-addon1' value='${product[4]}' />
+                        <div class='input-group-append'>
+                          <button class='btn btn-outline-primary increase-quantity-button js-btn-plus' type='submit'>
+                          &plus;
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+
+                  <td class='text-center align-middle'> ${product[3]} </td>
+
+                  <td>
+                      <form action='http://localhost/php/iti-php-cafeteria/public/Order/delete' method='POST' 
+                        class='text-center'> 
+                        <input type='hidden' name='order_products_id' value="${product[5]}" />
+                        <button type='submit' class='btn btn-primary height-auto btn-sm'>
+                        X
+                        </button>
+                      </form>
+                  </td>
+
+              </tr>
+            `;
+            });
+
+            document.querySelector("tbody").innerHTML = newTableBody;
+          }
+        };
+        let params = `product_count=${element.value}&order_products_id=${order_products_id}`;
+        // Send the request
+        xhr.send(params);
       })
     });
   </script>
-
-
-  <!-- @endsection @section('extra-js')
-    <script>
-      const formatter = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-      });
-      sub_total = 0;
-      total = 0;
-
-      $(".increase-quantity-button").on("click", function (event) {
-        sub_total = 0;
-        total = 0;
-        event.preventDefault();
-
-        let that = $(this);
-
-        $.ajax({
-          type: "POST",
-          url: "/cart/increase",
-          data: {
-            medicine_id: parseInt($(this).data("medicine_id")),
-            _token: "{{ csrf_token() }}",
-          },
-          success: function (data) {
-            $.ajax({
-              type: "GET",
-              url: "/cart/sub_totals",
-              success: function (cart) {
-                $(`#item_${that.data("item_id")} .sub_total`).text(
-                  formatter.format(cart[that.data("item_id")].item_total / 100)
-                );
-                for (const key in cart) {
-                  console.log();
-                  sub_total += cart[key]["item_total"];
-                  total += cart[key]["item_total"];
-                }
-                $(".final-sub-total").text(formatter.format(sub_total / 100));
-                $(".final-total").text(formatter.format(total / 100));
-              },
-              error: function (xhr, status, error) {},
-            });
-          },
-          error: function (xhr, status, error) {},
-        });
-      });
-      $(".decrease-quantity-button").on("click", function (event) {
-        sub_total = 0;
-        total = 0;
-        event.preventDefault();
-
-        let that = $(this);
-
-        $.ajax({
-          type: "POST",
-          url: "/cart/decrease",
-          data: {
-            medicine_id: parseInt($(this).data("medicine_id")),
-            _token: "{{ csrf_token() }}",
-          },
-          success: function (data) {
-            $.ajax({
-              type: "GET",
-              url: "/cart/sub_totals",
-              success: function (cart) {
-                $(`#item_${that.data("item_id")} .sub_total`).text(
-                  formatter.format(cart[that.data("item_id")].item_total / 100)
-                );
-                for (const key in cart) {
-                  console.log();
-                  sub_total += cart[key]["item_total"];
-                  total += cart[key]["item_total"];
-                }
-                $(".final-sub-total").text(formatter.format(sub_total / 100));
-                $(".final-total").text(formatter.format(total / 100));
-              },
-              error: function (xhr, status, error) {},
-            });
-          },
-          error: function (xhr, status, error) {},
-        });
-      });
-    </script>
-    @endsection -->
 </body>
 
 </html>

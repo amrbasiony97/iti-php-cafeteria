@@ -25,6 +25,37 @@ class OrderController
         }
     }
 
+    //API Functions
+    public function getAllProducts()
+    {
+        $order_products_id = $_POST["order_products_id"];
+        $product_count = $_POST["product_count"];
+
+        try {
+            $connection = Database::connect();
+
+            $query = "UPDATE order_products SET product_count = $product_count
+                WHERE id = $order_products_id";
+
+            $stmt = $connection->prepare($query);
+            $stmt->execute();
+
+            $query = "SELECT  products.image, products.name, products.price,
+                orders.total_price, order_products.product_count, order_products.id as product_id_inOrder
+            FROM products
+            INNER JOIN order_products ON products.id = order_products.product_id
+            INNER JOIN orders ON orders.id = order_products.order_id WHERE orders.user_id = 5;";
+
+            $stmt = $connection->prepare($query);
+            $stmt->execute();
+            $products = $stmt->fetchAll();
+
+            echo json_encode(array($products));
+        } catch (Exception $e) {
+            echo 'Error: ' . $e->getMessage();
+        }
+    }
+
     public function increase()
     {
 
