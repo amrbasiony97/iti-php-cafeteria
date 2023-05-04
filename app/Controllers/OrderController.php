@@ -12,7 +12,7 @@ class OrderController
                 orders.total_price, order_products.product_count, order_products.id as product_id_inOrder
             FROM products
             INNER JOIN order_products ON products.id = order_products.product_id
-            INNER JOIN orders ON orders.id = order_products.order_id WHERE orders.user_id = 5;";
+            INNER JOIN orders ON orders.id = order_products.order_id WHERE orders.user_id = 9;";
 
             $stmt = $connection->prepare($query);
             $stmt->execute();
@@ -44,7 +44,7 @@ class OrderController
                 orders.total_price, order_products.product_count, order_products.id as product_id_inOrder
             FROM products
             INNER JOIN order_products ON products.id = order_products.product_id
-            INNER JOIN orders ON orders.id = order_products.order_id WHERE orders.user_id = 5;";
+            INNER JOIN orders ON orders.id = order_products.order_id WHERE orders.user_id = 9;";
 
             $stmt = $connection->prepare($query);
             $stmt->execute();

@@ -90,7 +90,7 @@ ob_start();
                       <form action='http://localhost/php/iti-php-cafeteria/public/Order/delete' method='POST' 
                         class='text-center'> 
                         <input type='hidden' name='order_products_id' value=" . "$product[5]" . " />
-                        <button type='submit' class='btn btn-primary height-auto btn-sm'>
+                        <button type='submit' class='btn btn-primary height-auto btn-sm delete-button'>
                         X
                         </button>
                       </form>
@@ -327,6 +327,37 @@ ob_start();
         let params = `product_count=${element.value}&order_products_id=${order_products_id}`;
         // Send the request
         xhr.send(params);
+      })
+    });
+
+    //Handling delete Button
+    let deleteButtons = document.querySelectorAll(".delete-button");
+    deleteButtons.forEach(element => {
+      element.addEventListener("click", function(e) {
+        e.preventDefault();
+        let order_products_id = element.parentNode.querySelector("input").value;
+
+        console.log(order_products_id);
+
+        var xhr = new XMLHttpRequest();
+
+        // Set the HTTP method and URL for the request
+        xhr.open('POST', 'http://localhost/php/iti-php-cafeteria/public/Order/delete', true);
+
+        // Set the response type to JSON
+        xhr.responseType = 'json';
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        xhr.onload = function() {
+          if (xhr.status === 200) {
+            element.parentNode.parentNode.parentNode.remove();
+          }
+        };
+
+        let params = `order_products_id=${order_products_id}`;
+        // Send the request
+        xhr.send(params);
+
       })
     });
   </script>
