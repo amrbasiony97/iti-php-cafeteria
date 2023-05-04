@@ -12,7 +12,7 @@ class OrderController
                 orders.total_price, order_products.product_count, order_products.id as product_id_inOrder
             FROM products
             INNER JOIN order_products ON products.id = order_products.product_id
-            INNER JOIN orders ON orders.id = order_products.order_id WHERE orders.user_id = 9;";
+            INNER JOIN orders ON orders.id = order_products.order_id WHERE orders.user_id = 2;";
 
             $stmt = $connection->prepare($query);
             $stmt->execute();
@@ -40,15 +40,11 @@ class OrderController
             $stmt = $connection->prepare($query);
             $stmt->execute();
 
-            $query = "SELECT  products.image, products.name, products.price,
-                orders.total_price, order_products.product_count, order_products.id as product_id_inOrder
-            FROM products
-            INNER JOIN order_products ON products.id = order_products.product_id
-            INNER JOIN orders ON orders.id = order_products.order_id WHERE orders.user_id = 9;";
+            $query = "SELECT  product_count FROM order_products WHERE id = $order_products_id;";
 
             $stmt = $connection->prepare($query);
             $stmt->execute();
-            $products = $stmt->fetchAll();
+            $products = $stmt->fetch();
 
             echo json_encode(array($products));
         } catch (Exception $e) {

@@ -3,6 +3,8 @@ $title = "Order List";
 ob_start();
 ?>
 
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -53,7 +55,7 @@ ob_start();
                     <input type='hidden' name='order_products_id' value=" . "$product[5]" . " />
                   </td>
                     <td class='product-thumbnail text-center'  style='max-width: 100px'>
-                      <img src='../../public/assets/images/30cdadfe330b0b7e41a9db8eeb3c504f.png.webp'
+                      <img src=" . "$product[0]" . "
                        alt='Image' class='img-fluid' />
                     </td>
 
@@ -261,67 +263,7 @@ ob_start();
         // Define the callback function to handle the response
         xhr.onload = function() {
           if (xhr.status === 200) {
-            let products = xhr.response[0];
-
-            let newTableBody = "";
-
-            products.forEach(product => {
-              newTableBody += `
-              <tr>
-                  <td>
-                    <input type='hidden' name='order_products_id' value="${product[5]}" />
-                  </td>
-
-                  <td class='product-thumbnail text-center'  style='max-width: 100px'>
-                      <img src='../../public/assets/images/30cdadfe330b0b7e41a9db8eeb3c504f.png.webp'
-                       alt='Image' class='img-fluid' />
-                  </td>
-
-                  <td class='product-name text-center align-middle'>
-                      <h2 class='h5 text-black'> ${product[1]} </h2>
-                  </td>
-
-                  <td class='text-center align-middle'>
-                      <h2> ${product[2]} </h2>
-                  </td>
-
-                  
-                  <td class='align-middle'>
-                    <div class='text-center' >
-                        <div class='input-group mb-3' style='max-width: 150px'>
-                          <div class='input-group-prepend'>
-                        <button class='btn btn-outline-primary decrease-quantity-button js-btn-minus' type='submit'>
-                          &minus;
-                        </button>
-                        </div>
-                        <input type='text' class='form-control text-center product-count' 
-                          placeholder='' aria-label='Example text with button addon' aria-describedby='button-addon1' value='${product[4]}' />
-                        <div class='input-group-append'>
-                          <button class='btn btn-outline-primary increase-quantity-button js-btn-plus' type='submit'>
-                          &plus;
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-
-                  <td class='text-center align-middle'> ${product[3]} </td>
-
-                  <td>
-                      <form action='http://localhost/php/iti-php-cafeteria/public/Order/delete' method='POST' 
-                        class='text-center'> 
-                        <input type='hidden' name='order_products_id' value="${product[5]}" />
-                        <button type='submit' class='btn btn-primary height-auto btn-sm'>
-                        X
-                        </button>
-                      </form>
-                  </td>
-
-              </tr>
-            `;
-            });
-
-            document.querySelector("tbody").innerHTML = newTableBody;
+            element.value = xhr.response[0]["product_count"];
           }
         };
         let params = `product_count=${element.value}&order_products_id=${order_products_id}`;
