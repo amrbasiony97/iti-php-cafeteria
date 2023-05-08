@@ -1,3 +1,10 @@
+<?php
+$title = "Order List";
+ob_start();
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -44,9 +51,11 @@
 
                   echo "
                   <tr>
-
+                  <td>
+                    <input type='hidden' name='order_products_id' value=" . "$product[5]" . " />
+                  </td>
                     <td class='product-thumbnail text-center'  style='max-width: 100px'>
-                      <img src='../../public/assets/images/30cdadfe330b0b7e41a9db8eeb3c504f.png.webp'
+                      <img src=" . "$product[0]" . "
                        alt='Image' class='img-fluid' />
                     </td>
 
@@ -66,7 +75,7 @@
                           &minus;
                         </button>
                         </div>
-                        <input type='text' class='form-control text-center' 
+                        <input type='text' class='form-control text-center product-count' 
                           placeholder='' aria-label='Example text with button addon' aria-describedby='button-addon1' value='$product[4]' />
                         <div class='input-group-append'>
                           <button class='btn btn-outline-primary increase-quantity-button js-btn-plus' type='submit'>
@@ -82,8 +91,8 @@
                     <td>
                       <form action='http://localhost/php/iti-php-cafeteria/public/Order/delete' method='POST' 
                         class='text-center'> 
-                        <input type='hidden' name='id' value=" . "$product[5]" . " />
-                        <button type='submit' class='btn btn-primary height-auto btn-sm'>
+                        <input type='hidden' name='order_products_id' value=" . "$product[5]" . " />
+                        <button type='submit' class='btn btn-primary height-auto btn-sm delete-button'>
                         X
                         </button>
                       </form>
@@ -181,89 +190,119 @@
         </div> -->
     </div>
   </div>
-  <!-- @endsection @section('extra-js')
-    <script>
-      const formatter = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
+
+  <!-- JavaScript AJAX For INC & DEC Quantity -->
+
+  <script>
+    //Handling Inc Button
+    let incButtons = document.querySelectorAll(".increase-quantity-button");
+    incButtons.forEach(element => {
+      element.addEventListener('click', function() {
+
+        let order_products_id = this.parentNode.parentNode.parentNode.parentNode.parentNode.firstElementChild.firstElementChild.value;
+        let productCountInput = this.parentNode.parentNode.querySelector('input');
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'http://localhost/php/iti-php-cafeteria/public/Order/increase', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.responseType = 'json';
+        xhr.onload = function() {
+          if (xhr.status === 200) {
+            productCountInput.value = xhr.response[0]["product_count"];
+          } else {
+            console.log('Error: ' + xhr.statusText);
+          }
+        };
+        var params = "order_products_id=" + order_products_id;
+        xhr.send(params);
       });
-      sub_total = 0;
-      total = 0;
+    });
 
-      $(".increase-quantity-button").on("click", function (event) {
-        sub_total = 0;
-        total = 0;
-        event.preventDefault();
 
-        let that = $(this);
+    //Handling Dec Button
+    let decButtons = document.querySelectorAll(".decrease-quantity-button");
+    decButtons.forEach(element => {
+      element.addEventListener("click", function() {
+        let order_products_id = this.parentNode.parentNode.parentNode.parentNode.parentNode.firstElementChild.firstElementChild.value;
+        let productCountInput = this.parentNode.parentNode.querySelector('input');
 
-        $.ajax({
-          type: "POST",
-          url: "/cart/increase",
-          data: {
-            medicine_id: parseInt($(this).data("medicine_id")),
-            _token: "{{ csrf_token() }}",
-          },
-          success: function (data) {
-            $.ajax({
-              type: "GET",
-              url: "/cart/sub_totals",
-              success: function (cart) {
-                $(`#item_${that.data("item_id")} .sub_total`).text(
-                  formatter.format(cart[that.data("item_id")].item_total / 100)
-                );
-                for (const key in cart) {
-                  console.log();
-                  sub_total += cart[key]["item_total"];
-                  total += cart[key]["item_total"];
-                }
-                $(".final-sub-total").text(formatter.format(sub_total / 100));
-                $(".final-total").text(formatter.format(total / 100));
-              },
-              error: function (xhr, status, error) {},
-            });
-          },
-          error: function (xhr, status, error) {},
-        });
-      });
-      $(".decrease-quantity-button").on("click", function (event) {
-        sub_total = 0;
-        total = 0;
-        event.preventDefault();
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'http://localhost/php/iti-php-cafeteria/public/Order/decrease', true);
 
-        let that = $(this);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.responseType = 'json';
 
-        $.ajax({
-          type: "POST",
-          url: "/cart/decrease",
-          data: {
-            medicine_id: parseInt($(this).data("medicine_id")),
-            _token: "{{ csrf_token() }}",
-          },
-          success: function (data) {
-            $.ajax({
-              type: "GET",
-              url: "/cart/sub_totals",
-              success: function (cart) {
-                $(`#item_${that.data("item_id")} .sub_total`).text(
-                  formatter.format(cart[that.data("item_id")].item_total / 100)
-                );
-                for (const key in cart) {
-                  console.log();
-                  sub_total += cart[key]["item_total"];
-                  total += cart[key]["item_total"];
-                }
-                $(".final-sub-total").text(formatter.format(sub_total / 100));
-                $(".final-total").text(formatter.format(total / 100));
-              },
-              error: function (xhr, status, error) {},
-            });
-          },
-          error: function (xhr, status, error) {},
-        });
-      });
-    </script>
-    @endsection -->
+        xhr.onload = function() {
+          if (xhr.status === 200) {
+            productCountInput.value = xhr.response[0]["product_count"];
+          } else {
+            console.log('Error: ' + xhr.statusText);
+          }
+        };
+        var params = "order_products_id=" + order_products_id;
+        xhr.send(params);
+      })
+    });
+
+
+    //Handling Input Specific Product Number
+    let productsCountInput = document.querySelectorAll(".product-count");
+    productsCountInput.forEach(function(element) {
+      element.addEventListener("blur", function() {
+        let order_products_id = element.parentNode.parentNode.parentNode.parentNode.firstElementChild.firstElementChild.value;
+
+        var xhr = new XMLHttpRequest();
+
+        // Set the HTTP method and URL for the request
+        xhr.open('POST', 'http://localhost/php/iti-php-cafeteria/public/Order/getAllProducts', true);
+
+        // Set the response type to JSON
+        xhr.responseType = 'json';
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        // Define the callback function to handle the response
+        xhr.onload = function() {
+          if (xhr.status === 200) {
+            element.value = xhr.response[0]["product_count"];
+          }
+        };
+        let params = `product_count=${element.value}&order_products_id=${order_products_id}`;
+        // Send the request
+        xhr.send(params);
+      })
+    });
+
+    //Handling delete Button
+    let deleteButtons = document.querySelectorAll(".delete-button");
+    deleteButtons.forEach(element => {
+      element.addEventListener("click", function(e) {
+        e.preventDefault();
+        let order_products_id = element.parentNode.querySelector("input").value;
+
+        console.log(order_products_id);
+
+        var xhr = new XMLHttpRequest();
+
+        // Set the HTTP method and URL for the request
+        xhr.open('POST', 'http://localhost/php/iti-php-cafeteria/public/Order/delete', true);
+
+        // Set the response type to JSON
+        xhr.responseType = 'json';
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        xhr.onload = function() {
+          if (xhr.status === 200) {
+            element.parentNode.parentNode.parentNode.remove();
+          }
+        };
+
+        let params = `order_products_id=${order_products_id}`;
+        // Send the request
+        xhr.send(params);
+
+      })
+    });
+  </script>
 </body>
 
 </html>

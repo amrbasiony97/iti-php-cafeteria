@@ -12,7 +12,7 @@ class OrderController
                 orders.total_price, order_products.product_count, order_products.id as product_id_inOrder
             FROM products
             INNER JOIN order_products ON products.id = order_products.product_id
-            INNER JOIN orders ON orders.id = order_products.order_id WHERE orders.user_id = 4;";
+            INNER JOIN orders ON orders.id = order_products.order_id WHERE orders.user_id = 2;";
 
             $stmt = $connection->prepare($query);
             $stmt->execute();
@@ -25,13 +25,101 @@ class OrderController
         }
     }
 
+    //API Functions
+    public function getAllProducts()
+    {
+        $order_products_id = $_POST["order_products_id"];
+        $product_count = $_POST["product_count"];
+
+        try {
+            $connection = Database::connect();
+
+            $query = "UPDATE order_products SET product_count = $product_count
+                WHERE id = $order_products_id";
+
+            $stmt = $connection->prepare($query);
+            $stmt->execute();
+
+            $query = "SELECT  product_count FROM order_products WHERE id = $order_products_id;";
+
+            $stmt = $connection->prepare($query);
+            $stmt->execute();
+            $products = $stmt->fetch();
+
+            echo json_encode(array($products));
+        } catch (Exception $e) {
+            echo 'Error: ' . $e->getMessage();
+        }
+    }
+
     public function increase()
     {
+
+        $order_products_id = $_POST["order_products_id"];
+
+        try {
+
+            $connection = Database::connect();
+
+            $query = "UPDATE order_products SET product_count = product_count + 1
+                WHERE id = $order_products_id";
+
+            $stmt = $connection->prepare($query);
+            $stmt->execute();
+
+            //Returning Product Count
+
+            $query = "SELECT product_count FROM order_products WHERE id = $order_products_id";
+            $stmt = $connection->prepare($query);
+            $stmt->execute();
+            $product_count = $stmt->fetch();
+            header('Content-Type: application/json');
+
+            $data = array(
+                $product_count
+            );
+
+            echo json_encode($data);
+        } catch (Exception $e) {
+            echo 'Error: ' . $e->getMessage();
+        }
+    }
+
+    public function decrease()
+    {
+        try {
+
+            $order_products_id = $_POST["order_products_id"];
+
+            $connection = Database::connect();
+
+            $query = "UPDATE order_products SET product_count = product_count - 1
+                WHERE id = $order_products_id";
+
+            $stmt = $connection->prepare($query);
+            $stmt->execute();
+
+            //Returning Product Count
+
+            $query = "SELECT product_count FROM order_products WHERE id = $order_products_id";
+            $stmt = $connection->prepare($query);
+            $stmt->execute();
+            $product_count = $stmt->fetch();
+            header('Content-Type: application/json');
+
+            $data = array(
+                $product_count
+            );
+
+            echo json_encode($data);
+        } catch (Exception $e) {
+            echo 'Error: ' . $e->getMessage();
+        }
     }
 
     public function delete()
     {
-        $id = $_POST["id"];
+        $id = $_POST["order_products_id"];
         if ($id < 0) {
             return View::load("cart", ["errors" => "Invalid product id"]);
         }
