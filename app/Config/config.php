@@ -4,7 +4,7 @@
  * database configuration
  */
 
-define('DB_NAME', 'cafateria');
+define('DB_NAME', 'cafeteria');
 define('HOST', 'localhost');
 define('PORT', 3306);
 define('USER', 'root');

@@ -1,8 +1,7 @@
 <?php
-// For Controlling /product
-
-// View::load('Home/index');
-
+if(!isset($_SESSION['user'])){
+    header("Location: /iti-php-cafeteria/public/auth/login");       
+}
 
 class ProductController
 {

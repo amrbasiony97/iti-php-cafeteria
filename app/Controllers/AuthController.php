@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 class AuthController
 {
     public function register()
@@ -9,21 +9,40 @@ class AuthController
 
     public function login()
     {
-        $count = Database::insert('users', [
-            'name' => 'Amr Basiony',
-            'email' => 'amrbasiony97@gmail.com',
-            'password' => 'password123',
-            'room_no' => '101',
-            'ext' => 123,
-            'image' => 'image1.jpg'
-        ]);
+        return View::load('Auth/login');
+    }
 
-        if ($count) {
-            echo 'User created successfully';
-        }
-        else {
-            echo 'Error creating user';
+    public function applyLogin(){
+        Validate::request_method('POST');
+        $validateUserData = User::validateLoginData();
+
+        if(!empty($validateUserData['errors'])){
+            View::redirect('Auth/login', ['errors' => $validateUserData['errors'], 'data' => $_POST]);
+        }else{
+            $query = Database::selectByEmail('users', $_POST['email']);
+            if($query){
+                if(password_verify($_POST['password'], $query[7])){
+                    $userData =[
+                        'name'=>$query['name'],
+                        'role'=>$query['role'],
+                    ]; 
+
+                    $_SESSION['user'] = $userData;
+                    header("Location: /iti-php-cafeteria/public/");
+                }else{
+                    View::redirect('Auth/login', ['errors' => ['Invalid Credentials...!'], 'data' => $_POST]);
+                }
+            }else{
+                View::redirect('Auth/login', ['errors' => ['Invalid Credentials...!'], 'data' => $_POST]);
+            }
         }
     }
 
+    public function logout(){
+        session_start();
+        session_unset();
+        session_destroy();
+
+        header("Location: /iti-php-cafeteria/public/auth/login");
+    }
 }
