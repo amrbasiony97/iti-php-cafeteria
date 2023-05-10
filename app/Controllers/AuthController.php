@@ -21,7 +21,7 @@ class AuthController
         }else{
             $query = Database::selectByEmail('users', $_POST['email']);
             if($query){
-                if(password_verify($_POST['password'], $query[7])){
+                if(password_verify($_POST['password'], $query['password'])){
                     $userData =[
                         'name'=>$query['name'],
                         'role'=>$query['role'],
