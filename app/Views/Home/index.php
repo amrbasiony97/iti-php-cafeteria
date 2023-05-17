@@ -469,7 +469,7 @@
                     <a href="<?php route('Home/service') ?>" class="nav-item nav-link">Service</a>
                     <a href="<?php route('Home/menu') ?>" class="nav-item nav-link">Menu</a>
                     <a href="<?php route('Home/contact') ?>" class="nav-item nav-link">Contact</a>
-                    <a href="<?php route('Home/login') ?>" class="nav-item nav-link">Login</a>
+                    <a href="<?php route('Auth/login') ?>" class="nav-item nav-link">Login</a>
                 </div>
             </div>
         </nav>

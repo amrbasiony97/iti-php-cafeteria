@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>About</title>
+    <title>Contact</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free Website Template" name="keywords">
     <meta content="Free Website Template" name="description">
@@ -39,10 +39,10 @@
             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                 <div class="navbar-nav ml-auto p-4">
                     <a href="<?php route('Home/index') ?>" class="nav-item nav-link">Home</a>
-                    <a href="<?php route('Home/about') ?>" class="nav-item nav-link active">About</a>
+                    <a href="<?php route('Home/about') ?>" class="nav-item nav-link">About</a>
                     <a href="<?php route('Home/service') ?>" class="nav-item nav-link">Service</a>
                     <a href="<?php route('Home/menu') ?>" class="nav-item nav-link">Menu</a>
-                    <a href="<?php route('Home/contact') ?>" class="nav-item nav-link">Contact</a>
+                    <a href="<?php route('Home/contact') ?>" class="nav-item nav-link active">Contact</a>
                     <a href="<?php route('Auth/login') ?>" class="nav-item nav-link">Login</a>
                 </div>
             </div>
@@ -54,48 +54,83 @@
     <!-- Page Header Start -->
     <div class="container-fluid page-header mb-5 position-relative overlay-bottom">
         <div class="d-flex flex-column align-items-center justify-content-center pt-0 pt-lg-5" style="min-height: 400px">
-            <h1 class="display-4 mb-3 mt-0 mt-lg-5 text-white text-uppercase">About Us</h1>
+            <h1 class="display-4 mb-3 mt-0 mt-lg-5 text-white text-uppercase">Contact</h1>
             <div class="d-inline-flex mb-lg-5">
                 <p class="m-0 text-white"><a class="text-white" href="<?php route('Home/index') ?>">Home</a></p>
                 <p class="m-0 text-white px-2">/</p>
-                <p class="m-0 text-white">About Us</p>
+                <p class="m-0 text-white">Contact</p>
             </div>
         </div>
     </div>
     <!-- Page Header End -->
 
 
-    <!-- About Start -->
-    <div class="container-fluid py-5">
+    <!-- Contact Start -->
+    <div class="container-fluid pt-5">
         <div class="container">
             <div class="section-title">
-                <h4 class="text-primary text-uppercase" style="letter-spacing: 5px;">About Us</h4>
-                <h1 class="display-4">Serving Since 1950</h1>
+                <h4 class="text-primary text-uppercase" style="letter-spacing: 5px;">Contact Us</h4>
+                <h1 class="display-4">Feel Free To Contact</h1>
+            </div>
+            <div class="row px-3 pb-2">
+                <div class="col-sm-4 text-center mb-3">
+                    <i class="fa fa-2x fa-map-marker-alt mb-3 text-primary"></i>
+                    <h4 class="font-weight-bold">Address</h4>
+                    <p>123 Street, Mansoura, Egypt</p>
+                </div>
+                <div class="col-sm-4 text-center mb-3">
+                    <i class="fa fa-2x fa-phone-alt mb-3 text-primary"></i>
+                    <h4 class="font-weight-bold">Phone</h4>
+                    <p>+20 101 1234567</p>
+                </div>
+                <div class="col-sm-4 text-center mb-3">
+                    <i class="far fa-2x fa-envelope mb-3 text-primary"></i>
+                    <h4 class="font-weight-bold">Email</h4>
+                    <p>info@example.com</p>
+                </div>
             </div>
             <div class="row">
-                <div class="col-lg-4 py-0 py-lg-5">
-                    <h1 class="mb-3">Our Story</h1>
-                    <h5 class="mb-3">Discover the Journey of ITI Cafeteria</h5>
-                    <p>Experience the rich history and passion that defines ITI Cafeteria. Our journey began with a vision to provide the finest coffee blends and create a warm and inviting atmosphere for coffee lovers.</p>
-                    <a href="#" class="btn btn-secondary font-weight-bold py-2 px-4 mt-2">Learn More</a>
+                <div class="col-md-6 pb-5">
+                    <iframe style="width: 100%; height: 443px;"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13715.570434707747!2d31.369722174060202!3d31.03571142986255!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1458e7e726b121e3%3A0x5d162f271f8fe0e8!2sMansoura%2C%20Dakahlia%20Governorate%2C%20Egypt!5e0!3m2!1sen!2sus!4v1621258784852!5m2!1sen!2sus"
+                        frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
                 </div>
-                <div class="col-lg-4 py-5 py-lg-0" style="min-height: 500px;">
-                    <div class="position-relative h-100">
-                        <img class="position-absolute w-100 h-100" src="<?php asset('homepage/img/about.png') ?>" style="object-fit: cover;">
+                <div class="col-md-6 pb-5">
+                    <div class="contact-form">
+                        <div id="success"></div>
+                        <form name="sentMessage" id="contactForm" novalidate="novalidate">
+                            <div class="control-group">
+                                <input type="text" class="form-control bg-transparent p-4" id="name" placeholder="Your Name"
+                                    required="required" data-validation-required-message="Please enter your name" />
+                                <p class="help-block text-danger"></p>
+                            </div>
+                            <div class="control-group">
+                                <input type="email" class="form-control bg-transparent p-4" id="email" placeholder="Your Email"
+                                    required="required" data-validation-required-message="Please enter your email" />
+                                <p class="help-block text-danger"></p>
+                            </div>
+                            <div class="control-group">
+                                <input type="text" class="form-control bg-transparent p-4" id="subject" placeholder="Subject"
+                                    required="required" data-validation-required-message="Please enter a subject" />
+                                <p class="help-block text-danger"></p>
+                            </div>
+                            <div class="control-group">
+                                <textarea class="form-control bg-transparent py-3 px-4" rows="5" id="message" placeholder="Message"
+                                    required="required"
+                                    data-validation-required-message="Please enter your message"></textarea>
+                                <p class="help-block text-danger"></p>
+                            </div>
+                            <div>
+                                <button class="btn btn-primary font-weight-bold py-3 px-5" type="submit" id="sendMessageButton">Send
+                                    Message</button>
+                            </div>
+                        </form>
                     </div>
-                </div>
-                <div class="col-lg-4 py-0 py-lg-5">
-                    <h1 class="mb-3">Our Vision</h1>
-                    <p>At ITI Cafeteria, our vision is to redefine the coffee experience and inspire moments of connection. We strive to create a welcoming environment where people can enjoy exceptional coffee, indulge in delicious food, and find solace in our cozy atmosphere.</p>
-                    <h5 class="mb-3"><i class="fa fa-check text-primary mr-3"></i>Exceptional Quality and Taste</h5>
-                    <h5 class="mb-3"><i class="fa fa-check text-primary mr-3"></i>Unparalleled Customer Service</h5>
-                    <h5 class="mb-3"><i class="fa fa-check text-primary mr-3"></i>Commitment to Sustainability</h5>
-                    <a href="#" class="btn btn-primary font-weight-bold py-2 px-4 mt-2">Learn More</a>
                 </div>
             </div>
         </div>
     </div>
-    <!-- About End -->
+    <!-- Contact End -->
 
 
     <!-- Footer Start -->

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>About</title>
+    <title>Menu</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free Website Template" name="keywords">
     <meta content="Free Website Template" name="description">
@@ -39,9 +39,9 @@
             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                 <div class="navbar-nav ml-auto p-4">
                     <a href="<?php route('Home/index') ?>" class="nav-item nav-link">Home</a>
-                    <a href="<?php route('Home/about') ?>" class="nav-item nav-link active">About</a>
+                    <a href="<?php route('Home/about') ?>" class="nav-item nav-link">About</a>
                     <a href="<?php route('Home/service') ?>" class="nav-item nav-link">Service</a>
-                    <a href="<?php route('Home/menu') ?>" class="nav-item nav-link">Menu</a>
+                    <a href="<?php route('Home/menu') ?>" class="nav-item nav-link active">Menu</a>
                     <a href="<?php route('Home/contact') ?>" class="nav-item nav-link">Contact</a>
                     <a href="<?php route('Auth/login') ?>" class="nav-item nav-link">Login</a>
                 </div>
@@ -54,48 +54,95 @@
     <!-- Page Header Start -->
     <div class="container-fluid page-header mb-5 position-relative overlay-bottom">
         <div class="d-flex flex-column align-items-center justify-content-center pt-0 pt-lg-5" style="min-height: 400px">
-            <h1 class="display-4 mb-3 mt-0 mt-lg-5 text-white text-uppercase">About Us</h1>
+            <h1 class="display-4 mb-3 mt-0 mt-lg-5 text-white text-uppercase">Menu</h1>
             <div class="d-inline-flex mb-lg-5">
                 <p class="m-0 text-white"><a class="text-white" href="<?php route('Home/index') ?>">Home</a></p>
                 <p class="m-0 text-white px-2">/</p>
-                <p class="m-0 text-white">About Us</p>
+                <p class="m-0 text-white">Menu</p>
             </div>
         </div>
     </div>
     <!-- Page Header End -->
 
 
-    <!-- About Start -->
-    <div class="container-fluid py-5">
+    <!-- Menu Start -->
+    <div class="container-fluid pt-5">
         <div class="container">
             <div class="section-title">
-                <h4 class="text-primary text-uppercase" style="letter-spacing: 5px;">About Us</h4>
-                <h1 class="display-4">Serving Since 1950</h1>
+                <h4 class="text-primary text-uppercase" style="letter-spacing: 5px;">Menu & Pricing</h4>
+                <h1 class="display-4">Competitive Pricing</h1>
             </div>
             <div class="row">
-                <div class="col-lg-4 py-0 py-lg-5">
-                    <h1 class="mb-3">Our Story</h1>
-                    <h5 class="mb-3">Discover the Journey of ITI Cafeteria</h5>
-                    <p>Experience the rich history and passion that defines ITI Cafeteria. Our journey began with a vision to provide the finest coffee blends and create a warm and inviting atmosphere for coffee lovers.</p>
-                    <a href="#" class="btn btn-secondary font-weight-bold py-2 px-4 mt-2">Learn More</a>
-                </div>
-                <div class="col-lg-4 py-5 py-lg-0" style="min-height: 500px;">
-                    <div class="position-relative h-100">
-                        <img class="position-absolute w-100 h-100" src="<?php asset('homepage/img/about.png') ?>" style="object-fit: cover;">
+                <div class="col-lg-6">
+                    <h1 class="mb-5">Hot Coffee</h1>
+                    <div class="row align-items-center mb-5">
+                        <div class="col-4 col-sm-3">
+                            <img class="w-100 rounded-circle mb-3 mb-sm-0" src="<?php asset('homepage/img/menu-1.jpg') ?>" alt="">
+                            <h5 class="menu-price">$5</h5>
+                        </div>
+                        <div class="col-8 col-sm-9">
+                            <h4>Espresso</h4>
+                            <p class="m-0">A rich and intense black coffee with a bold flavor. Perfect for those who enjoy a strong and aromatic cup of coffee.</p>
+                        </div>
+                    </div>
+                    <div class="row align-items-center mb-5">
+                        <div class="col-4 col-sm-3">
+                            <img class="w-100 rounded-circle mb-3 mb-sm-0" src="<?php asset('homepage/img/menu-2.jpg') ?>" alt="">
+                            <h5 class="menu-price">$7</h5>
+                        </div>
+                        <div class="col-8 col-sm-9">
+                            <h4>Mocha</h4>
+                            <p class="m-0">Indulge in the delightful combination of rich chocolate and smooth espresso. Our mocha is a treat for chocolate and coffee lovers alike.</p>
+                        </div>
+                    </div>
+                    <div class="row align-items-center mb-5">
+                        <div class="col-4 col-sm-3">
+                            <img class="w-100 rounded-circle mb-3 mb-sm-0" src="<?php asset('homepage/img/menu-3.jpg') ?>" alt="">
+                            <h5 class="menu-price">$9</h5>
+                        </div>
+                        <div class="col-8 col-sm-9">
+                            <h4>Cappuccino</h4>
+                            <p class="m-0">Experience the perfect balance of espresso, steamed milk, and velvety foam. Our cappuccino is a classic choice for coffee enthusiasts.</p>
+                        </div>
                     </div>
                 </div>
-                <div class="col-lg-4 py-0 py-lg-5">
-                    <h1 class="mb-3">Our Vision</h1>
-                    <p>At ITI Cafeteria, our vision is to redefine the coffee experience and inspire moments of connection. We strive to create a welcoming environment where people can enjoy exceptional coffee, indulge in delicious food, and find solace in our cozy atmosphere.</p>
-                    <h5 class="mb-3"><i class="fa fa-check text-primary mr-3"></i>Exceptional Quality and Taste</h5>
-                    <h5 class="mb-3"><i class="fa fa-check text-primary mr-3"></i>Unparalleled Customer Service</h5>
-                    <h5 class="mb-3"><i class="fa fa-check text-primary mr-3"></i>Commitment to Sustainability</h5>
-                    <a href="#" class="btn btn-primary font-weight-bold py-2 px-4 mt-2">Learn More</a>
+                <div class="col-lg-6">
+                    <h1 class="mb-5">Cold Coffee</h1>
+                    <div class="row align-items-center mb-5">
+                        <div class="col-4 col-sm-3">
+                            <img class="w-100 rounded-circle mb-3 mb-sm-0" src="<?php asset('homepage/img/menu-1.jpg') ?>" alt="">
+                            <h5 class="menu-price">$5</h5>
+                        </div>
+                        <div class="col-8 col-sm-9">
+                            <h4>Iced Coffee</h4>
+                            <p class="m-0">Cool down with our refreshing iced coffee. Made with premium coffee beans and served over ice, it's the perfect beverage for hot summer days.</p>
+                        </div>
+                    </div>
+                    <div class="row align-items-center mb-5">
+                        <div class="col-4 col-sm-3">
+                            <img class="w-100 rounded-circle mb-3 mb-sm-0" src="<?php asset('homepage/img/menu-2.jpg') ?>" alt="">
+                            <h5 class="menu-price">$7</h5>
+                        </div>
+                        <div class="col-8 col-sm-9">
+                            <h4>Frappuccino</h4>
+                            <p class="m-0">Indulge in the perfect blend of coffee, ice, and creamy goodness with our irresistible frappuccino.</p>
+                        </div>
+                    </div>
+                    <div class="row align-items-center mb-5">
+                        <div class="col-4 col-sm-3">
+                            <img class="w-100 rounded-circle mb-3 mb-sm-0" src="<?php asset('homepage/img/menu-3.jpg') ?>" alt="">
+                            <h5 class="menu-price">$9</h5>
+                        </div>
+                        <div class="col-8 col-sm-9">
+                            <h4>Nitro Cold Brew</h4>
+                            <p class="m-0">Experience the smooth and velvety texture of our nitro cold brew. Infused with nitrogen for a creamy and refreshing taste.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- About End -->
+    <!-- Menu End -->
 
 
     <!-- Footer Start -->

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>About</title>
+    <title>Service</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free Website Template" name="keywords">
     <meta content="Free Website Template" name="description">
@@ -39,8 +39,8 @@
             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                 <div class="navbar-nav ml-auto p-4">
                     <a href="<?php route('Home/index') ?>" class="nav-item nav-link">Home</a>
-                    <a href="<?php route('Home/about') ?>" class="nav-item nav-link active">About</a>
-                    <a href="<?php route('Home/service') ?>" class="nav-item nav-link">Service</a>
+                    <a href="<?php route('Home/about') ?>" class="nav-item nav-link">About</a>
+                    <a href="<?php route('Home/service') ?>" class="nav-item nav-link active">Service</a>
                     <a href="<?php route('Home/menu') ?>" class="nav-item nav-link">Menu</a>
                     <a href="<?php route('Home/contact') ?>" class="nav-item nav-link">Contact</a>
                     <a href="<?php route('Auth/login') ?>" class="nav-item nav-link">Login</a>
@@ -54,48 +54,73 @@
     <!-- Page Header Start -->
     <div class="container-fluid page-header mb-5 position-relative overlay-bottom">
         <div class="d-flex flex-column align-items-center justify-content-center pt-0 pt-lg-5" style="min-height: 400px">
-            <h1 class="display-4 mb-3 mt-0 mt-lg-5 text-white text-uppercase">About Us</h1>
+            <h1 class="display-4 mb-3 mt-0 mt-lg-5 text-white text-uppercase">Services</h1>
             <div class="d-inline-flex mb-lg-5">
                 <p class="m-0 text-white"><a class="text-white" href="<?php route('Home/index') ?>">Home</a></p>
                 <p class="m-0 text-white px-2">/</p>
-                <p class="m-0 text-white">About Us</p>
+                <p class="m-0 text-white">Services</p>
             </div>
         </div>
     </div>
     <!-- Page Header End -->
 
 
-    <!-- About Start -->
-    <div class="container-fluid py-5">
+    <!-- Service Start -->
+    <div class="container-fluid pt-5">
         <div class="container">
             <div class="section-title">
-                <h4 class="text-primary text-uppercase" style="letter-spacing: 5px;">About Us</h4>
-                <h1 class="display-4">Serving Since 1950</h1>
+                <h4 class="text-primary text-uppercase" style="letter-spacing: 5px;">Our Services</h4>
+                <h1 class="display-4">Fresh & Organic Beans</h1>
             </div>
             <div class="row">
-                <div class="col-lg-4 py-0 py-lg-5">
-                    <h1 class="mb-3">Our Story</h1>
-                    <h5 class="mb-3">Discover the Journey of ITI Cafeteria</h5>
-                    <p>Experience the rich history and passion that defines ITI Cafeteria. Our journey began with a vision to provide the finest coffee blends and create a warm and inviting atmosphere for coffee lovers.</p>
-                    <a href="#" class="btn btn-secondary font-weight-bold py-2 px-4 mt-2">Learn More</a>
-                </div>
-                <div class="col-lg-4 py-5 py-lg-0" style="min-height: 500px;">
-                    <div class="position-relative h-100">
-                        <img class="position-absolute w-100 h-100" src="<?php asset('homepage/img/about.png') ?>" style="object-fit: cover;">
+                <div class="col-lg-6 mb-5">
+                    <div class="row align-items-center">
+                        <div class="col-sm-5">
+                            <img class="img-fluid mb-3 mb-sm-0" src="<?php asset('homepage/img/service-1.jpg') ?>" alt="">
+                        </div>
+                        <div class="col-sm-7">
+                            <h4><i class="fa fa-truck service-icon"></i>Fastest Door Delivery</h4>
+                            <p class="m-0">Experience our lightning-fast door delivery service. We are dedicated to ensuring your orders reach your doorstep in the shortest possible time.</p>
+                        </div>
                     </div>
                 </div>
-                <div class="col-lg-4 py-0 py-lg-5">
-                    <h1 class="mb-3">Our Vision</h1>
-                    <p>At ITI Cafeteria, our vision is to redefine the coffee experience and inspire moments of connection. We strive to create a welcoming environment where people can enjoy exceptional coffee, indulge in delicious food, and find solace in our cozy atmosphere.</p>
-                    <h5 class="mb-3"><i class="fa fa-check text-primary mr-3"></i>Exceptional Quality and Taste</h5>
-                    <h5 class="mb-3"><i class="fa fa-check text-primary mr-3"></i>Unparalleled Customer Service</h5>
-                    <h5 class="mb-3"><i class="fa fa-check text-primary mr-3"></i>Commitment to Sustainability</h5>
-                    <a href="#" class="btn btn-primary font-weight-bold py-2 px-4 mt-2">Learn More</a>
+                <div class="col-lg-6 mb-5">
+                    <div class="row align-items-center">
+                        <div class="col-sm-5">
+                            <img class="img-fluid mb-3 mb-sm-0" src="<?php asset('homepage/img/service-2.jpg') ?>" alt="">
+                        </div>
+                        <div class="col-sm-7">
+                            <h4><i class="fa fa-coffee service-icon"></i>Fresh Coffee Beans</h4>
+                            <p class="m-0">Indulge in the exquisite taste of our freshly sourced coffee beans. We take pride in offering a wide selection of premium coffee beans from around the world.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-5">
+                    <div class="row align-items-center">
+                        <div class="col-sm-5">
+                            <img class="img-fluid mb-3 mb-sm-0" src="<?php asset('homepage/img/service-3.jpg') ?>" alt="">
+                        </div>
+                        <div class="col-sm-7">
+                            <h4><i class="fa fa-award service-icon"></i>Exquisite Coffee Blends</h4>
+                            <p class="m-0">Indulge in the finest selection of coffee blends that are meticulously crafted to perfection.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-5">
+                    <div class="row align-items-center">
+                        <div class="col-sm-5">
+                            <img class="img-fluid mb-3 mb-sm-0" src="<?php asset('homepage/img/service-4.jpg') ?>" alt="">
+                        </div>
+                        <div class="col-sm-7">
+                            <h4><i class="fa fa-table service-icon"></i>Convenient Online Table Booking</h4>
+                            <p class="m-0">Experience hassle-free table reservations with our convenient online booking system.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- About End -->
+    <!-- Service End -->
 
 
     <!-- Footer Start -->

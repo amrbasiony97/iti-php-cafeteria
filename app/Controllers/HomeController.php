@@ -11,4 +11,19 @@ class HomeController extends Controller
     {
         View::load('Home/about');
     }
+
+    public function service()
+    {
+        View::load('Home/service');
+    }
+
+    public function menu()
+    {
+        View::load('Home/menu');
+    }
+
+    public function contact()
+    {
+        View::load('Home/contact');
+    }
 }
