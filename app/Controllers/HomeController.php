@@ -7,8 +7,8 @@ class HomeController extends Controller
         View::load('Home/index');
     }
 
-    public function test($arr = [])
+    public function about()
     {
-        var_dump($arr);
+        View::load('Home/about');
     }
 }
