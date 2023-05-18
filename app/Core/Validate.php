@@ -57,7 +57,7 @@ class Validate
 
     public static function positiveNumber($number, &$errors, $title)
     {
-        $numberPattern = '/^[0-9]+$/';
+        $numberPattern = '/^[0-9]+\.?[0-9]*$/';
         if (!preg_match_all($numberPattern, $number)) {
             array_push($errors, $title.' must be a number');
         }
