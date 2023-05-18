@@ -4,7 +4,7 @@
     <table class="table table-hover table-dark">
         <thead>
             <tr>
-                <th># Order Id</th>
+                <th>#Order Id</th>
                 <th>Status</th>
                 <th>Action</th>
             </tr>
@@ -18,9 +18,9 @@
                         <td><?php echo $checkingOrder['id'];  ?></td>
                         <td><?php echo $checkingOrder['status'];  ?></td>
                         <td>
-                            <form>
+                            <form action="<?php route('check/editCheckStatus') ?>" method="POST">
                                 <button type="submit" class="btn btn-warning">To Done</button>
-                                <input type="text" value=" <?php echo $checkingOrder['id'];  ?>" style="display:none">
+                                <input type="text" value="<?php echo $checkingOrder['id'];?>" style="display:none" name="id">
                             </form>
                         </td>
                     </tr>
@@ -34,9 +34,9 @@
                         <td><?php echo $checkingOrder['id'];  ?></td>
                         <td><?php echo $checkingOrder['status'];  ?></td>
                         <td>
-                            <form>
+                            <form action="<?php route('check/editCheckStatus') ?>" method="POST">
                                 <button type="submit" class="btn btn-danger">To Delivery</button>
-                                <input type="text" value=" <?php echo $checkingOrder['id'];  ?>" style="display:none">
+                                <input type="text" value="<?php echo $checkingOrder['id'];?>" style="display:none" name="id">
                             </form>
                         </td>
                     </tr>
