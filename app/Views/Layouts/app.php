@@ -38,7 +38,7 @@
           <!-- menu profile quick info -->
           <div class="profile clearfix">
             <div class="profile_pic">
-              <img src="<?php asset('gentelella/production/images/user.png') ?>" alt="..." class="img-circle profile_img">
+              <img src="<?php uploads("images/users/{$_SESSION['user']['image']}") ?>" alt="..." class="img-circle profile_img">
             </div>
             <div class="profile_info">
               <span>Welcome,</span>
@@ -112,7 +112,7 @@
             <ul class="nav navbar-nav navbar-right">
               <li class="">
                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                  <img src="<?php asset('gentelella/production/images/user.png') ?>" alt="">
+                  <img src="<?php uploads("images/users/{$_SESSION['user']['image']}") ?>" alt="">
                   <?php
                   if(isset($_SESSION['user']['name'])){
                     echo $_SESSION['user']['name'];

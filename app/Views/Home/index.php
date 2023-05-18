@@ -1,9 +1,10 @@
-<?php if (false) { ?>
-    <!-- Title and Extra CSS -->
-    <?php
-    $title = "Dashboard";
+<?php
+if (false) {
+    // Title and Extra CSS
+
+    $title = "ITI Cafeteria";
     ob_start();
-    ?>
+?>
 
 
     <?php
@@ -469,7 +470,21 @@
                     <a href="<?php route('Home/service') ?>" class="nav-item nav-link">Service</a>
                     <a href="<?php route('Home/menu') ?>" class="nav-item nav-link">Menu</a>
                     <a href="<?php route('Home/contact') ?>" class="nav-item nav-link">Contact</a>
-                    <a href="<?php route('Auth/login') ?>" class="nav-item nav-link">Login</a>
+                    <?php if(isset($_SESSION['user'])) {
+                        if ($_SESSION['user']['role'] == 'admin') {
+                            echo "<a href='";
+                            route('User/index');
+                            echo "' class='nav-item nav-link'>Dashboard</a>";
+                        }
+                        else if ($_SESSION['user']['role'] == 'customer') {
+                            echo "<a href='";
+                            route('Order/index');
+                            echo "' class='nav-item nav-link'>Dashboard</a>";
+                        }
+                    } 
+                    else {
+                        echo '<a href="' . route('Auth/login') . '" class="nav-item nav-link">Login</a>';
+                    }?>
                 </div>
             </div>
         </nav>

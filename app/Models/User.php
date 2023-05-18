@@ -51,7 +51,7 @@ class User
 
         // Validate image
         $image = Validate::image($errors);
-
+        
         return [
             'errors' => $errors,
             'fileTmp' => $image['fileTmp'],
