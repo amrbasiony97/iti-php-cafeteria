@@ -50,7 +50,7 @@ class User
         Validate::number_nullable($_POST['ext'], $errors, 'Ext must be a number');
 
         // Validate image
-        $image = Validate::image($errors);
+        $image = Validate::image($errors, 'users');
         
         return [
             'errors' => $errors,
@@ -88,7 +88,7 @@ class User
         Validate::number_nullable($_POST['ext'], $errors, 'Ext must be a number');
 
         // Validate image
-        $image = Validate::image($errors, self::getImage($_POST['id']));
+        $image = Validate::image($errors, 'users', self::getImage($_POST['id']));
 
         return [
             'errors' => $errors,
