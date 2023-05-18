@@ -14,6 +14,7 @@ define('PASSWORD', 'Iti#9634');
 
 define('BASE_URL', 'https://localhost/iti-php-cafeteria/public/');
 */
+
 define('USER', 'amr');
 define('PASSWORD', 'password');
 

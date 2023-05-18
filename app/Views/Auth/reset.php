@@ -43,23 +43,6 @@
           <?php
           } 
           ?>
-
-          <?php 
-          if(isset($_SESSION['msg'])){ ?>
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-              <ul>
-              <?php
-                
-                  ?>
-                  <li><?= $_SESSION['msg'] ?></li>
-                  <?php
-              ?>
-              </ul>
-            </div>
-          <?php
-          } 
-          ?>
           
           <script>
             var alertList = document.querySelectorAll('.alert');
@@ -71,27 +54,31 @@
 
           <!-- From Card -->
           <div class="card mt-5">
-            <h4 class="card-header text-center">Login</h4>
+            <h4 class="card-header text-center">Reset Password</h4>
             <div class="card-body">
-              <form action="<?php route('auth/applyLogin') ?>" method="POST">
-                <!-- Email input -->
-                <div class="mb-3">
-                  <label for="email" class="form-label">Email</label>
-                  <input type="email" name="email" id="email" class="form-control" placeholder="Enter email" value="<?php if(!empty($data)) {echo $data['email'];} ?>" aria-describedby="helpId">
+              <form action="<?php route('auth/reset_pass') ?>" method="POST">
+                
+                <div class="item form-group">
+                    <label for="password" class="control-label col-md-3">Password <span class="required">*</span>
+                    </label>
+                    <div class="mb-3">
+                        <input value="<?php if (!empty($data)) echo $data['password'] ?>" id="password" type="password" name="password" data-validate-length="6,8" class="form-control" required="required">
+                    </div>
+                </div>
+                <div class="item form-group">
+                    <label for="password2" class="control-label">Confirm Password <span class="required">*</span>
+                    </label>
+                    <div class="mb-3">
+                        <input value="<?php if (!empty($data)) echo $data['password2'] ?>" id="password2" type="password" name="password2" data-validate-linked="password" class="form-control" required="required">
+                    </div>
                 </div>
 
-                <!-- Password input -->
-                <div class="mb-3">
-                  <label for="password" class="form-label">Password</label>
-                  <input type="password" name="password" id="password" class="form-control" placeholder="Enter password" aria-describedby="helpId">
-                </div>
                 <!-- Submit button -->
                 <hr>
                 <div class="d-flex justify-content-between align-items-baseline">
-                  <button type="submit" class="btn btn-primary">Login</button>
+                  <button type="submit" class="btn btn-primary">Reset</button>
                   <div>
-                    <a href="<?= route("auth/email") ?>">Forgot Password</a> or
-                    <a href="<?= route("auth/register") ?>">Register</a>
+                    <a href="<?= route("auth/login") ?>">Login</a>
                   </div>
                 </div>
               </form>
@@ -107,9 +94,3 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
  </body>
 </html>
-
-<?php
-if (isset($url)) {
-  echo "<script>history.replaceState({}, '', '".BASE_URL.$url."')</script>;";
-}
-?>

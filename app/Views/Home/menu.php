@@ -52,8 +52,11 @@
                         else if ($_SESSION['user']['role'] == 'customer') {
                             echo "<a href='";
                             route('Order/index');
-                            echo "' class='nav-item nav-link'>Dashboard</a>";
+                            echo "' class='nav-item nav-link'>Orders</a>";
                         }
+                        ?>
+                        <a href="<?php route('auth/logout') ?>" class="nav-item nav-link">Logut</a>
+                        <?php
                     } 
                     else {
                         echo '<a href="' . route('Auth/login') . '" class="nav-item nav-link">Login</a>';
