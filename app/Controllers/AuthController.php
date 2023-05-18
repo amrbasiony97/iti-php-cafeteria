@@ -7,33 +7,43 @@ class AuthController
         return View::load('Auth/login');
     }
 
-    public function applyLogin(){
+    public function applyLogin()
+    {
         Validate::request_method('POST');
         $validateUserData = User::validateLoginData();
 
-        if(!empty($validateUserData['errors'])){
+        if (!empty($validateUserData['errors'])) {
             View::redirect('Auth/login', ['errors' => $validateUserData['errors'], 'data' => $_POST]);
-        }else{
+        } else {
             $query = Database::selectByEmail('users', $_POST['email']);
-            if($query){
-                if(password_verify($_POST['password'], $query['password'])){
-                    $userData =[
-                        'name'=>$query['name'],
-                        'role'=>$query['role'],
-                    ]; 
+            if ($query) {
+                if (password_verify($_POST['password'], $query['password'])) {
+                    $userData = [
+                        'id' => $query['id'],
+                        'name' => $query['name'],
+                        'role' => $query['role'],
+                        'image' => $query['image'],
+                    ];
 
                     $_SESSION['user'] = $userData;
-                    header("Location: /iti-php-cafeteria/public/");
-                }else{
+
+                    if ($_SESSION['user']['role'] == 'admin') {
+                        View::redirect('User/index', ['users' => User::getAll()]);
+                    }
+                    else {
+                        header("Location: /iti-php-cafeteria/public/");
+                    }
+                } else {
                     View::redirect('Auth/login', ['errors' => ['Invalid Credentials...!'], 'data' => $_POST]);
                 }
-            }else{
+            } else {
                 View::redirect('Auth/login', ['errors' => ['Invalid Credentials...!'], 'data' => $_POST]);
             }
         }
     }
 
-    public function logout(){
+    public function logout()
+    {
         session_start();
         session_unset();
         session_destroy();
