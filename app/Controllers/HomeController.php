@@ -9,8 +9,23 @@ class HomeController extends Controller
         View::load('Home/index');
     }
 
-    public function test($arr = [])
+    public function about()
     {
-        var_dump($arr);
+        View::load('Home/about');
+    }
+
+    public function service()
+    {
+        View::load('Home/service');
+    }
+
+    public function menu()
+    {
+        View::load('Home/menu');
+    }
+
+    public function contact()
+    {
+        View::load('Home/contact');
     }
 }

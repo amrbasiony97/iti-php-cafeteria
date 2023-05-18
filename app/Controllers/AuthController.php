@@ -2,11 +2,6 @@
 session_start();
 class AuthController
 {
-    public function register()
-    {
-        var_dump(User::getAll());
-    }
-
     public function login()
     {
         return View::load('Auth/login');
