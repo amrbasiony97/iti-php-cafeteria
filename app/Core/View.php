@@ -19,7 +19,7 @@ class View
     public static function redirect($view, $data = [])
     {
         $file = VIEWS. $view .'.php';
-        $data['url'] = end(explode('/', $view));
+        $data['url'] = $view;
         if (file_exists($file)) {
             extract($data);
             ob_start();

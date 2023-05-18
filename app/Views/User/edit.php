@@ -139,7 +139,7 @@ ob_start();
     
 <?php
 if (isset($url)) {
-    echo "<script>history.pushState(null, null, '$url');</script>";
+  echo "<script>history.replaceState({}, '', '".BASE_URL.$url."')</script>;";
 }
 ?>
 

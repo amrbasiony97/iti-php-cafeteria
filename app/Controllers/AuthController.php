@@ -22,11 +22,18 @@ class AuthController
                         'id' => $query['id'],
                         'name' => $query['name'],
                         'role' => $query['role'],
+                        'image' => $query['image'],
                     ];
 
                     session_start();
                     $_SESSION['user'] = $userData;
-                    header("Location: /iti-php-cafeteria/public/");
+
+                    if ($_SESSION['user']['role'] == 'admin') {
+                        View::redirect('User/index', ['users' => User::getAll()]);
+                    }
+                    else {
+                        header("Location: /iti-php-cafeteria/public/");
+                    }
                 } else {
                     View::redirect('Auth/login', ['errors' => ['Invalid Credentials...!'], 'data' => $_POST]);
                 }
