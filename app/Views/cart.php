@@ -55,8 +55,9 @@ ob_start();
                     <input type='hidden' name='order_products_id' value=" . "$product[5]" . " />
                   </td>
                     <td class='product-thumbnail text-center'  style='max-width: 100px'>
-                      <img src=" . "$product[0]" . "
-                       alt='Image' class='img-fluid' />
+                      <img src=";
+                  echo uploads("images/products/{$user['image']}");
+                  echo "alt='Image' class='img-fluid' />
                     </td>
 
                     <td class='product-name text-center align-middle'>
@@ -102,92 +103,16 @@ ob_start();
                 };
 
                 ?>
+                <div>
+                  <div>Total Price</div>
+                  <div></div>
+                </div>
               </tbody>
             </table>
           </div>
         </div>
       </div>
-      <!-- @endif
-        <div class="row">
-          <div class="col-md-6">
-            <div class="row mb-5">
-              <div class="col-md-6">
-                <a
-                  href="{{ route('site.shop.index') }}"
-                  class="btn btn-outline-primary btn-md btn-block"
-                  >Continue Shopping</a
-                >
-              </div>
-            </div>
-            {{--
-            <div class="row">
-              <div class="col-md-12">
-                <label class="text-black h4" for="coupon">Coupon</label>
-                <p>Enter your coupon code if you have one.</p>
-              </div>
-              <div class="col-md-8 mb-3 mb-md-0">
-                <input
-                  type="text"
-                  class="form-control py-3"
-                  id="coupon"
-                  placeholder="Coupon Code"
-                />
-              </div>
-              <div class="col-md-4">
-                <button class="btn btn-primary btn-md px-4">
-                  Apply Coupon
-                </button>
-              </div>
-            </div>
-            --}}
-          </div>
-          @if($cart)
-          <div class="col-md-6 pl-5">
-            <div class="row justify-content-end">
-              <div class="col-md-7">
-                <div class="row">
-                  <div class="col-md-12 text-right border-bottom mb-5">
-                    <h3 class="text-black h4 text-uppercase">Cart Totals</h3>
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <div class="col-md-6">
-                    <span class="text-black">Subtotal</span>
-                  </div>
-                  <div class="col-md-6 text-right">
-                    <strong class="text-black final-sub-total"
-                      >{{ format_price($cart->sub_total()) }}</strong
-                    >
-                  </div>
-                </div>
-                <div class="row mb-5">
-                  <div class="col-md-6">
-                    <span class="text-black">Total</span>
-                  </div>
-                  <div class="col-md-6 text-right">
-                    <strong class="text-black final-total"
-                      >{{ format_price($cart->total()) }}</strong
-                    >
-                  </div>
-                </div>
 
-                <div class="row">
-                  <div class="col-md-12">
-                    <button
-                      class="btn btn-primary btn-lg btn-block"
-                      onclick="window.location='checkout.html'"
-                    >
-                      Proceed To Checkout
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          @else
-          <h1>Your Cart is Empty</h1>
-          @endif
-        </div> -->
     </div>
   </div>
 
@@ -203,7 +128,7 @@ ob_start();
         let productCountInput = this.parentNode.parentNode.querySelector('input');
 
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'https://localhost/iti-php-cafeteria/public/Order/increase', true);
+        xhr.open('POST', 'http://localhost/iti-php-cafeteria/public/Order/increase', true);
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.responseType = 'json';
         xhr.onload = function() {
@@ -227,7 +152,7 @@ ob_start();
         let productCountInput = this.parentNode.parentNode.querySelector('input');
 
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'https://localhost/iti-php-cafeteria/public/Order/decrease', true);
+        xhr.open('POST', 'http://localhost/iti-php-cafeteria/public/Order/decrease', true);
 
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.responseType = 'json';
@@ -254,7 +179,7 @@ ob_start();
         var xhr = new XMLHttpRequest();
 
         // Set the HTTP method and URL for the request
-        xhr.open('POST', 'https://localhost/iti-php-cafeteria/public/Order/getAllProducts', true);
+        xhr.open('POST', 'http://localhost/iti-php-cafeteria/public/Order/getAllProducts', true);
 
         // Set the response type to JSON
         xhr.responseType = 'json';
@@ -284,7 +209,7 @@ ob_start();
         var xhr = new XMLHttpRequest();
 
         // Set the HTTP method and URL for the request
-        xhr.open('POST', 'https://localhost/iti-php-cafeteria/public/Order/delete', true);
+        xhr.open('POST', 'http://localhost/iti-php-cafeteria/public/Order/delete', true);
 
         // Set the response type to JSON
         xhr.responseType = 'json';
