@@ -13,7 +13,7 @@ ob_start();
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous" />
-  <title>Document</title>
+  <title>Cart</title>
 </head>
 
 <body>
@@ -28,40 +28,42 @@ ob_start();
       </div>
     </div>
   </div>
-  <div class="site-section">
+
+  <?php
+
+  if (!empty($products)) {
+  ?>
+
     <div class="container">
-      <div class="row mb-5">
-        <div class="col-md-12" method="post">
-          <div class="site-blocks-table">
-            <table class="table table-bordered">
-              <thead>
-                <tr>
-                  <th class="product-thumbnail text-center">Image</th>
-                  <th class="product-name text-center">Product</th>
-                  <th class="product-price text-center">Price</th>
-                  <th class="product-quantity text-center">Quantity</th>
-                  <th class="product-total text-center">Total</th>
-                  <th class="product-remove text-center">Remove</th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th class="product-thumbnail text-center">Image</th>
+            <th class="product-name text-center">Product</th>
+            <th class="product-price text-center">Price</th>
+            <th class="product-quantity text-center">Quantity</th>
+            <th class="product-total text-center">Total</th>
+            <th class="product-remove text-center">Remove</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php
 
-                foreach ($products as $key => $product) {
+          foreach ($products as $key => $product) {
 
-                  echo "
+            echo "
                   <tr>
-                  <td>
-                    <input type='hidden' name='order_products_id' value=" . "$product[5]" . " />
+                  <td hidden >
+                    <input name='order_products_id' value=" . "{$product['cart_item_id']}" . " />
                   </td>
                     <td class='product-thumbnail text-center'  style='max-width: 100px'>
-                      <img src=";
-                  echo uploads("images/products/{$user['image']}");
-                  echo "alt='Image' class='img-fluid' />
+                      <img src='";
+            echo uploads("images/products/{$product['image']}");
+            echo "' alt='Image' class='img-fluid' />
                     </td>
 
                     <td class='product-name text-center align-middle'>
-                      <h2 class='h5 text-black'> $product[1] </h2>
+                      <h2 class='h5 text-black'> {$product['name']} </h2>
                     </td>
 
                     <td class='text-center align-middle'>
@@ -72,49 +74,64 @@ ob_start();
                     <div class='text-center' >
                         <div class='input-group mb-3' style='max-width: 150px'>
                           <div class='input-group-prepend'>
-                        <button class='btn btn-outline-primary decrease-quantity-button js-btn-minus' type='submit'>
-                          &minus;
-                        </button>
-                        </div>
+
+                            <button class='btn btn-outline-primary decrease-quantity-button js-btn-minus' type='submit'>
+                              &minus;
+                            </button>
+                          </div>
+
                         <input type='text' class='form-control text-center product-count' 
-                          placeholder='' aria-label='Example text with button addon' aria-describedby='button-addon1' value='$product[4]' />
+                           disabled value='$product[4]' />
+
                         <div class='input-group-append'>
                           <button class='btn btn-outline-primary increase-quantity-button js-btn-plus' type='submit'>
                           &plus;
                           </button>
                         </div>
+
                       </div>
                     </div>
                     </td>
 
-                    <td class='text-center align-middle'> $product[3]  </td>
+                    <td class='text-center align-middle'> {$product['price']}  </td>
 
-                    <td>
-                      <form action='https://localhost/iti-php-cafeteria/public/Order/delete' method='POST' 
-                        class='text-center'> 
-                        <input type='hidden' name='order_products_id' value=" . "$product[5]" . " />
-                        <button type='submit' class='btn btn-primary height-auto btn-sm delete-button'>
-                        X
-                        </button>
-                      </form>
+                    <td class='d-flex justify-content-center justify-content-center'>
+                      <div class='d-flex justify-content-center justify-content-center'>
+                        <form action='https://localhost/iti-php-cafeteria/public/Cart/delete' method='POST' 
+                          class='d-flex justify-content-center justify-content-center'> 
+                          <input type='hidden' name='order_products_id' value=" . "{$product['cart_item_id']}" . " />
+                          <button type='submit' class='btn btn-primary delete-button'>
+                          X
+                          </button>
+                        </form>
+                      </div>
                     </td>
                   </tr>
                 ";
-                };
+          };
 
-                ?>
-                <div>
-                  <div>Total Price</div>
-                  <div></div>
-                </div>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
+          ?>
+        </tbody>
+        <tfoot class="d-flex flex-row">
+          <div>Total Price : </div>
+          <div id="totalPrice"><?php echo $totalPrice ?></div>
+        </tfoot>
+      </table>
+      <form action="https://localhost/iti-php-cafeteria/public/Cart/checkout" method="GET">
+        <button type="submit" class="btn btn-primary checkoutBtn" style="width: 120px;">CheckOut</button>
+      </form>
     </div>
-  </div>
+
+  <?php
+  } else {
+  ?>
+    <h1 class="text-center text-danger my-5">Cart Is Empty</h1>
+  <?php
+  }
+
+
+  ?>
+
 
   <!-- JavaScript AJAX For INC & DEC Quantity -->
 
@@ -122,23 +139,24 @@ ob_start();
     //Handling Inc Button
     let incButtons = document.querySelectorAll(".increase-quantity-button");
     incButtons.forEach(element => {
-      element.addEventListener('click', function() {
+      element.addEventListener('click', function(e) {
 
-        let order_products_id = this.parentNode.parentNode.parentNode.parentNode.parentNode.firstElementChild.firstElementChild.value;
+        let cart_item_id = this.parentNode.parentNode.parentNode.parentNode.parentNode.firstElementChild.firstElementChild.value;
         let productCountInput = this.parentNode.parentNode.querySelector('input');
 
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'http://localhost/iti-php-cafeteria/public/Order/increase', true);
+        xhr.open('POST', 'http://localhost/iti-php-cafeteria/public/Cart/increase', true);
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.responseType = 'json';
         xhr.onload = function() {
           if (xhr.status === 200) {
-            productCountInput.value = xhr.response[0]["product_count"];
+            productCountInput.value = xhr.response[0]["quantity"];
+            document.querySelector("#totalPrice").innerHTML = xhr.response[1];
           } else {
             console.log('Error: ' + xhr.statusText);
           }
         };
-        var params = "order_products_id=" + order_products_id;
+        var params = "cart_item_id=" + cart_item_id;
         xhr.send(params);
       });
     });
@@ -147,25 +165,35 @@ ob_start();
     //Handling Dec Button
     let decButtons = document.querySelectorAll(".decrease-quantity-button");
     decButtons.forEach(element => {
-      element.addEventListener("click", function() {
-        let order_products_id = this.parentNode.parentNode.parentNode.parentNode.parentNode.firstElementChild.firstElementChild.value;
+
+      element.addEventListener("click", function(e) {
+        let cart_item_id = this.parentNode.parentNode.parentNode.parentNode.parentNode.firstElementChild.firstElementChild.value;
         let productCountInput = this.parentNode.parentNode.querySelector('input');
 
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'http://localhost/iti-php-cafeteria/public/Order/decrease', true);
+        if (productCountInput.value <= 1) {
+          e.stopPropagation();
+        } else {
 
-        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        xhr.responseType = 'json';
+          var xhr = new XMLHttpRequest();
+          xhr.open('POST', 'http://localhost/iti-php-cafeteria/public/Cart/decrease', true);
 
-        xhr.onload = function() {
-          if (xhr.status === 200) {
-            productCountInput.value = xhr.response[0]["product_count"];
-          } else {
-            console.log('Error: ' + xhr.statusText);
-          }
-        };
-        var params = "order_products_id=" + order_products_id;
-        xhr.send(params);
+          xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+          xhr.responseType = 'json';
+
+          xhr.onload = function() {
+            if (xhr.status === 200) {
+              productCountInput.value = xhr.response[0]["quantity"];
+              document.querySelector("#totalPrice").innerHTML = xhr.response[1];
+            } else {
+              console.log('Error: ' + xhr.statusText);
+            }
+          };
+          var params = "cart_item_id=" + cart_item_id;
+          xhr.send(params);
+
+        }
+
+
       })
     });
 
@@ -179,7 +207,7 @@ ob_start();
         var xhr = new XMLHttpRequest();
 
         // Set the HTTP method and URL for the request
-        xhr.open('POST', 'http://localhost/iti-php-cafeteria/public/Order/getAllProducts', true);
+        xhr.open('POST', 'http://localhost/iti-php-cafeteria/public/Cart/getAllProducts', true);
 
         // Set the response type to JSON
         xhr.responseType = 'json';
@@ -189,6 +217,7 @@ ob_start();
         xhr.onload = function() {
           if (xhr.status === 200) {
             element.value = xhr.response[0]["product_count"];
+
           }
         };
         let params = `product_count=${element.value}&order_products_id=${order_products_id}`;
@@ -202,14 +231,12 @@ ob_start();
     deleteButtons.forEach(element => {
       element.addEventListener("click", function(e) {
         e.preventDefault();
-        let order_products_id = element.parentNode.querySelector("input").value;
-
-        console.log(order_products_id);
+        let cart_item_id = element.parentNode.querySelector("input").value;
 
         var xhr = new XMLHttpRequest();
 
         // Set the HTTP method and URL for the request
-        xhr.open('POST', 'http://localhost/iti-php-cafeteria/public/Order/delete', true);
+        xhr.open('POST', 'http://localhost/iti-php-cafeteria/public/Cart/delete', true);
 
         // Set the response type to JSON
         xhr.responseType = 'json';
@@ -217,16 +244,40 @@ ob_start();
 
         xhr.onload = function() {
           if (xhr.status === 200) {
-            element.parentNode.parentNode.parentNode.remove();
+            element.parentNode.parentNode.parentNode.parentNode.remove();
           }
         };
 
-        let params = `order_products_id=${order_products_id}`;
+        let params = `cart_item_id=${cart_item_id}`;
         // Send the request
         xhr.send(params);
 
       })
     });
+
+    // let checkoutBtn = document.querySelector(".checkoutBtn");
+    // checkoutBtn.addEventListener("click", function(e) {
+    //   var xhr = new XMLHttpRequest();
+
+    //   // Set the HTTP method and URL for the request
+    //   xhr.open('POST', 'http://localhost/iti-php-cafeteria/public/Cart/checkout', true);
+
+    //   // Set the response type to JSON
+    //   xhr.responseType = 'json';
+    //   xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+    //   xhr.onload = function() {
+    //     if (xhr.status === 200) {
+    //       content = document.querySelector(".container");
+    //       content.remove();
+    //     }
+    //   };
+
+    //   let params = `cart_item_id=${cart_item_id}`;
+    //   // Send the request
+    //   xhr.send(params);
+
+    // })
   </script>
 </body>
 
