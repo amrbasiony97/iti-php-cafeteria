@@ -1,5 +1,5 @@
 <?php
-session_start();
+session_status() === PHP_SESSION_ACTIVE ?: session_start();
 class AuthController
 {
     public function login()
@@ -25,6 +25,7 @@ class AuthController
                         'image' => $query['image'],
                     ];
 
+                    session_start();
                     $_SESSION['user'] = $userData;
 
                     if ($_SESSION['user']['role'] == 'admin') {

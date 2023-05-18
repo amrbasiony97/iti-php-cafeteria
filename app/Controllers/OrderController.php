@@ -1,11 +1,14 @@
 <?php
-if(!isset($_SESSION['user'])){
-    header("Location: /iti-php-cafeteria/public/auth/login");       
+if (!isset($_SESSION['user'])) {
+    header("Location: /iti-php-cafeteria/public/auth/login");
 }
+
 class OrderController
 {
     public function index()
     {
+        $userId = $_SESSION["user"]["id"];
+        var_dump($_SESSION["user"]);
         try {
 
             $connection = Database::connect();
@@ -14,7 +17,7 @@ class OrderController
                 orders.total_price, order_products.product_count, order_products.id as product_id_inOrder
             FROM products
             INNER JOIN order_products ON products.id = order_products.product_id
-            INNER JOIN orders ON orders.id = order_products.order_id WHERE orders.user_id = 2;";
+            INNER JOIN orders ON orders.id = order_products.order_id WHERE orders.user_id = $userId;";
 
             $stmt = $connection->prepare($query);
             $stmt->execute();

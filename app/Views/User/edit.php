@@ -147,4 +147,4 @@ if (isset($url)) {
 $extra_js = ob_get_clean();
 ?>
 
-<?php include('app/Views/Layouts/app.php') ?>
+<?php include('app/Views/Layouts/admin.php') ?>
