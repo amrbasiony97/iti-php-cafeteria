@@ -11,15 +11,13 @@ class CheckController
         View::load('Check/index', $data =  [
             'allChecks' => $allChecks
         ]);
-    } // FIXME
-
+    }
 
     public function editCheckStatus()
     {
-        $id  = $_POST['id'] ; 
+        $id  = $_POST['id'];
         $checkOrder =  Database::select_one('orders', $id);
         if ($checkOrder['status'] == 'processing') {
-            // TODO >> change the status for the out for delivery  ; 
             $queryData = [];
             $queryData['status'] = 'out for delivery';
             $result = Database::update('orders', $_POST['id'], $queryData);
@@ -28,7 +26,6 @@ class CheckController
                 'allChecks' => $allChecks
             ]);
         } else if ($checkOrder['status'] == 'out for delivery') {
-            // Todo make it done 
             $queryData = [];
             $queryData['status'] = 'done';
             $result = Database::update('orders', $_POST['id'], $queryData);
@@ -37,7 +34,5 @@ class CheckController
                 'allChecks' => $allChecks
             ]);
         }
-
-        // todo >> redirect to the home of the checks again ! 
     }
 }
