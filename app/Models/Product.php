@@ -9,28 +9,29 @@ class Product
         return Database::select(self::$table);
     }
 
-    static function getOneProduct($id)
+    static function validateCreate()
     {
-        $connection = Database::connect();
-        $stmt = $connection->prepare("SELECT * FROM products WHERE id = ?");
-        $stmt->execute([$id]);
-        return $stmt->fetch(); // TODO
-    }
+        $errors = [];
 
-    static function createOneProduct($tableName, $productRecord)
-    {
-        // TODO
+        // Validate name
+        Validate::empty($_POST['name'], $errors, 'Name is required');
+        Validate::unique(
+            $_POST['name'],
+            $errors,
+            'Product already exists',
+            "SELECT * FROM products WHERE name = ?"
+        );
 
-    }
+        // Validate price
+        Validate::positiveNumber($_POST['price'], $errors, 'Price');
 
-
-    static function updateOneProduct($tableName, $id, $data)
-    {
-        $result = DataBase::update($tableName, $id, $data);
-    }
-
-    static function deleteProduct($tableName, $id)
-    {
-        $result  = Database::delete($tableName, $id);
+        // Validate image
+        $image = Validate::image($errors, 'products');
+        
+        return [
+            'errors' => $errors,
+            'fileTmp' => $image['fileTmp'],
+            'imgPath' => $image['imgPath']
+        ];
     }
 }
