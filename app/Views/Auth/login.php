@@ -43,6 +43,23 @@
           <?php
           } 
           ?>
+
+          <?php 
+          if(isset($_SESSION['msg'])){ ?>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              <ul>
+              <?php
+                
+                  ?>
+                  <li><?= $_SESSION['msg'] ?></li>
+                  <?php
+              ?>
+              </ul>
+            </div>
+          <?php
+          } 
+          ?>
           
           <script>
             var alertList = document.querySelectorAll('.alert');
@@ -72,7 +89,10 @@
                 <hr>
                 <div class="d-flex justify-content-between align-items-baseline">
                   <button type="submit" class="btn btn-primary">Login</button>
-                  <a href="">Register?</a>
+                  <div>
+                    <a href="<?= route("auth/email") ?>">Forgot Password</a> or
+                    <a href="<?= route("auth/register") ?>">Register</a>
+                  </div>
                 </div>
               </form>
 
@@ -87,3 +107,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
  </body>
 </html>
+
+<?php
+if (isset($url)) {
+  echo "<script>history.replaceState({}, '', '".BASE_URL.$url."')</script>;";
+}
+?>

@@ -3,7 +3,7 @@
 class User
 {
     private static $table = 'users';
-    
+
     static function getAll()
     {
         return Database::select(self::$table);
@@ -35,11 +35,11 @@ class User
         // Validate email
         Validate::email($_POST['email'], $errors);
         Validate::unique(
-            $_POST['email'], 
-            $errors, 
-            'Email already exists', 
+            $_POST['email'],
+            $errors,
+            'Email already exists',
             "SELECT * FROM users WHERE email = ?"
-        );        
+        );
 
         // Validate password
         Validate::password($_POST['password'], $errors);
@@ -50,7 +50,10 @@ class User
         Validate::number_nullable($_POST['ext'], $errors, 'Ext must be a number');
 
         // Validate image
-        $image = Validate::image($errors);
+        $image = Validate::image($errors, 'users');
+
+        // Validate Secret
+        Validate::empty($_POST['secret'], $errors, 'Secret is required');
 
         return [
             'errors' => $errors,
@@ -69,26 +72,26 @@ class User
         // Validate email
         Validate::email($_POST['email'], $errors);
         Validate::unique(
-            $_POST['email'], 
-            $errors, 
-            'Email already exists', 
+            $_POST['email'],
+            $errors,
+            'Email already exists',
             "SELECT * FROM users WHERE email = ?",
             self::getEmail($_POST['id'])
-        );        
+        );
 
         // Validate password
         if (!empty($_POST['password'])) {
             Validate::password($_POST['password'], $errors);
         }
         Validate::match_password($_POST['password'], $_POST['password2'], $errors);
-        
-        
+
+
         // Validate room number & ext
         Validate::number_nullable($_POST['room_number'], $errors, 'Room number must be a number');
         Validate::number_nullable($_POST['ext'], $errors, 'Ext must be a number');
 
         // Validate image
-        $image = Validate::image($errors, self::getImage($_POST['id']));
+        $image = Validate::image($errors, 'users', self::getImage($_POST['id']));
 
         return [
             'errors' => $errors,
@@ -97,7 +100,8 @@ class User
         ];
     }
 
-    static function validateLoginData(){
+    static function validateLoginData()
+    {
         $errors = [];
 
         Validate::empty($_POST['email'], $errors, 'Email field required...!');
@@ -108,6 +112,40 @@ class User
 
         return [
             'errors' => $errors,
+        ];
+    }
+
+    static function validateEmail(){
+        $errors = [];
+
+        Validate::empty($_POST['email'], $errors, 'Email field required...!');
+        Validate::email($_POST['email'], $errors, 'Must be a real email...!');
+
+        return [
+            'errors' => $errors
+        ];
+    }
+
+    static function validateSecret(){
+        $errors = [];
+
+        Validate::empty($_POST['secret'], $errors, 'Secret Key field required...!');
+
+        return [
+            'errors' => $errors
+        ];
+    }
+
+    static function validateNewPassword(){
+        $errors = [];
+
+        Validate::empty($_POST['password'], $errors, 'Password Field Required...!');
+        Validate::password($_POST['password'], $errors, 'Password Must be strong Password...!');
+        Validate::empty($_POST['password2'], $errors, 'Confirmed Password Required...!');
+        Validate::match_password($_POST['password'], $_POST['password2'], $errors, 'Confirmed Password Required...!');
+        
+        return [
+            'errors' => $errors
         ];
     }
 }
