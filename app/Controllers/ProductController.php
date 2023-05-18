@@ -1,6 +1,6 @@
 <?php
-if(!isset($_SESSION['user'])){
-    header("Location: /iti-php-cafeteria/public/auth/login");       
+if(!isset($_SESSION['user']) || $_SESSION['user']['role'] != 'admin'){
+    header("Location: /iti-php-cafeteria/public/Auth/login");       
 }
 
 class ProductController
@@ -9,10 +9,8 @@ class ProductController
     public function index()
     {
         $allProducts = Product::getAll();
-        // var_dump($allProducts);
-        // echo "This is Index For Product" ;
-        View::load('Product/index', $data =  [
-            'allData' => $allProducts
+        View::load('Product/index', [
+            'products' => $allProducts
         ]);
     }
 
