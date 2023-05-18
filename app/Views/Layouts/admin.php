@@ -70,8 +70,8 @@
                 </li>
                 <li><a><i class="fa fa-product-hunt"></i> Products <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
-                    <li><a href="#">All Products</a></li>
-                    <li><a href="#">Add Product</a></li>
+                    <li><a href="<?php route('Product/index') ?>">All Products</a></li>
+                    <li><a href="<?php route('Product/create') ?>">Add Product</a></li>
                   </ul>
                 </li>
                 <li><a><i class="fa fa-coffee"></i> Manual Order <span class="fa fa-chevron-down"></span></a>
