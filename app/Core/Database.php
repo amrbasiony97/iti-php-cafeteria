@@ -69,6 +69,19 @@ class Database
         }
     }
 
+    static function selectByEmail($table, $email)
+    {
+        self::connect();
+        try {
+            $query = "SELECT * FROM {$table} WHERE email = '{$email}';";
+            $stmt = self::$connection->prepare($query);
+            $stmt->execute();
+            return $stmt->fetch();
+        } catch (Exception $e) {
+            echo 'Error: '. $e->getMessage();
+        }
+    }
+
     static function update($table, $id, $record)
     {
         self::connect();

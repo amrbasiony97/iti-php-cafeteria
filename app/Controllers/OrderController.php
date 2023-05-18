@@ -1,5 +1,7 @@
 <?php
-
+if(!isset($_SESSION['user'])){
+    header("Location: /iti-php-cafeteria/public/auth/login");       
+}
 class OrderController
 {
     public function index()

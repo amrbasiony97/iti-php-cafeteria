@@ -1,172 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cafeteria | Login</title>
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-  <style>
-    img {
-      width: 100%;
-    }
+    <style>
+      body{
+        background: #F3904F;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, #3B4371, #F3904F);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, #3B4371, #F3904F); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+      }
 
-    .login {
-      height: 100vh;
-      width: 100%;
-      background: radial-gradient(#9a6223, #9a6223);
-      position: relative;
-    }
-
-    .login_box {
-      width: 1050px;
-      height: 600px;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 1px 4px 22px -8px #0004;
-      display: flex;
-      overflow: hidden;
-    }
-
-    .login_box .left {
-      width: 41%;
-      height: 100%;
-      padding: 25px 25px;
-
-    }
-
-    .login_box .right {
-      width: 59%;
-      height: 100%
-    }
-
-    .left .top_link a {
-      color: #452A5A;
-      font-weight: 400;
-    }
-
-    .left .top_link {
-      height: 20px
-    }
-
-    .left .contact {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      align-self: center;
-      height: 100%;
-      width: 73%;
-      margin: auto;
-    }
-
-    .left h3 {
-      text-align: center;
-      margin-bottom: 40px;
-    }
-
-    .left input {
-      border: none;
-      width: 80%;
-      margin: 15px 0px;
-      border-bottom: 1px solid #4f30677d;
-      padding: 7px 9px;
-      width: 100%;
-      overflow: hidden;
-      background: transparent;
-      font-weight: 600;
-      font-size: 14px;
-    }
-
-    .left {
-      background: linear-gradient(-45deg, #dcd7e0, #fff);
-    }
-
-    .submit {
-      border: none;
-      padding: 15px 70px;
-      border-radius: 8px;
-      display: block;
-      margin: auto;
-      margin-top: 120px;
-      background: #D18731;
-      color: #fff;
-      font-weight: bold;
-      -webkit-box-shadow: 0px 9px 15px -11px rgba(88, 54, 114, 1);
-      -moz-box-shadow: 0px 9px 15px -11px rgba(88, 54, 114, 1);
-      box-shadow: 0px 9px 15px -11px rgba(88, 54, 114, 1);
-    }
+      .card{
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+      }
+    </style>
 
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+  </head>
+  <body style="background-image: url('<?php asset('images/2.jpg') ?>');background-repeat: no-repeat;background-size: cover;  background-attachment: fixed;">
 
-    .right {
-      background: linear-gradient(212.38deg, rgba(218, 159, 91, 0.5) 0%, rgba(209, 135, 49, 0.5) 100%), url(https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8Y2FmZXxlbnwwfHwwfHw%3D&w=1000&q=80);
-      color: #fff;
-      position: relative;
-    }
+    <div class="container mt-5">
+      <div class="row justify-content-center align-items-center">
+        <div class="col-md-6 m-auto mt-5">
+          <?php 
+          if(!empty($errors)){ ?>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              <ul>
+              <?php
+                foreach($errors as $error){
+                  ?>
+                  <li><?= $error ?></li>
+                  <?php
+                } 
+              ?>
+              </ul>
+            </div>
+          <?php
+          } 
+          ?>
+          
+          <script>
+            var alertList = document.querySelectorAll('.alert');
+            alertList.forEach(function (alert) {
+              new bootstrap.Alert(alert)
+            })
+          </script>
+            
 
-    .right .right-text {
-      height: 100%;
-      position: relative;
-      transform: translate(0%, 45%);
-    }
+          <!-- From Card -->
+          <div class="card mt-5">
+            <h4 class="card-header text-center">Login</h4>
+            <div class="card-body">
+              <form action="<?php route('auth/applyLogin') ?>" method="POST">
+                <!-- Email input -->
+                <div class="mb-3">
+                  <label for="email" class="form-label">Email</label>
+                  <input type="email" name="email" id="email" class="form-control" placeholder="Enter email" value="<?php if(!empty($data)) {echo $data['email'];} ?>" aria-describedby="helpId">
+                </div>
 
-    .right-text h2 {
-      display: block;
-      width: 100%;
-      text-align: center;
-      font-size: 50px;
-      font-weight: 500;
-    }
+                <!-- Password input -->
+                <div class="mb-3">
+                  <label for="password" class="form-label">Password</label>
+                  <input type="password" name="password" id="password" class="form-control" placeholder="Enter password" aria-describedby="helpId">
+                </div>
+                <!-- Submit button -->
+                <hr>
+                <div class="d-flex justify-content-between align-items-baseline">
+                  <button type="submit" class="btn btn-primary">Login</button>
+                  <a href="">Register?</a>
+                </div>
+              </form>
 
-    .right-text h5 {
-      display: block;
-      width: 100%;
-      text-align: center;
-      font-size: 19px;
-      font-weight: 400;
-    }
+            </div>
+          </div>
+          <!-- End OF Form Card -->
 
-    .right .right-inductor {
-      position: absolute;
-      width: 70px;
-      height: 7px;
-      background: #fff0;
-      left: 50%;
-      bottom: 70px;
-      transform: translate(-50%, 0%);
-    }
-
-    .top_link img {
-      width: 28px;
-      padding-right: 7px;
-      margin-top: -3px;
-    }
-  </style>
-</head>
-
-<body>
-  <section class="login">
-    <div class="login_box">
-      <div class="left">
-        <div class="top_link"><a href="<?php route('Home/index') ?>"><img src="https://drive.google.com/u/0/uc?id=16U__U5dJdaTfNGobB_OpwAJ73vM50rPV&export=download" alt="Home">Return home</a></div>
-        <div class="contact">
-          <form action="">
-            <h3>SIGN IN</h3>
-            <input type="text" placeholder="EMAIL">
-            <input type="text" placeholder="PASSWORD">
-            <button class="submit">LOGIN</button>
-          </form>
         </div>
       </div>
-      <div class="right">
-      </div>
     </div>
-  </section>
-</body>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+ </body>
 </html>

@@ -96,4 +96,18 @@ class User
             'imgPath' => $image['imgPath']
         ];
     }
+
+    static function validateLoginData(){
+        $errors = [];
+
+        Validate::empty($_POST['email'], $errors, 'Email field required...!');
+        Validate::empty($_POST['password'], $errors, 'Password field required...!');
+
+        Validate::email($_POST['email'], $errors, 'Email must be in email format "example@example.com"...!');
+        Validate::password($_POST['password'], $errors, 'Password field required...!');
+
+        return [
+            'errors' => $errors,
+        ];
+    }
 }
