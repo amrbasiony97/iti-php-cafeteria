@@ -128,6 +128,5 @@ class ProductController
 
     public function destroy()
     {
-        
     }
 }

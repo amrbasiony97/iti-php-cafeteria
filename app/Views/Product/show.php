@@ -26,6 +26,7 @@
         <div class="d-flex flex-column mt-4">
             <a class="btn btn-primary btn-sm" href="<?php echo route("Product/edit/{$product['id']}") ?>">Edit</a>
             <form action="" method="post">
+                
                 <button class="btn btn-danger btn-sm mt-2">Delete</button>
             </form>
         </div>
