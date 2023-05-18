@@ -30,6 +30,9 @@ class AuthController
                     if ($_SESSION['user']['role'] == 'admin') {
                         View::redirect('User/index', ['users' => User::getAll()]);
                     }
+                    else if ($_SESSION['user']['role'] == 'customer') {
+                        View::redirect('Order/index');
+                    }
                     else {
                         header("Location: /iti-php-cafeteria/public/");
                     }
