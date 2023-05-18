@@ -1,9 +1,5 @@
 <?php
-<<<<<<< HEAD
 session_status() === PHP_SESSION_ACTIVE ?: session_start();
-=======
-
->>>>>>> ed07a093e7a334a61a759cedac536e3a7741b9a8
 class AuthController
 {
     public function login()
