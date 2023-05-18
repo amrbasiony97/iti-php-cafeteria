@@ -110,5 +110,26 @@ class ProductController
 
     public function destroy()
     {
+        Validate::request_method('POST');
+        
+        $imgPath = Product::getImage($_POST['id']);
+        $result = Database::delete('products', $_POST['id']);
+
+        if ($result) {
+            // Delete image if exists
+            if ($imgPath != 'default.jpg') {
+                $path = UPLOADS.'images'.DS.'products'.DS.$imgPath;
+                unlink($path);
+            }
+            View::redirect('Product/index', [
+                'products' => Product::getAll(),
+                'success' => 'Product deleted successfully'
+            ]);
+        }
+        else {
+            View::redirect('Product/index', [
+                'errors' => ['Product not found']
+            ]);
+        }
     }
 }
