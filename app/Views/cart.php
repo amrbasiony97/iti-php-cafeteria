@@ -89,7 +89,7 @@ ob_start();
                     <td class='text-center align-middle'> $product[3]  </td>
 
                     <td>
-                      <form action='http://localhost/php/iti-php-cafeteria/public/Order/delete' method='POST' 
+                      <form action='https://localhost/iti-php-cafeteria/public/Order/delete' method='POST' 
                         class='text-center'> 
                         <input type='hidden' name='order_products_id' value=" . "$product[5]" . " />
                         <button type='submit' class='btn btn-primary height-auto btn-sm delete-button'>
@@ -203,7 +203,7 @@ ob_start();
         let productCountInput = this.parentNode.parentNode.querySelector('input');
 
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'http://localhost/php/iti-php-cafeteria/public/Order/increase', true);
+        xhr.open('POST', 'https://localhost/iti-php-cafeteria/public/Order/increase', true);
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.responseType = 'json';
         xhr.onload = function() {
@@ -227,7 +227,7 @@ ob_start();
         let productCountInput = this.parentNode.parentNode.querySelector('input');
 
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'http://localhost/php/iti-php-cafeteria/public/Order/decrease', true);
+        xhr.open('POST', 'https://localhost/iti-php-cafeteria/public/Order/decrease', true);
 
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.responseType = 'json';
@@ -254,7 +254,7 @@ ob_start();
         var xhr = new XMLHttpRequest();
 
         // Set the HTTP method and URL for the request
-        xhr.open('POST', 'http://localhost/php/iti-php-cafeteria/public/Order/getAllProducts', true);
+        xhr.open('POST', 'https://localhost/iti-php-cafeteria/public/Order/getAllProducts', true);
 
         // Set the response type to JSON
         xhr.responseType = 'json';
@@ -284,7 +284,7 @@ ob_start();
         var xhr = new XMLHttpRequest();
 
         // Set the HTTP method and URL for the request
-        xhr.open('POST', 'http://localhost/php/iti-php-cafeteria/public/Order/delete', true);
+        xhr.open('POST', 'https://localhost/iti-php-cafeteria/public/Order/delete', true);
 
         // Set the response type to JSON
         xhr.responseType = 'json';
