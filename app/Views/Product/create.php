@@ -4,8 +4,8 @@ $title = "Create Product";
 ob_start();
 ?>
 
-    <!-- Toastr -->
-    <link rel="stylesheet" href="<?php asset('gentelella/vendors/toastr/toastr.min.css') ?>">
+<!-- Toastr -->
+<link rel="stylesheet" href="<?php asset('gentelella/vendors/toastr/toastr.min.css') ?>">
 
 <?php
 $extra_css = ob_get_clean();
@@ -38,10 +38,20 @@ ob_start();
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="price">Price <span class="required">*</span>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="price">Price (EGP) <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input value="<?php if (!empty($data)) echo $data['price'] ?>" type="number" id="price" name="price" class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12 ">Category</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <select class="form-control" name="category">
+                                    <?php foreach ($categories as $category) : ?>
+                                        <option value="<?php echo $category['id'] ?>"><?php echo $category['name'] ?></option>
+                                    <?php endforeach; ?>
+                                </select>
                             </div>
                         </div>
                         <div class="item form-group">
@@ -72,11 +82,11 @@ $content = ob_get_clean();
 ob_start();
 ?>
 
-    <!-- validator -->
-    <script src="<?php asset('gentelella/vendors/validator/validator.js') ?>"></script>
+<!-- validator -->
+<script src="<?php asset('gentelella/vendors/validator/validator.js') ?>"></script>
 
-    <!-- Toastr -->
-    <script src="<?php asset('gentelella/vendors/toastr/toastr.min.js') ?>"></script>
+<!-- Toastr -->
+<script src="<?php asset('gentelella/vendors/toastr/toastr.min.js') ?>"></script>
 
 <script>
     $(document).ready(function() {
@@ -102,17 +112,17 @@ ob_start();
                     "showMethod": "fadeIn",
                     "hideMethod": "fadeOut"
                 }
-    <?php   }
+        <?php   }
         }
         ?>
 
 
     });
 </script>
-    
+
 <?php
 if (isset($url)) {
-  echo "<script>history.replaceState({}, '', '".BASE_URL.$url."')</script>;";
+    echo "<script>history.replaceState({}, '', '" . BASE_URL . $url . "')</script>;";
 }
 ?>
 

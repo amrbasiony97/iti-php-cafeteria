@@ -9,7 +9,7 @@ class CheckController
     {
         $allChecks  =  Database::select('orders');
         View::load('Check/index', $data =  [
-            'allChecks' => $allChecks
+            'checks' => $allChecks
         ]);
     }
 
@@ -24,7 +24,7 @@ class CheckController
                 $result = Database::update('orders', $_POST['id'], $queryData);
                 $allChecks  =  Database::select('orders');
                 View::load('Check/index', $data =  [
-                    'allChecks' => $allChecks
+                    'checks' => $allChecks
                 ]);
             } else if ($checkOrder['status'] == 'out for delivery') {
                 $queryData = [];
@@ -32,13 +32,13 @@ class CheckController
                 $result = Database::update('orders', $_POST['id'], $queryData);
                 $allChecks  =  Database::select('orders');
                 View::load('Check/index', $data =  [
-                    'allChecks' => $allChecks
+                    'checks' => $allChecks
                 ]);
             }
         } else {
             $allChecks  =  Database::select('orders');
             View::load('Check/index', $data =  [
-                'allChecks' => $allChecks
+                'checks' => $allChecks
             ]);
         }
     }
