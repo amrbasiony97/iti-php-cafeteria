@@ -55,6 +55,17 @@ class Validate
         }
     }
 
+    public static function positiveNumber($number, &$errors, $title)
+    {
+        $numberPattern = '/^[0-9]+$/';
+        if (!preg_match_all($numberPattern, $number)) {
+            array_push($errors, $title.' must be a number');
+        }
+        else if ($number <= 0) {
+            array_push($errors, $title.' must be greater than 0');
+        }
+    }
+
     public static function number_nullable(&$number, &$errors, $msg)
     {
         $numberPattern = '/^[0-9]*$/';
@@ -66,7 +77,7 @@ class Validate
         }
     }
 
-    public static function image(&$errors, $defaultImage = 'default.jpg')
+    public static function image(&$errors, $table, $defaultImage = 'default.jpg')
     {
         $fileTmp = $_FILES['image']['tmp_name'];
         $fileType = $_FILES['image']['type'];
@@ -91,9 +102,9 @@ class Validate
         $id = floor(microtime(true) * 1000);
         if (!$isImageEmpty) {
             $fileName = $id . '.' . $extension;
-            $imgPath = "images".DS."users".DS.$fileName;
+            $imgPath = "images".DS.$table.DS.$fileName;
             if (empty($validate['errors']) && $defaultImage != 'default.jpg') {
-                $path = UPLOADS.'images'.DS.'users'.DS.$defaultImage;
+                $path = UPLOADS.'images'.DS.$table.DS.$defaultImage;
                 unlink($path);
             }
         }

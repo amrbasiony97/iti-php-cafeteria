@@ -1,6 +1,6 @@
 <?php
-if(!isset($_SESSION['user'])){
-    header("Location: /iti-php-cafeteria/public/auth/login");       
+if(!isset($_SESSION['user']) || $_SESSION['user']['role'] != 'admin'){
+    header("Location: /iti-php-cafeteria/public/Auth/login");       
 }
 class UserController
 {
@@ -18,7 +18,7 @@ class UserController
     {
         Validate::request_method('POST');
         $validate = User::validateCreate();
-
+        
         if (!empty($validate['errors'])) {
             View::redirect('User/create', [
                 'errors' => $validate['errors'],
@@ -28,7 +28,7 @@ class UserController
             $file = $validate['imgPath'];
             $imgPath = end(explode('/', $file));
             $hashed = password_hash($_POST['password'], PASSWORD_DEFAULT);
-
+         
             $result = Database::insert('users', [
                 'name' => $_POST['name'],
                 'email' => $_POST['email'],
@@ -83,6 +83,7 @@ class UserController
         else {
             $file = $validate['imgPath'];
             $imgPath = end(explode('/', $file));
+<<<<<<< HEAD
             $hashed = password_hash($_POST['password'], PASSWORD_DEFAULT);
             // die($hashed);
             $result = Database::update('users', $_POST['id'], [
@@ -94,7 +95,21 @@ class UserController
                 'ext' => $_POST['ext'],
                 'role' => 'customer'
             ]);
+=======
+>>>>>>> dev
 
+            $queryData = [];
+            if (!empty($_POST['name'])) $queryData['name'] = $_POST['name'];
+            if (!empty($_POST['email'])) $queryData['email'] = $_POST['email'];
+            if (!empty($imgPath)) $queryData['image'] = $imgPath;
+            if (!empty($_POST['password'])) {
+                $hashed = password_hash($_POST['password'], PASSWORD_DEFAULT);
+                $queryData['password'] = $hashed;
+            }
+            if (!empty($_POST['room_number'])) $queryData['room_number'] = $_POST['room_number'];
+            if (!empty($_POST['ext'])) $queryData['ext'] = $_POST['ext'];
+
+            $result = Database::update('users', $_POST['id'], $queryData);
 
             if ($result) {
                 $imgPath = UPLOADS.$validate['imgPath'];

@@ -9,6 +9,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
+session_status() === PHP_SESSION_ACTIVE ?: session_start();
 class AuthController
 {
     private static $random;
@@ -56,11 +57,21 @@ class AuthController
                         'id' => $query['id'],
                         'name' => $query['name'],
                         'role' => $query['role'],
+                        'image' => $query['image'],
                     ];
 
                     session_start();
                     $_SESSION['user'] = $userData;
-                    header("Location: /iti-php-cafeteria/public/");
+
+                    if ($_SESSION['user']['role'] == 'admin') {
+                        View::redirect('User/index', ['users' => User::getAll()]);
+                    }
+                    else if ($_SESSION['user']['role'] == 'customer') {
+                        View::redirect('Order/index');
+                    }
+                    else {
+                        header("Location: /iti-php-cafeteria/public/");
+                    }
                 } else {
                     View::redirect('Auth/login', ['errors' => ['Invalid Credentials...!'], 'data' => $_POST]);
                 }

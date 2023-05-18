@@ -1,6 +1,6 @@
 <!-- Title and Extra CSS -->
 <?php
-$title = "Create User";
+$title = "Create Product";
 ob_start();
 ?>
 
@@ -19,7 +19,7 @@ ob_start();
 <div class="">
     <div class="page-title d-flex justify-content-between align-items-center">
         <div class="title_left">
-            <h3 class="m-0">Add User</h3>
+            <h3 class="m-0">Add Product</h3>
         </div>
     </div>
 
@@ -29,49 +29,23 @@ ob_start();
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_content">
-                    <form action="<?php route('user/store') ?>" method="POST" enctype="multipart/form-data" class="form-horizontal form-label-left" novalidate>
+                    <form action="<?php route('product/store') ?>" method="POST" enctype="multipart/form-data" class="form-horizontal form-label-left" novalidate>
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Name <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input value="<?php if (!empty($data)) echo $data['name'] ?>" id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="2" data-validate-words="1" name="name" placeholder="both name(s) e.g John Doe" required="required" type="text">
+                                <input value="<?php if (!empty($data)) echo $data['name'] ?>" id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="2" data-validate-words="1" name="name" placeholder="e.g Coffee" required="required" type="text">
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">Email <span class="required">*</span>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="price">Price <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input value="<?php if (!empty($data)) echo $data['email'] ?>" type="email" id="email" name="email" required="required" class="form-control col-md-7 col-xs-12">
+                                <input value="<?php if (!empty($data)) echo $data['price'] ?>" type="number" id="price" name="price" class="form-control col-md-7 col-xs-12">
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label for="password" class="control-label col-md-3">Password <span class="required">*</span>
-                            </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input value="<?php if (!empty($data)) echo $data['password'] ?>" id="password" type="password" name="password" data-validate-length="6,8" class="form-control col-md-7 col-xs-12" required="required">
-                            </div>
-                        </div>
-                        <div class="item form-group">
-                            <label for="password2" class="control-label col-md-3 col-sm-3 col-xs-12">Confirm Password <span class="required">*</span>
-                            </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input value="<?php if (!empty($data)) echo $data['password2'] ?>" id="password2" type="password" name="password2" data-validate-linked="password" class="form-control col-md-7 col-xs-12" required="required">
-                            </div>
-                        </div>
-                        <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="room_number">Room Number</label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input value="<?php if (!empty($data)) echo $data['room_number'] ?>" type="number" id="room_number" name="room_number" class="form-control col-md-7 col-xs-12">
-                            </div>
-                        </div>
-                        <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="ext">Ext.</label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input value="<?php if (!empty($data)) echo $data['ext'] ?>" type="number" id="ext" name="ext" class="form-control col-md-7 col-xs-12">
-                            </div>
-                        </div>
-                        <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="image">Profile Picture</label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="image">Product Picture</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input type="file" id="image" name="image" class="form-control col-md-7 col-xs-12">
                             </div>
