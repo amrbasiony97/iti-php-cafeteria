@@ -84,7 +84,7 @@ class UserController
             $file = $validate['imgPath'];
             $imgPath = end(explode('/', $file));
             $hashed = password_hash($_POST['password'], PASSWORD_DEFAULT);
-            die($hashed);
+            // die($hashed);
             $result = Database::update('users', $_POST['id'], [
                 'name' => $_POST['name'],
                 'email' => $_POST['email'],

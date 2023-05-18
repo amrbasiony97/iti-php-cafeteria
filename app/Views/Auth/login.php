@@ -43,6 +43,23 @@
           <?php
           } 
           ?>
+
+          <?php 
+          if(isset($_SESSION['msg'])){ ?>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              <ul>
+              <?php
+                
+                  ?>
+                  <li><?= $_SESSION['msg'] ?></li>
+                  <?php
+              ?>
+              </ul>
+            </div>
+          <?php
+          } 
+          ?>
           
           <script>
             var alertList = document.querySelectorAll('.alert');
@@ -72,7 +89,10 @@
                 <hr>
                 <div class="d-flex justify-content-between align-items-baseline">
                   <button type="submit" class="btn btn-primary">Login</button>
-                  <a href="">Register?</a>
+                  <div>
+                    <a href="<?= route("auth/email") ?>">Forgot Password</a> or
+                    <a href="<?= route("auth/register") ?>">Register</a>
+                  </div>
                 </div>
               </form>
 

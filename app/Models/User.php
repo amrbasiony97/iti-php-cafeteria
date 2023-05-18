@@ -52,6 +52,9 @@ class User
         // Validate image
         $image = Validate::image($errors);
 
+        // Validate Secret
+        Validate::empty($_POST['secret'], $errors, 'Secret is required');
+
         return [
             'errors' => $errors,
             'fileTmp' => $image['fileTmp'],
@@ -108,6 +111,40 @@ class User
 
         return [
             'errors' => $errors,
+        ];
+    }
+
+    static function validateEmail(){
+        $errors = [];
+
+        Validate::empty($_POST['email'], $errors, 'Email field required...!');
+        Validate::email($_POST['email'], $errors, 'Must be a real email...!');
+
+        return [
+            'errors' => $errors
+        ];
+    }
+
+    static function validateSecret(){
+        $errors = [];
+
+        Validate::empty($_POST['secret'], $errors, 'Secret Key field required...!');
+
+        return [
+            'errors' => $errors
+        ];
+    }
+
+    static function validateNewPassword(){
+        $errors = [];
+
+        Validate::empty($_POST['password'], $errors, 'Password Field Required...!');
+        Validate::password($_POST['password'], $errors, 'Password Must be strong Password...!');
+        Validate::empty($_POST['password2'], $errors, 'Confirmed Password Required...!');
+        Validate::match_password($_POST['password'], $_POST['password2'], $errors, 'Confirmed Password Required...!');
+        
+        return [
+            'errors' => $errors
         ];
     }
 }

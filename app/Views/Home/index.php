@@ -469,7 +469,17 @@
                     <a href="<?php route('Home/service') ?>" class="nav-item nav-link">Service</a>
                     <a href="<?php route('Home/menu') ?>" class="nav-item nav-link">Menu</a>
                     <a href="<?php route('Home/contact') ?>" class="nav-item nav-link">Contact</a>
-                    <a href="<?php route('Auth/login') ?>" class="nav-item nav-link">Login</a>
+                    <?php
+                        if(isset($_SESSION['user'])){
+                            ?>
+                            <a href="<?php route('auth/logout') ?>" class="nav-item nav-link">Logut</a>
+                            <?php
+                        }else{
+                            ?>
+                            <a href="<?php route('Auth/login') ?>" class="nav-item nav-link">Login</a>
+                            <?php
+                        }
+                    ?>
                 </div>
             </div>
         </nav>
