@@ -119,8 +119,10 @@ class AuthController
                 if ($result) {
                     $imgPath = UPLOADS.$validateUserData['imgPath'];
                     move_uploaded_file($validateUserData['fileTmp'], $imgPath);
+
+                    User::welcomeMail($_POST['email']);
+
                     View::redirect('Auth/login', [
-                        'users' => User::getAll(),
                         'success' => 'User created successfully'
                     ]);
                 }
