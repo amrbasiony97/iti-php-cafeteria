@@ -54,7 +54,7 @@ if (!empty($products)) {
       <tbody>
         <?php
 
-        foreach ($products as $key => $product) {
+        foreach ($cart_items as $key => $product) {
 
           echo "
                   <tr>
