@@ -35,6 +35,36 @@ class CartController
         }
     }
 
+    public function create()
+    {
+        $userId = $_SESSION["user"]["id"];
+        try {
+
+            $connection = Database::connect();
+
+            $query = "SELECT  products.image, products.name, products.price,
+                cart.totalPrice, cart_items.quantity, cart_items.id as cart_item_id
+            FROM products
+            INNER JOIN cart_items ON products.id = cart_items.productId
+            INNER JOIN cart ON cart.id = cart_items.cartId WHERE cart.userId = $userId;";
+
+            $stmt = $connection->prepare($query);
+            $stmt->execute();
+            $cart_items = $stmt->fetchAll();
+
+            $totalPrice = $this->estimatingTotalPrice($connection);
+
+            $products = Database::select('products');
+            return View::load("Cart/purchase", [
+                "products" => $products,
+                "cart_items" => $cart_items, 
+                "totalPrice" => $totalPrice
+            ]);
+        } catch (Exception $e) {
+            echo 'Error: ' . $e->getMessage();
+        }
+    }
+
     //API Functions
     public function getAllProducts()
     {
