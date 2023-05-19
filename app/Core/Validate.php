@@ -19,6 +19,13 @@ class Validate
         }
     }
 
+    public static function exists($table, $id, &$errors, $msg)
+    {
+        if (!Database::select_one($table, $id)) {
+            array_push($errors, $msg);
+        }
+    }
+
     public static function email($email, &$errors)
     {
         self::empty($email, $errors, 'Email is required');

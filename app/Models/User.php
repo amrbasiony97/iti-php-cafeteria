@@ -1,5 +1,14 @@
 <?php
 
+require_once __DIR__ . "/../PHPMailer/src/PHPMailer.php";
+require_once __DIR__ . "/../PHPMailer/src/SMTP.php";
+require_once __DIR__ . "/../PHPMailer/src/Exception.php";
+
+// use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
 class User
 {
     private static $table = 'users';
@@ -147,5 +156,46 @@ class User
         return [
             'errors' => $errors
         ];
+    }
+
+    static function welcomeMail($email = ''){
+        //Create an instance; passing `true` enables exceptions
+        $mail = new PHPMailer(true);
+            
+        try {
+            //Server settings
+            // $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+            $mail->isSMTP();                                            //Send using SMTP
+            $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
+            $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+            $mail->Username   = 'mudev307@gmail.com';                     //SMTP username
+            $mail->Password   = 'cjpjtgeqhunihcby';                               //SMTP password
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+            $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+        
+            //Recipients
+            $to = $email;
+            $mail->setFrom('admin@cafeteria.com', 'Cafeteria Admin');
+            $mail->addAddress($to, 'User');     //Add a recipient
+
+            //Content
+            $mail->isHTML(true);                                  //Set email format to HTML
+            $mail->Subject = 'Welcome Mail from @Cafeteria';
+            $mail->Body    = "Dear {$email},\n\n"
+                            . "Welcome to our website! We are delighted to have you as a member.\n\n"
+                            . "If you have any questions or need assistance, please don't hesitate to contact us.\n\n"
+                            . "Best regards,\n"
+                            . "Your Website Team";
+            $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+        
+            // Check if mail is sent...
+            if($mail->send()){
+                View::redirect('Auth/login', ['msg' => ['Mail sent successfully, check your email.']]);
+            }else{
+                View::redirect('Auth/login', ['errors' => ['Failed to send Email...!'], 'data' => $_POST]);
+            }
+        } catch (Exception $e) {
+            View::redirect('Auth/register', ['errors' => ["Message could not be sent. Mailer Error:"], 'data' => $_POST]);
+        }
     }
 }

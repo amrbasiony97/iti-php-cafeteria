@@ -65,7 +65,7 @@ class Database
             $stmt->execute();
             return $stmt->fetch();
         } catch (Exception $e) {
-            echo 'Error: '. $e->getMessage();
+            return false;
         }
     }
 
