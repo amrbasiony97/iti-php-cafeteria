@@ -1,6 +1,6 @@
 <!-- Title and Extra CSS -->
 <?php
-$title = "My Cart";
+$title = "All Products";
 ob_start();
 ?>
 
@@ -10,16 +10,10 @@ ob_start();
         display: flex;
     }
 
-    .cart {
-        background-color: #f7f7f7;
-        height: 70vh;
-        width: 30%;
-    }
-
     .products {
         margin: 10px;
         min-height: 70vh;
-        width: 70%;
+        width: 100%;
         display: flex;
         flex-wrap: wrap;
         justify-content: start;
@@ -68,7 +62,7 @@ ob_start();
 <div class="">
     <div class="page-title">
         <div class="title_left">
-            <h3 class="">Order</h3>
+            <h3 class="">All Products</h3>
         </div>
     </div>
 
@@ -78,9 +72,7 @@ ob_start();
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_content">
-                    <div class="cart">
-
-                    </div>
+                
                     <div class="products">
                         <?php
                         foreach ($products as $product) {

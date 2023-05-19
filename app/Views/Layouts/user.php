@@ -64,7 +64,8 @@
                             <ul class="nav side-menu">
                                 <li><a><i class="fa fa-coffee"></i> Order <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a href="<?php route('Cart/index') ?>">Order</a></li>
+                                        <li><a href="<?php route('Cart/index') ?>">Show Products</a></li>
+                                        <li><a href="<?php route('Cart/create') ?>">Order Now</a></li>
                                     </ul>
                                 </li>
                                 <li><a><i class="fa fa-credit-card"></i> My Orders <span class="fa fa-chevron-down"></span></a>
