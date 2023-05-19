@@ -274,15 +274,37 @@ class CartController
         $userId = $_SESSION["user"]["id"];
 
         $connection = Database::connect();
-        $query = "SELECT id FROM cart WHERE userId = $userId";
+
+        $query = "SELECT * FROM cart WHERE userId = $userId";
+        // $statement = mysqli_query($connection, $query);
         $statement = $connection->prepare($query);
         $statement->execute();
         $cart = $statement->fetch();
 
-        if (isset($cart)) {
-            $query = "INSERT INTO cart_items (cartId, productId, quantity) VALUES ({$cart['id']}, $productId, 1)";
+        if (isset($cart["userId"])) {
+            $query = "SELECT id FROM cart_items WHERE cartId = {$cart['id']} AND productId = $productId ";
             $statement = $connection->prepare($query);
             $statement->execute();
+            $product = $statement->fetch();
+
+            if (isset($product["id"])) {
+                $data = array(
+                    "message" => "Included"
+                );
+
+                echo json_encode($data);
+            } else {
+                $query = "INSERT INTO cart_items (cartId, productId, quantity) VALUES ({$cart['id']}, $productId, 1)";
+                $statement = $connection->prepare($query);
+                $statement->execute();
+
+                $data = array(
+                    "cart" => $cart,
+                    "message" => "success"
+                );
+
+                echo json_encode($data);
+            }
         } else {
             $query = "INSERT INTO cart (userId, totalPrice) VALUES ($userId, 0)";
             $statement = $connection->prepare($query);
@@ -291,17 +313,17 @@ class CartController
             $query = "SELECT id FROM cart WHERE userId = $userId";
             $statement = $connection->prepare($query);
             $statement->execute();
-            $cart = $statement->fetch();
+            $newcart = $statement->fetch();
 
-            $query = "INSERT INTO cart_items (cartId, productId, quantity) VALUES ({$cart['id']}, $productId, 1)";
+            $query = "INSERT INTO cart_items (cartId, productId, quantity) VALUES ({$newcart['id']}, $productId, 1)";
             $statement = $connection->prepare($query);
             $statement->execute();
+
+            $data = array(
+                "message" => "success"
+            );
+
+            echo json_encode($data);
         }
-
-        $data = array(
-            "message" => "success"
-        );
-
-        echo json_encode($data);
     }
 }
