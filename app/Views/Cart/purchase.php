@@ -101,7 +101,7 @@ if (!empty($products)) {
 
                     <td class='d-flex justify-content-center justify-content-center'>
                       <div class='d-flex justify-content-center justify-content-center'>
-                        <form action='https://localhost/iti-php-cafeteria/public/Cart/delete' method='POST' 
+                        <form action='http://localhost/iti-php-cafeteria/public/Cart/delete' method='POST' 
                           class='d-flex justify-content-center justify-content-center'> 
                           <input type='hidden' name='order_products_id' value=" . "{$product['cart_item_id']}" . " />
                           <button type='submit' class='btn btn-danger delete-button'>
@@ -128,7 +128,7 @@ if (!empty($products)) {
         </h3>
       </div>
     </div>
-    <form action="https://localhost/iti-php-cafeteria/public/Cart/checkout" method="GET">
+    <form action="http://localhost/iti-php-cafeteria/public/Cart/checkout" method="GET">
       <button type="submit" class="btn btn-primary checkoutBtn" style="width: 120px;">CheckOut</button>
     </form>
   </div>
@@ -309,4 +309,11 @@ if (isset($url)) {
 $extra_js = ob_get_clean();
 ?>
 
-<?php include('app/Views/Layouts/user.php') ?>
+<?php 
+    if ($_SESSION["user"]["role"] == "admin") {
+        include('app/Views/Layouts/admin.php');
+    }
+    else if ($_SESSION["user"]["role"] == "customer") {
+        include('app/Views/Layouts/user.php');
+    }
+?>

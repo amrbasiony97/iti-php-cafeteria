@@ -76,8 +76,8 @@
                 </li>
                 <li><a><i class="fa fa-coffee"></i> Manual Order <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
-                    <li><a href="#">All Orders</a></li>
-                    <li><a href="#">Add Order</a></li>
+                    <li><a href="<?php route('Cart/index') ?>">Show Products</a></li>
+                    <li><a href="<?php route('Cart/create') ?>">Order Now</a></li>
                   </ul>
                 </li>
                 <li><a><i class="fa fa-credit-card"></i> Checks <span class="fa fa-chevron-down"></span></a>
