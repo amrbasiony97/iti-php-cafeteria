@@ -1,5 +1,5 @@
 <?php
-if (!isset($_SESSION['user'])) {
+if (!isset($_SESSIN['user'])) {
     header("Location: /iti-php-cafeteria/public/auth/login");
 }
 
@@ -222,7 +222,6 @@ class CartController
             $product_count = $cartItem['quantity'];
             var_dump($product_count);
             $product_id = $cartItem['productId'];
-            var_dump($product_id);
 
             $orderQuery = "INSERT INTO order_products (order_id, product_count, product_id) VALUES ($orderId,
                 $product_count , $product_id );";
@@ -235,5 +234,36 @@ class CartController
         Database::delete("cart", $userCart["id"]);
 
         return $this->index();
+    }
+
+    public function addProductToCart()
+    {
+        $productId = $_POST["productId"];
+        $userId = $_SESSION["user"]["id"];
+
+        $connection = Database::connect();
+        $query = "SELECT id FROM cart WHERE userId = $userId";
+        $statement = $connection->prepare($query);
+        $statement->execute();
+        $cart = $statement->fetch();
+
+        if (isset($cart)) {
+            $query = "INSERT INTO cart_items (cartId, productId, quantity) VALUES ({$cart['id']}, $productId, 1)";
+            $statement = $connection->prepare($query);
+            $statement->execute();
+        } else {
+            $query = "INSERT INTO cart (userId, totalPrice) VALUES ($userId, 0)";
+            $statement = $connection->prepare($query);
+            $statement->execute();
+
+            $query = "SELECT id FROM cart WHERE userId = $userId";
+            $statement = $connection->prepare($query);
+            $statement->execute();
+            $cart = $statement->fetch();
+
+            $query = "INSERT INTO cart_items (cartId, productId, quantity) VALUES ({$cart['id']}, $productId, 1)";
+            $statement = $connection->prepare($query);
+            $statement->execute();
+        }
     }
 }

@@ -20,19 +20,23 @@ class AuthController
         $this->random = '';
     }
 
-    protected function setRandom(){
+    protected function setRandom()
+    {
         self::$random =  generateRandomKey();
     }
 
-    public function getRandom(){
+    public function getRandom()
+    {
         return self::$random;
     }
 
-    public function setSecret(){
+    public function setSecret()
+    {
         $this->secret = self::$random;
     }
 
-    public function getSecret(){
+    public function getSecret()
+    {
         return self::$secret;
     }
 
@@ -117,7 +121,7 @@ class AuthController
                 ]);
 
                 if ($result) {
-                    $imgPath = UPLOADS.$validateUserData['imgPath'];
+                    $imgPath = UPLOADS . $validateUserData['imgPath'];
                     move_uploaded_file($validateUserData['fileTmp'], $imgPath);
 
                     User::welcomeMail($_POST['email']);
@@ -125,8 +129,7 @@ class AuthController
                     View::redirect('Auth/login', [
                         'success' => 'User created successfully'
                     ]);
-                }
-                else {
+                } else {
                     View::redirect('Auth/register', [
                         'errors' => ['User not created']
                     ]);
@@ -147,14 +150,14 @@ class AuthController
         Validate::request_method('POST');
         $validateUserData = User::validateEmail();
 
-        if(!empty($validateUserData['errors'])){
-            View::redirect('Auth/check_secret', ['errors' => $validateUserData['errors'], 'data' => $_POST]); 
-        }else{
+        if (!empty($validateUserData['errors'])) {
+            View::redirect('Auth/check_secret', ['errors' => $validateUserData['errors'], 'data' => $_POST]);
+        } else {
             $query = Database::selectByEmail('users', $_POST['email']);
-            if($query){
+            if ($query) {
                 // Initialize Randome Value...
                 $this->setRandom();
-                $query2 = Database::update('users', $query['id'],[
+                $query2 = Database::update('users', $query['id'], [
                     'secret' => $this->getRandom()
                 ]);
                 $_SESSION['email'] = $_POST['email'];
@@ -172,56 +175,57 @@ class AuthController
                     $mail->Password   = 'cjpjtgeqhunihcby';                               //SMTP password
                     $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
                     $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
-                
+
                     //Recipients
                     $to = $query['email'];
                     $mail->setFrom('admin@cafeteria.com', 'Cafeteria Admin');
                     $mail->addAddress($to, 'User');     //Add a recipient
-    
+
                     //Content
                     $mail->isHTML(true);                                  //Set email format to HTML
                     $mail->Subject = 'Reset Password @Cafeteria';
                     $mail->Body    = 'Dont send this <b>Secret</b> key to any person:<br> <h4 style="text-align: center">' . $this->getRandom() . '</h4>';
                     $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
-                
+
                     // Check if mail is sent...
-                    if($mail->send()){
+                    if ($mail->send()) {
                         View::redirect('Auth/check_secret', ['msg' => ['Mail sent successfully, check your email.']]);
-                    }else{
+                    } else {
                         View::redirect('Auth/check_secret', ['errors' => ['Failed to send Email...!'], 'data' => $_POST]);
                     }
                 } catch (Exception $e) {
                     View::redirect('Auth/email', ['errors' => ["Message could not be sent. Mailer Error:"], 'data' => $_POST]);
                 }
-            }else{
+            } else {
                 View::redirect('Auth/email', ['errors' => ['Invalid Email...!'], 'data' => $_POST]);
             }
         }
     }
     // ============== End Of Sending Mail ===============
 
-    public function check_secret(){
+    public function check_secret()
+    {
         Validate::request_method('POST');
         $validateUserData = User::validateSecret();
 
-        if(!empty($validateUserData['errors'])){
-            View::redirect('Auth/check_secret', ['errors' => $validateUserData['errors'], 'data' => $_POST]); 
-        }else{
-            if(isset($_SESSION['email'])){
+        if (!empty($validateUserData['errors'])) {
+            View::redirect('Auth/check_secret', ['errors' => $validateUserData['errors'], 'data' => $_POST]);
+        } else {
+            if (isset($_SESSION['email'])) {
                 $query = Database::selectByEmail('users', $_SESSION['email']);
-                if($query){
-                    if($_POST['secret'] == $query['secret']){
+                if ($query) {
+                    if ($_POST['secret'] == $query['secret']) {
                         echo "test2";
-    
-                        View::load('Auth/reset'); 
-                    }else{
-                        View::redirect('Auth/check_secret', ['errors' => ['Secret is not valid...!'], 'data' => $_POST]); 
+
+                        View::load('Auth/reset');
+                    } else {
+                        View::redirect('Auth/check_secret', ['errors' => ['Secret is not valid...!'], 'data' => $_POST]);
                     }
-                }else{
-                    View::redirect('Auth/email'); 
+                } else {
+                    View::redirect('Auth/email');
                 }
-            }else{
-                View::redirect('Auth/email'); 
+            } else {
+                View::redirect('Auth/email');
             }
         }
     }
@@ -232,24 +236,24 @@ class AuthController
         Validate::request_method('POST');
         $validateUserData = User::validateNewPassword();
 
-        if(!empty($validateUserData['errors'])){
-            View::redirect('Auth/reset', ['errors' => $validateUserData['errors'], 'data' => $_POST]); 
-        }else{
-            if(isset($_SESSION['email'])){
+        if (!empty($validateUserData['errors'])) {
+            View::redirect('Auth/reset', ['errors' => $validateUserData['errors'], 'data' => $_POST]);
+        } else {
+            if (isset($_SESSION['email'])) {
                 $hashed = password_hash($_POST['password'], PASSWORD_DEFAULT);
                 $query = Database::selectByEmail('users', $_SESSION['email']);
 
-                if($query){
+                if ($query) {
                     $updatePassword = Database::update('users', $query['id'], [
                         'password' => $hashed
                     ]);
 
-                    if($updatePassword){
+                    if ($updatePassword) {
                         $_SESSION['msg'] = 'Password Updated Successfully.';
                         View::redirect('Auth/login');
                     }
-                }else{
-                    View::redirect('Auth/email'); 
+                } else {
+                    View::redirect('Auth/email');
                 }
             }
         }
