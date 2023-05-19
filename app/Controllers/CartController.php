@@ -1,5 +1,5 @@
 <?php
-if (!isset($_SESSIN['user'])) {
+if (!isset($_SESSION['user'])) {
     header("Location: /iti-php-cafeteria/public/auth/login");
 }
 
@@ -24,11 +24,12 @@ class CartController
 
             $totalPrice = $this->estimatingTotalPrice($connection);
 
-            // foreach ($cart_items as $key => $value) {
-            //     $cart_items[$key]["itemprice"] = $cart_items[$key]["price"] *  $cart_items[$key]["price"]["quantity"];
-            // }
-
-            return View::load("cart", ["products" => $cart_items, "totalPrice" => $totalPrice]);
+            $products = Database::select('products');
+            return View::load("Cart/index", [
+                "products" => $products,
+                "cart_items" => $cart_items, 
+                "totalPrice" => $totalPrice
+            ]);
         } catch (Exception $e) {
             echo 'Error: ' . $e->getMessage();
         }

@@ -78,7 +78,8 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`id`, `name`) VALUES
-(1, 'test');
+(1, 'Hot Drinks'),
+(2, 'Cold Drinks');
 
 -- --------------------------------------------------------
 
@@ -218,16 +219,16 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `image`, `room_number`, `ext`, `role`, `password`, `secret`) VALUES
-(1, 'Christiana Bauch Jr.', 'user@example.net', 'default.jpg', 6, 2, 'customer', '$2y$10$rFwk7dqAk3WfYcUqaIaLte07xtl0mgpd9wUOq5LI5OURofbazvkfO', NULL),
-(2, 'Herminia Dickinson', 'kirlin.andres@example.com', 'default.jpg', 2, 6, 'admin', '123456', NULL),
-(3, 'Selmer Bartell', 'ashlee18@example.org', 'default.jpg', 6, 6, 'admin', '123456', NULL),
-(4, 'Erick Grant', 'magali07@example.com', 'default.jpg', 3, 2, 'admin', '123456', NULL),
-(5, 'Houston Spinka', 'helene.quitzon@example.net', 'default.jpg', 2, 5, 'customer', '123456', NULL),
-(6, 'Prof. Otho Stehr', 'torrey.morar@example.org', 'default.jpg', 3, 6, 'customer', '123456', NULL),
-(7, 'Dr. Carolyn Beer', 'maximillian56@example.com', 'default.jpg', 5, 1, 'admin', '123456', NULL),
-(8, 'Nico Bayer', 'stiedemann.estrella@example.net', '1.jpg', 3, 1, 'customer', '123456', NULL),
-(9, 'Vladimir OConner', 'gcrona@example.com', '1.jpg', 6, 5, 'customer', '123456', NULL),
-(10, 'Mr. Amari Schneider IV', 'leannon.napoleon@example.com', '1.jpg', 4, 2, 'customer', '123456', NULL),
+(1, 'Christiana Bauch Jr.', 'user@example.net', 'default.jpg', 6, 2, 'customer', '$2y$10$YT67ZEaqK8rAnZHeflcmweNcvVRBm.iPmUDMvQ2u1sQJQuIZWB3ty', NULL),
+(2, 'Herminia Dickinson', 'kirlin.andres@example.com', 'default.jpg', 2, 6, 'admin', '$2y$10$YT67ZEaqK8rAnZHeflcmweNcvVRBm.iPmUDMvQ2u1sQJQuIZWB3ty', NULL),
+(3, 'Selmer Bartell', 'ashlee18@example.org', 'default.jpg', 6, 6, 'admin', '$2y$10$YT67ZEaqK8rAnZHeflcmweNcvVRBm.iPmUDMvQ2u1sQJQuIZWB3ty', NULL),
+(4, 'Erick Grant', 'magali07@example.com', 'default.jpg', 3, 2, 'admin', '$2y$10$YT67ZEaqK8rAnZHeflcmweNcvVRBm.iPmUDMvQ2u1sQJQuIZWB3ty', NULL),
+(5, 'Houston Spinka', 'helene.quitzon@example.net', 'default.jpg', 2, 5, 'customer', '$2y$10$YT67ZEaqK8rAnZHeflcmweNcvVRBm.iPmUDMvQ2u1sQJQuIZWB3ty', NULL),
+(6, 'Prof. Otho Stehr', 'torrey.morar@example.org', 'default.jpg', 3, 6, 'customer', '$2y$10$YT67ZEaqK8rAnZHeflcmweNcvVRBm.iPmUDMvQ2u1sQJQuIZWB3ty', NULL),
+(7, 'Dr. Carolyn Beer', 'maximillian56@example.com', 'default.jpg', 5, 1, 'admin', '$2y$10$YT67ZEaqK8rAnZHeflcmweNcvVRBm.iPmUDMvQ2u1sQJQuIZWB3ty', NULL),
+(8, 'Nico Bayer', 'stiedemann.estrella@example.net', '1.jpg', 3, 1, 'customer', '$2y$10$YT67ZEaqK8rAnZHeflcmweNcvVRBm.iPmUDMvQ2u1sQJQuIZWB3ty', NULL),
+(9, 'Vladimir OConner', 'gcrona@example.com', '1.jpg', 6, 5, 'customer', '$2y$10$YT67ZEaqK8rAnZHeflcmweNcvVRBm.iPmUDMvQ2u1sQJQuIZWB3ty', NULL),
+(10, 'Mr. Amari Schneider IV', 'leannon.napoleon@example.com', '1.jpg', 4, 2, 'customer', '$2y$10$YT67ZEaqK8rAnZHeflcmweNcvVRBm.iPmUDMvQ2u1sQJQuIZWB3ty', NULL),
 (11, 'Youssef', 'youssef@admin.com', 'default.jpg', 1, 15, 'customer', '$2y$10$YT67ZEaqK8rAnZHeflcmweNcvVRBm.iPmUDMvQ2u1sQJQuIZWB3ty', NULL);
 
 --
