@@ -1,8 +1,8 @@
 <?php
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
 
 class Database
 {
@@ -30,16 +30,13 @@ class Database
     {
         self::connect();
         try {
-            $query = "INSERT INTO {$table} (name, email, password, room_no, ext, image)
-                    VALUES (:name, :email, :password, :room_no, :ext, :image)";
+            $keys = array_keys($record);
+            $placeholders = implode(',', array_fill(0, count($keys), '?'));
+
+            $query = "INSERT INTO {$table} (" . implode(',', $keys) . ") VALUES ({$placeholders})";
             $stmt = self::$connection->prepare($query);
-            $stmt->bindParam(":name", $record['name'], PDO::PARAM_STR);
-            $stmt->bindParam(":email", $record['email'], PDO::PARAM_STR);
-            $stmt->bindParam(":password", $record['password'], PDO::PARAM_STR);
-            $stmt->bindParam(":room_no", $record['room_no'], PDO::PARAM_STR);
-            $stmt->bindParam(":ext", $record['ext'], PDO::PARAM_INT);
-            $stmt->bindParam(":image", $record['image'], PDO::PARAM_STR);
-            $stmt->execute();
+
+            $stmt->execute(array_values($record));
             return $stmt->rowCount();
         } catch (Exception $e) {
             echo 'Error: '. $e->getMessage();
@@ -59,22 +56,46 @@ class Database
         }
     }
 
+    static function select_one($table, $id)
+    {
+        self::connect();
+        try {
+            $query = "SELECT * FROM {$table} WHERE id = {$id};";
+            $stmt = self::$connection->prepare($query);
+            $stmt->execute();
+            return $stmt->fetch();
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+
+    static function selectByEmail($table, $email)
+    {
+        self::connect();
+        try {
+            $query = "SELECT * FROM {$table} WHERE email = '{$email}';";
+            $stmt = self::$connection->prepare($query);
+            $stmt->execute();
+            return $stmt->fetch();
+        } catch (Exception $e) {
+            echo 'Error: '. $e->getMessage();
+        }
+    }
+
     static function update($table, $id, $record)
     {
         self::connect();
         try {
-            $query = "UPDATE {$table} SET name = :name, email = :email, 
-            password = :password, room_no = :room_no, ext = :ext, image = :image
-            WHERE id = :id";
+            $keys = array_keys($record);
+            $placeholders = implode('=?,', $keys) . '=?';
+
+            $query = "UPDATE {$table} SET {$placeholders} WHERE id = ?";
             $stmt = self::$connection->prepare($query);
-            $stmt->bindParam(":name", $record['name'], PDO::PARAM_STR);
-            $stmt->bindParam(":email", $record['email'], PDO::PARAM_STR);
-            $stmt->bindParam(":password", $record['password'], PDO::PARAM_STR);
-            $stmt->bindParam(":room_no", $record['room_no'], PDO::PARAM_STR);
-            $stmt->bindParam(":ext", $record['ext'], PDO::PARAM_INT);
-            $stmt->bindParam(":image", $record['image'], PDO::PARAM_STR);
-            $stmt->bindParam(":id", $id, PDO::PARAM_INT);
-            $stmt->execute();
+
+            $values = array_values($record);
+            $values[] = $id;
+
+            $stmt->execute($values);
             return $stmt->rowCount();
         } catch (Exception $e) {
             echo 'Error: '. $e->getMessage();

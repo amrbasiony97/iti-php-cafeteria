@@ -20,4 +20,15 @@ spl_autoload_register(function($class){
     require_once($class.'.php');
 });
 
+
+// Autoload PHPMailer
+spl_autoload_register(function ($class) {
+    $class = str_replace('\\', DS, $class); // Convert namespace separators to directory separators
+    $file = APP . 'PHPMailer' . DS . $class . '.php';
+
+    if (file_exists($file)) {
+        require_once($file);
+    }
+});
+
 new App();

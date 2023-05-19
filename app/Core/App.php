@@ -39,7 +39,6 @@ class App
 
             // define params
             $this->params = !empty($url) ? array_values($url) : [];
-
         }
     }
 
@@ -51,11 +50,11 @@ class App
                 call_user_func_array([$controller, $this->action], $this->params);
             }
             else {
-                echo "Method does not exist";
+                View::load('Error/404');
             }
         }
         else {
-            echo "This controller: ". $this->controller ." does not exist";
+            View::load('Error/404');
         }
     }
 }
