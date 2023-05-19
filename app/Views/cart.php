@@ -31,7 +31,7 @@ ob_start();
 
   <?php
 
-  if (!empty($cart_items)) {
+  if (!empty($products)) {
   ?>
 
     <div class="container">
@@ -49,7 +49,7 @@ ob_start();
         <tbody>
           <?php
 
-          foreach ($cart_items as $key => $product) {
+          foreach ($products as $key => $product) {
 
             echo "
                   <tr>
@@ -253,6 +253,7 @@ ob_start();
 
         xhr.onload = function() {
           if (xhr.status === 200) {
+
             element.parentNode.parentNode.parentNode.parentNode.remove();
           }
         };

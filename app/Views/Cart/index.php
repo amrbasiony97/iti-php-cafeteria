@@ -72,11 +72,11 @@ ob_start();
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_content">
-                
+
                     <div class="products">
                         <?php
                         foreach ($products as $product) {
-                            echo "<div>";
+                            echo "<div class='prdcts'>";
                             echo "<input type='text' class='prdcts' name='productId' hidden value=" . " {$product['id']} " . ">";
                             echo "<div class='col-4 col-sm-3'>
                                     <img class='w-100 rounded-circle mb-3 mb-sm-0' src='";
@@ -98,6 +98,25 @@ ob_start();
     let products = document.querySelectorAll(".prdcts");
     products.forEach(element => {
         element.addEventListener("click", (e) => {
+            var xhr = new XMLHttpRequest();
+
+            // Set the HTTP method and URL for the request
+            xhr.open('POST', 'https://localhost/iti-php-cafeteria/public/Cart/getAllProducts', true);
+
+            // Set the response type to JSON
+            xhr.responseType = 'json';
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+            // Define the callback function to handle the response
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    element.value = xhr.response[0]["product_count"];
+
+                }
+            };
+            let params = `product_count=${element.value}&order_products_id=${order_products_id}`;
+            // Send the request
+            xhr.send(params);
 
         })
     });

@@ -26,7 +26,7 @@ class CartController
 
             $products = Database::select('products');
 
-            return View::load("Cart", [
+            return View::load("Cart/index", [
                 "products" => $products,
                 "cart_items" => $cart_items,
                 "totalPrice" => $totalPrice
@@ -57,8 +57,7 @@ class CartController
 
             $products = Database::select('products');
             return View::load("Cart/purchase", [
-                "products" => $products,
-                "cart_items" => $cart_items, 
+                "cart_items" => $cart_items,
                 "totalPrice" => $totalPrice
             ]);
         } catch (Exception $e) {
