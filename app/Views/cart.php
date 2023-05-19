@@ -145,7 +145,7 @@ ob_start();
         let productCountInput = this.parentNode.parentNode.querySelector('input');
 
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'http://localhost/iti-php-cafeteria/public/Cart/increase', true);
+        xhr.open('POST', 'https://localhost/iti-php-cafeteria/public/Cart/increase', true);
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.responseType = 'json';
         xhr.onload = function() {
@@ -175,7 +175,7 @@ ob_start();
         } else {
 
           var xhr = new XMLHttpRequest();
-          xhr.open('POST', 'http://localhost/iti-php-cafeteria/public/Cart/decrease', true);
+          xhr.open('POST', 'https://localhost/iti-php-cafeteria/public/Cart/decrease', true);
 
           xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
           xhr.responseType = 'json';
@@ -207,7 +207,7 @@ ob_start();
         var xhr = new XMLHttpRequest();
 
         // Set the HTTP method and URL for the request
-        xhr.open('POST', 'http://localhost/iti-php-cafeteria/public/Cart/getAllProducts', true);
+        xhr.open('POST', 'https://localhost/iti-php-cafeteria/public/Cart/getAllProducts', true);
 
         // Set the response type to JSON
         xhr.responseType = 'json';
@@ -236,7 +236,7 @@ ob_start();
         var xhr = new XMLHttpRequest();
 
         // Set the HTTP method and URL for the request
-        xhr.open('POST', 'http://localhost/iti-php-cafeteria/public/Cart/delete', true);
+        xhr.open('POST', 'https://localhost/iti-php-cafeteria/public/Cart/delete', true);
 
         // Set the response type to JSON
         xhr.responseType = 'json';
