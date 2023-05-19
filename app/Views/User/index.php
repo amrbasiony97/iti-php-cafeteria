@@ -67,28 +67,30 @@ ob_start();
                         <tbody>
                             <?php
                             foreach ($users as $user) {
-                                echo "<tr>";
-                                echo "<td>{$user['name']}</td>";
-                                echo "<td>{$user['email']}</td>";
-                                echo "<td>{$user['room_number']}</td>";
-                                echo "<td>
-                                        <img src='";
-                                echo uploads("images/users/{$user['image']}");
-                                echo "' alt='user'>
-                                      </td>";
-                                echo "<td>{$user['ext']}</td>";
-                                echo "<td>
-                                        <a class='btn btn-primary' href='";
-                                echo route("User/edit/{$user['id']}'");
-                                echo "role='button'>
-                                            <i class='fa fa-pencil'></i>
-                                        </a>
-                                        <button type='button' class='btn btn-danger delete-btn' data-toggle='modal' data-target='.delete-modal' 
-                                        data-id='{$user['id']}' data-name='{$user['name']}'>
-                                            <i class='fa fa-trash'></i>
-                                        </button>
-                                      </td>";
-                                echo "</tr>";
+                                if ($user['role'] == 'customer') {
+                                    echo "<tr>";
+                                    echo "<td>{$user['name']}</td>";
+                                    echo "<td>{$user['email']}</td>";
+                                    echo "<td>{$user['room_number']}</td>";
+                                    echo "<td>
+                                            <img src='";
+                                    echo uploads("images/users/{$user['image']}");
+                                    echo "' alt='user'>
+                                          </td>";
+                                    echo "<td>{$user['ext']}</td>";
+                                    echo "<td>
+                                            <a class='btn btn-primary' href='";
+                                    echo route("User/edit/{$user['id']}'");
+                                    echo "role='button'>
+                                                <i class='fa fa-pencil'></i>
+                                            </a>
+                                            <button type='button' class='btn btn-danger delete-btn' data-toggle='modal' data-target='.delete-modal' 
+                                            data-id='{$user['id']}' data-name='{$user['name']}'>
+                                                <i class='fa fa-trash'></i>
+                                            </button>
+                                          </td>";
+                                    echo "</tr>";
+                                }
                             }
                             ?>
                         </tbody>

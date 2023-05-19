@@ -5,13 +5,8 @@ ob_start();
 ?>
 
 <style>
-    .x_content {
-        padding-top: 20px;
-        display: flex;
-    }
-
     .products {
-        margin: 10px;
+        margin: 20px 10px;
         min-height: 70vh;
         width: 100%;
         display: flex;
@@ -21,6 +16,7 @@ ob_start();
 
     img {
         width: 100px;
+        margin: 50px;
         display: block;
         border-radius: 50%;
         margin: auto;
@@ -72,7 +68,6 @@ ob_start();
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_content">
-
                     <div class="products">
                         <?php
                         foreach ($products as $product) {
@@ -85,7 +80,6 @@ ob_start();
                                     <h5 class='menu-price'>" . round($product['price'], 0) . " LE</h5>
                                     <p class='product-name'>{$product['name']}</p>
                                 </div>";
-
                             echo "</div>";
                         } ?>
                     </div>
