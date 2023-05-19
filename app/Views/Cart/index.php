@@ -84,6 +84,8 @@ ob_start();
                     <div class="products">
                         <?php
                         foreach ($products as $product) {
+                            echo "<div>";
+                            echo "<input type='text' class='prdcts' name='productId' hidden value=" . " {$product['id']} " . ">";
                             echo "<div class='col-4 col-sm-3'>
                                     <img class='w-100 rounded-circle mb-3 mb-sm-0' src='";
                             echo uploads("images/products/{$product['image']}");
@@ -91,6 +93,8 @@ ob_start();
                                     <h5 class='menu-price'>" . round($product['price'], 0) . " LE</h5>
                                     <p class='product-name'>{$product['name']}</p>
                                 </div>";
+
+                            echo "</div>";
                         } ?>
                     </div>
                 </div>
@@ -98,6 +102,14 @@ ob_start();
         </div>
     </div>
 </div>
+<script>
+    let products = document.querySelectorAll(".prdcts");
+    products.forEach(element => {
+        element.addEventListener("click", (e) => {
+
+        })
+    });
+</script>
 
 <?php
 $content = ob_get_clean();

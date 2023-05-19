@@ -31,7 +31,7 @@ ob_start();
 
   <?php
 
-  if (!empty($products)) {
+  if (!empty($cart_items)) {
   ?>
 
     <div class="container">
@@ -49,7 +49,7 @@ ob_start();
         <tbody>
           <?php
 
-          foreach ($products as $key => $product) {
+          foreach ($cart_items as $key => $product) {
 
             echo "
                   <tr>

@@ -25,9 +25,10 @@ class CartController
             $totalPrice = $this->estimatingTotalPrice($connection);
 
             $products = Database::select('products');
-            return View::load("Cart/index", [
+
+            return View::load("Cart", [
                 "products" => $products,
-                "cart_items" => $cart_items, 
+                "cart_items" => $cart_items,
                 "totalPrice" => $totalPrice
             ]);
         } catch (Exception $e) {
