@@ -92,10 +92,14 @@ ob_start();
     let products = document.querySelectorAll(".prdcts");
     products.forEach(element => {
         element.addEventListener("click", (e) => {
+            let productId = element.querySelector("input").value;
+
+            console.log();
+
             var xhr = new XMLHttpRequest();
 
             // Set the HTTP method and URL for the request
-            xhr.open('POST', 'https://localhost/iti-php-cafeteria/public/Cart/getAllProducts', true);
+            xhr.open('POST', 'https://localhost/iti-php-cafeteria/public/Cart/addProductToCart', true);
 
             // Set the response type to JSON
             xhr.responseType = 'json';
@@ -104,11 +108,10 @@ ob_start();
             // Define the callback function to handle the response
             xhr.onload = function() {
                 if (xhr.status === 200) {
-                    element.value = xhr.response[0]["product_count"];
-
+                    console.log(xhr.response);
                 }
             };
-            let params = `product_count=${element.value}&order_products_id=${order_products_id}`;
+            let params = `productId=${productId}`;
             // Send the request
             xhr.send(params);
 

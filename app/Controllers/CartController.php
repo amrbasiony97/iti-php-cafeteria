@@ -57,7 +57,7 @@ class CartController
 
             $products = Database::select('products');
             return View::load("Cart/purchase", [
-                "cart_items" => $cart_items,
+                "products" => $cart_items,
                 "totalPrice" => $totalPrice
             ]);
         } catch (Exception $e) {
@@ -296,5 +296,11 @@ class CartController
             $statement = $connection->prepare($query);
             $statement->execute();
         }
+
+        $data = array(
+            "message" => "success"
+        );
+
+        echo json_encode($data);
     }
 }
