@@ -268,7 +268,8 @@ class CartController
     }
 
     public function addProductToCart()
-    {
+    {header("Access-Control-Allow-Origin: *"); // Add this line for cross-origin header
+        header("Content-Type: application/json");
         $productId = $_POST["productId"];
         $userId = $_SESSION["user"]["id"];
 

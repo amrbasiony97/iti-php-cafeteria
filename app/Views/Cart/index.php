@@ -100,10 +100,11 @@ ob_start();
 
             // Set the HTTP method and URL for the request
             xhr.open('POST', 'https://localhost/iti-php-cafeteria/public/Cart/addProductToCart', true);
-
+            
             // Set the response type to JSON
             xhr.responseType = 'json';
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
 
             // Define the callback function to handle the response
             xhr.onload = function() {
