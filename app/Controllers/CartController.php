@@ -296,5 +296,11 @@ class CartController
             $statement = $connection->prepare($query);
             $statement->execute();
         }
+
+        $data = array(
+            "message" => "success"
+        );
+
+        echo json_encode($data);
     }
 }
