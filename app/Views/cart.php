@@ -42,9 +42,7 @@ ob_start();
             <th class="product-name text-center">Product</th>
             <th class="product-price text-center">Price</th>
             <th class="product-quantity text-center">Quantity</th>
-            <!-- <th class="product-total text-center">Total</th>           
-                          <td class='text-center align-middle'> {$product['price']}  </td>
--->
+            <th class="product-total text-center">Total</th>
             <th class="product-remove text-center">Remove</th>
           </tr>
         </thead>
@@ -97,6 +95,7 @@ ob_start();
                       </div>
                     </td>
 
+                    <td class='text-center align-middle'> {$product['price']}  </td>
 
                     <td class='d-flex justify-content-center justify-content-center'>
                       <div class='d-flex justify-content-center justify-content-center'>
