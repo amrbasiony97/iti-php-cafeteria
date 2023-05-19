@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 19, 2023 at 01:39 AM
+-- Generation Time: May 19, 2023 at 03:02 AM
 -- Server version: 8.0.33-0ubuntu0.22.04.2
 -- PHP Version: 8.1.18
 
@@ -24,29 +24,61 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `cart`
+--
+
+CREATE TABLE `cart` (
+  `id` int NOT NULL,
+  `userId` bigint UNSIGNED DEFAULT NULL,
+  `totalPrice` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `cart`
+--
+
+INSERT INTO `cart` (`id`, `userId`, `totalPrice`) VALUES
+(8, 11, 8880);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cart_items`
+--
+
+CREATE TABLE `cart_items` (
+  `id` int NOT NULL,
+  `cartId` int DEFAULT NULL,
+  `productId` bigint UNSIGNED DEFAULT NULL,
+  `quantity` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `cart_items`
+--
+
+INSERT INTO `cart_items` (`id`, `cartId`, `productId`, `quantity`) VALUES
+(33, 8, 8, 40),
+(34, 8, 8, 40),
+(35, 8, 8, 40);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `categories`
 --
 
 CREATE TABLE `categories` (
-  `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `id` bigint NOT NULL,
+  `name` varchar(50) COLLATE utf8mb4_general_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `categories`
 --
 
 INSERT INTO `categories` (`id`, `name`) VALUES
-(1, 'Creola'),
-(2, 'Chaz'),
-(3, 'Gilda'),
-(4, 'Savannah'),
-(5, 'Prince'),
-(6, 'Nyasia'),
-(7, 'Nestor'),
-(8, 'Ken'),
-(9, 'Bette'),
-(10, 'Laurianne');
+(1, 'test');
 
 -- --------------------------------------------------------
 
@@ -70,11 +102,16 @@ INSERT INTO `orders` (`id`, `order_date`, `total_price`, `status`, `user_id`) VA
 (1, '2023-04-28', '66.00', 'done', 4),
 (2, '2023-04-28', '36.00', 'out for delivery', 5),
 (3, '2023-04-28', '75.00', 'done', 4),
+(4, '2023-04-28', '22.00', 'out for delivery', 9),
 (5, '2023-04-28', '53.00', 'out for delivery', 5),
 (6, '2023-04-28', '35.00', 'done', 2),
-(7, '2023-04-28', '83.00', 'processing', 2),
+(8, '2023-04-28', '7.00', 'done', 9),
 (9, '2023-04-28', '86.00', 'done', 6),
-(10, '2023-04-28', '69.00', 'processing', 6);
+(10, '2023-04-28', '69.00', 'processing', 6),
+(55, '2023-04-28', '6720.00', 'processing', 11),
+(56, '2023-04-28', '48512.00', 'processing', 11),
+(57, '2023-04-28', '8880.00', 'processing', 11),
+(58, '2023-04-28', '11840.00', 'processing', 11);
 
 -- --------------------------------------------------------
 
@@ -94,23 +131,21 @@ CREATE TABLE `order_products` (
 --
 
 INSERT INTO `order_products` (`id`, `product_count`, `order_id`, `product_id`) VALUES
-(1, 128, 3, 3),
-(2, 151, 10, 8),
-(3, 106, 2, 7),
-(4, 177, 2, 2),
-(5, 151, 3, 8),
-(6, 110, 6, 10),
-(7, 169, 2, 4),
-(9, 109, 3, 5),
-(10, 125, 2, 8),
-(11, 146, 3, 4),
-(13, 144, 1, 9),
-(14, 175, 7, 7),
-(15, 173, 5, 7),
-(17, 133, 2, 8),
-(18, 197, 5, 9),
-(19, 108, 1, 10),
-(20, 104, 6, 1);
+(2, 20, 3, 8),
+(27, 624, 1, 8),
+(28, 624, 1, 8),
+(29, 624, 1, 8),
+(43, 40, 55, 8),
+(44, 40, 55, 8),
+(45, 40, 55, 8),
+(46, 40, 55, 8),
+(47, 40, 55, 8),
+(48, 40, 55, 8),
+(49, 40, 55, 8),
+(50, 40, 55, 8),
+(51, 40, 55, 8),
+(52, 40, 55, 8),
+(53, 40, 55, 8);
 
 -- --------------------------------------------------------
 
@@ -139,24 +174,26 @@ CREATE TABLE `products` (
   `id` bigint UNSIGNED NOT NULL,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `price` decimal(8,2) NOT NULL,
-  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
+  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `quantity` int DEFAULT NULL,
+  `category_id` bigint DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `name`, `price`, `image`) VALUES
-(1, 'Nigel', '37.00', '1.jpg'),
-(2, 'Zachery', '16.00', '1.jpg'),
-(3, 'Yvette', '66.00', '1.jpg'),
-(4, 'Lucius', '86.00', '1.jpg'),
-(5, 'Shanon', '54.00', '1.jpg'),
-(6, 'Moriah', '48.00', '1.jpg'),
-(7, 'Maximus', '63.00', '1.jpg'),
-(8, 'Tressa', '74.00', '1.jpg'),
-(9, 'Albertha', '56.00', '1.jpg'),
-(10, 'Gerhard', '50.00', '1.jpg');
+INSERT INTO `products` (`id`, `name`, `price`, `image`, `quantity`, `category_id`) VALUES
+(1, 'Nigel', '37.00', '1.jpeg', 10, 1),
+(2, 'Zachery', '16.00', '1.jpeg', 10, 1),
+(3, 'Yvette', '66.00', '1.jpeg', 10, 1),
+(4, 'Lucius', '86.00', '1.jpeg', 10, 1),
+(5, 'Shanon', '54.00', '1.jpeg', 10, 1),
+(6, 'Moriah', '48.00', '1.jpeg', 10, 1),
+(7, 'Maximus', '63.00', '1.jpeg', 10, 1),
+(8, 'Tressa', '74.00', '1.jpeg', 10, 1),
+(9, 'Albertha', '56.00', '1.jpeg', 10, 1),
+(10, 'Gerhard', '50.00', '1.jpeg', 10, 1);
 
 -- --------------------------------------------------------
 
@@ -181,26 +218,36 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `image`, `room_number`, `ext`, `role`, `password`, `secret`) VALUES
-(1, 'Majeed', 'jywyxinyvi@mailinator.com', '1684426959396.png', 125, 66, 'customer', '$2y$10$jHdSrq4aGGvPt4UEvUKbfeOdEXPOVW0tp.UWdixIdCx.uKKZT.fzG', NULL),
+(1, 'Christiana Bauch Jr.', 'user@example.net', 'default.jpg', 6, 2, 'customer', '$2y$10$rFwk7dqAk3WfYcUqaIaLte07xtl0mgpd9wUOq5LI5OURofbazvkfO', NULL),
 (2, 'Herminia Dickinson', 'kirlin.andres@example.com', 'default.jpg', 2, 6, 'admin', '123456', NULL),
 (3, 'Selmer Bartell', 'ashlee18@example.org', 'default.jpg', 6, 6, 'admin', '123456', NULL),
 (4, 'Erick Grant', 'magali07@example.com', 'default.jpg', 3, 2, 'admin', '123456', NULL),
 (5, 'Houston Spinka', 'helene.quitzon@example.net', 'default.jpg', 2, 5, 'customer', '123456', NULL),
 (6, 'Prof. Otho Stehr', 'torrey.morar@example.org', 'default.jpg', 3, 6, 'customer', '123456', NULL),
 (7, 'Dr. Carolyn Beer', 'maximillian56@example.com', 'default.jpg', 5, 1, 'admin', '123456', NULL),
-(8, 'Nico Bayer', 'stiedemann.estrella@example.net', 'default.jpg', 3, 1, 'customer', '123456', NULL),
-(10, 'Mr. Amari Schneider IV', 'leannon.napoleon@example.com', 'default.jpg', 4, 2, 'customer', '123456', NULL),
-(16, 'Majed', 'majed@gmail.com', 'default.jpg', 1, 2, 'customer', '$2y$10$rFwk7dqAk3WfYcUqaIaLte07xtl0mgpd9wUOq5LI5OURofbazvkfO', NULL),
-(17, 'Leigh Adams', 'hoji@mailinator.com', '1684427551938.png', 90, 76, 'customer', '$2y$10$pz19ubVp3s/FlQyhOvY84.x.uaPdt63rD0aD1cf7t28zrSCytQwNq', NULL),
-(18, 'Robert May', 'tidasa@mailinator.com', '1684427692838.png', 184, 18, 'customer', '$2y$10$8YIQwemhVvTL7QjSkdx9Qe7zl0FncZjh7CVD4tpIX/VWVBQZblLzy', NULL),
-(19, 'Octavia Jensen', 'bexujyfi@mailinator.com', '1684427746214.png', 627, 24, 'customer', '$2y$10$lnrqMiV8xUOT/D5reyBRC.ZJsO8TNFrruTT1l6hV1pbpZzt2lStXq', NULL),
-(20, 'Shay Shepherd', 'muhammed.saber@mailinator.com', '1684427801485.png', 106, 38, 'customer', '$2y$10$DvjnQk5SXjcLBADfPeraSO3z68ToMpTpNT0DT9nnNzSjnkoSbbYAq', NULL),
-(21, 'Yuri Harrington', 'wulih@mailinator.com', 'default.jpg', 287, 30, 'customer', '$2y$10$BC5qyc3Ho7q.9.UcpzhR5OYLG20DjCrmo5iu3Jpc1X6qB3Q92WsSe', 'Hamada'),
-(22, 'Muhammed Saber Shaaban', 'muhammed.saber385@gmail.com', '1684433269041.png', 45, 778, 'customer', '$2y$10$WxYhRubkaG297hA6KhMt4.rbd7rwJES8dzIjTdXHGWGf8/scE67dK', 'bxjvxf');
+(8, 'Nico Bayer', 'stiedemann.estrella@example.net', '1.jpg', 3, 1, 'customer', '123456', NULL),
+(9, 'Vladimir OConner', 'gcrona@example.com', '1.jpg', 6, 5, 'customer', '123456', NULL),
+(10, 'Mr. Amari Schneider IV', 'leannon.napoleon@example.com', '1.jpg', 4, 2, 'customer', '123456', NULL),
+(11, 'Youssef', 'youssef@admin.com', 'default.jpg', 1, 15, 'customer', '$2y$10$YT67ZEaqK8rAnZHeflcmweNcvVRBm.iPmUDMvQ2u1sQJQuIZWB3ty', NULL);
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `cart`
+--
+ALTER TABLE `cart`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `userId` (`userId`);
+
+--
+-- Indexes for table `cart_items`
+--
+ALTER TABLE `cart_items`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `cartId` (`cartId`),
+  ADD KEY `productId` (`productId`);
 
 --
 -- Indexes for table `categories`
@@ -235,7 +282,8 @@ ALTER TABLE `personal_access_tokens`
 -- Indexes for table `products`
 --
 ALTER TABLE `products`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `category_id` (`category_id`);
 
 --
 -- Indexes for table `users`
@@ -249,22 +297,34 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `cart`
+--
+ALTER TABLE `cart`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `cart_items`
+--
+ALTER TABLE `cart_items`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+
+--
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT for table `order_products`
 --
 ALTER TABLE `order_products`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -282,11 +342,24 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `cart`
+--
+ALTER TABLE `cart`
+  ADD CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`id`);
+
+--
+-- Constraints for table `cart_items`
+--
+ALTER TABLE `cart_items`
+  ADD CONSTRAINT `cart_items_ibfk_1` FOREIGN KEY (`cartId`) REFERENCES `cart` (`id`),
+  ADD CONSTRAINT `cart_items_ibfk_2` FOREIGN KEY (`productId`) REFERENCES `products` (`id`);
 
 --
 -- Constraints for table `orders`
@@ -300,6 +373,12 @@ ALTER TABLE `orders`
 ALTER TABLE `order_products`
   ADD CONSTRAINT `order_products_order_id_foreign` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `order_products_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `products`
+--
+ALTER TABLE `products`
+  ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
