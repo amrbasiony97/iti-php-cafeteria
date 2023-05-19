@@ -51,7 +51,7 @@
                         }
                         else if ($_SESSION['user']['role'] == 'customer') {
                             echo "<a href='";
-                            route('Order/index');
+                            route('Cart/index');
                             echo "' class='nav-item nav-link'>Orders</a>";
                         }
                         ?>

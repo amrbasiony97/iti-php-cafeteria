@@ -67,7 +67,7 @@ class AuthController
                         View::redirect('User/index', ['users' => User::getAll()]);
                     }
                     else if ($_SESSION['user']['role'] == 'customer') {
-                        View::redirect('Home/index');
+                        View::redirect('Cart/index');
                     }
                     else {
                         header("Location: /iti-php-cafeteria/public/");
