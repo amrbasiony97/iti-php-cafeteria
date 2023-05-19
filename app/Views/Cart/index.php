@@ -138,4 +138,11 @@ if (isset($url)) {
 $extra_js = ob_get_clean();
 ?>
 
-<?php include('app/Views/Layouts/user.php') ?>
+<?php 
+    if ($_SESSION["user"]["role"] == "admin") {
+        include('app/Views/Layouts/admin.php');
+    }
+    else if ($_SESSION["user"]["role"] == "customer") {
+        include('app/Views/Layouts/user.php');
+    }
+?>
