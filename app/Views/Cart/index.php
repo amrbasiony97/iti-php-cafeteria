@@ -49,6 +49,10 @@ ob_start();
         text-align: center;
         font-weight: bold;
     }
+
+    .selected {
+        border: 5px solid red;
+    }
 </style>
 <?php
 $extra_css = ob_get_clean();
@@ -100,12 +104,10 @@ ob_start();
         element.addEventListener("click", (e) => {
             let productId = element.querySelector("input").value;
 
-            console.log();
-
             var xhr = new XMLHttpRequest();
 
             // Set the HTTP method and URL for the request
-            xhr.open('POST', 'https://localhost/iti-php-cafeteria/public/Cart/addProductToCart', true);
+            xhr.open('POST', 'http://localhost/iti-php-cafeteria/public/Cart/addProductToCart', true);
 
             // Set the response type to JSON
             xhr.responseType = 'json';
@@ -115,6 +117,7 @@ ob_start();
             xhr.onload = function() {
                 if (xhr.status === 200) {
                     console.log(xhr.response);
+                    element.querySelector("img").classList.add("selected");
                 }
             };
             let params = `productId=${productId}`;
