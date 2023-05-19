@@ -21,7 +21,7 @@ ob_start();
     <div class="container">
       <div class="row">
         <div class="col-md-12 mb-0">
-          <a href="{{ route('site.landing-page') }}">Home</a>
+          <a href="https://localhost/iti-php-cafeteria/public/home">Home</a>
           <span class="mx-2 mb-0">/</span>
           <strong class="text-black">Cart</strong>
         </div>
@@ -42,7 +42,9 @@ ob_start();
             <th class="product-name text-center">Product</th>
             <th class="product-price text-center">Price</th>
             <th class="product-quantity text-center">Quantity</th>
-            <th class="product-total text-center">Total</th>
+            <!-- <th class="product-total text-center">Total</th>           
+                          <td class='text-center align-middle'> {$product['price']}  </td>
+-->
             <th class="product-remove text-center">Remove</th>
           </tr>
         </thead>
@@ -53,9 +55,11 @@ ob_start();
 
             echo "
                   <tr>
+
                   <td hidden >
                     <input name='order_products_id' value=" . "{$product['cart_item_id']}" . " />
                   </td>
+
                     <td class='product-thumbnail text-center'  style='max-width: 100px'>
                       <img src='";
             echo uploads("images/products/{$product['image']}");
@@ -71,29 +75,28 @@ ob_start();
                     </td>
 
                     <td class='align-middle'>
-                    <div class='text-center' >
-                        <div class='input-group mb-3' style='max-width: 150px'>
-                          <div class='input-group-prepend'>
+                      <div class='d-flex justify-content-center align-items-center' >
+                          <div class='input-group mb-3' style='max-width: 150px'>
+                            <div class='input-group-prepend'>
 
-                            <button class='btn btn-outline-primary decrease-quantity-button js-btn-minus' type='submit'>
-                              &minus;
+                              <button class='btn btn-outline-primary decrease-quantity-button js-btn-minus' type='submit'>
+                                &minus;
+                              </button>
+                            </div>
+
+                          <input type='text' class='form-control text-center product-count' 
+                            disabled value='$product[4]' />
+
+                          <div class='input-group-append'>
+                            <button class='btn btn-outline-primary increase-quantity-button js-btn-plus' type='submit'>
+                            &plus;
                             </button>
                           </div>
 
-                        <input type='text' class='form-control text-center product-count' 
-                           disabled value='$product[4]' />
-
-                        <div class='input-group-append'>
-                          <button class='btn btn-outline-primary increase-quantity-button js-btn-plus' type='submit'>
-                          &plus;
-                          </button>
                         </div>
-
                       </div>
-                    </div>
                     </td>
 
-                    <td class='text-center align-middle'> {$product['price']}  </td>
 
                     <td class='d-flex justify-content-center justify-content-center'>
                       <div class='d-flex justify-content-center justify-content-center'>
@@ -105,6 +108,7 @@ ob_start();
                           </button>
                         </form>
                       </div>
+                      
                     </td>
                   </tr>
                 ";
@@ -112,11 +116,17 @@ ob_start();
 
           ?>
         </tbody>
-        <tfoot class="d-flex flex-row">
-          <div>Total Price : </div>
-          <div id="totalPrice"><?php echo $totalPrice ?></div>
-        </tfoot>
       </table>
+      <div class="d-flex justify-content-between">
+        <div>
+          <h3>Total Price :</h3>
+        </div>
+        <div id="totalPrice">
+          <h3>
+            <?php echo $totalPrice ?>
+          </h3>
+        </div>
+      </div>
       <form action="https://localhost/iti-php-cafeteria/public/Cart/checkout" method="GET">
         <button type="submit" class="btn btn-primary checkoutBtn" style="width: 120px;">CheckOut</button>
       </form>
@@ -151,7 +161,7 @@ ob_start();
         xhr.onload = function() {
           if (xhr.status === 200) {
             productCountInput.value = xhr.response[0]["quantity"];
-            document.querySelector("#totalPrice").innerHTML = xhr.response[1];
+            document.querySelector("#totalPrice > h3").innerHTML = xhr.response[1];
           } else {
             console.log('Error: ' + xhr.statusText);
           }
@@ -183,7 +193,7 @@ ob_start();
           xhr.onload = function() {
             if (xhr.status === 200) {
               productCountInput.value = xhr.response[0]["quantity"];
-              document.querySelector("#totalPrice").innerHTML = xhr.response[1];
+              document.querySelector("#totalPrice > h3").innerHTML = xhr.response[1];
             } else {
               console.log('Error: ' + xhr.statusText);
             }

@@ -10,7 +10,7 @@ define('PORT', 3306);
 
 
 define('USER', 'root');
-define('PASSWORD', 'Iti#');
+define('PASSWORD', '');
 
 define('BASE_URL', 'https://localhost/iti-php-cafeteria/public/');
 

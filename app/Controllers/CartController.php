@@ -1,5 +1,5 @@
 <?php
-if (!isset($_SESSION['user'])) {
+if (!isset($_SESSIN['user'])) {
     header("Location: /iti-php-cafeteria/public/auth/login");
 }
 
@@ -23,6 +23,10 @@ class CartController
             $cart_items = $stmt->fetchAll();
 
             $totalPrice = $this->estimatingTotalPrice($connection);
+
+            // foreach ($cart_items as $key => $value) {
+            //     $cart_items[$key]["itemprice"] = $cart_items[$key]["price"] *  $cart_items[$key]["price"]["quantity"];
+            // }
 
             return View::load("cart", ["products" => $cart_items, "totalPrice" => $totalPrice]);
         } catch (Exception $e) {
@@ -243,7 +247,7 @@ class CartController
         $statement->execute();
         $cart = $statement->fetch();
 
-        if (!isset($cart)) {
+        if (isset($cart)) {
             $query = "INSERT INTO cart_items (cartId, productId, quantity) VALUES ({$cart['id']}, $productId, 1)";
             $statement = $connection->prepare($query);
             $statement->execute();
@@ -252,7 +256,12 @@ class CartController
             $statement = $connection->prepare($query);
             $statement->execute();
 
-            $query = "INSERT INTO cart_items (cartId, productId, quantity) VALUES (, $productId, 1)";
+            $query = "SELECT id FROM cart WHERE userId = $userId";
+            $statement = $connection->prepare($query);
+            $statement->execute();
+            $cart = $statement->fetch();
+
+            $query = "INSERT INTO cart_items (cartId, productId, quantity) VALUES ({$cart['id']}, $productId, 1)";
             $statement = $connection->prepare($query);
             $statement->execute();
         }
