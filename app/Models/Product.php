@@ -41,6 +41,14 @@ class Product
         // Validate price
         Validate::positiveNumber($_POST['price'], $errors, 'Price');
 
+        // Validate category
+        Validate::exists(
+            'categories', 
+            $_POST['category'], 
+            $errors, 
+            'Category does not exist'
+        );
+
         // Validate image
         $image = Validate::image($errors, 'products');
         
@@ -67,6 +75,14 @@ class Product
 
         // Validate price
         Validate::positiveNumber($_POST['price'], $errors, 'Price');
+
+        // Validate category
+        Validate::exists(
+            'categories', 
+            $_POST['category'], 
+            $errors, 
+            'Category does not exist'
+        );
 
         // Validate image
         $image = Validate::image($errors, 'products', self::getImage($_POST['id']));

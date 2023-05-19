@@ -82,8 +82,7 @@
                 </li>
                 <li><a><i class="fa fa-credit-card"></i> Checks <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
-                    <li><a href="#">All Checks</a></li>
-                    <li><a href="#">Add Check</a></li>
+                    <li><a href="<?php route('Check/index') ?>">All Checks</a></li>
                   </ul>
                 </li>
               </ul>

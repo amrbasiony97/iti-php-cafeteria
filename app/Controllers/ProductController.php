@@ -16,7 +16,9 @@ class ProductController
 
     public function create()
     {
-        View::load('Product/create');
+        View::load('Product/create', [
+            'categories' => Database::select('categories')
+        ]);
     }
 
     public function store()
@@ -27,7 +29,8 @@ class ProductController
         if (!empty($validate['errors'])) {
             View::redirect('Product/create', [
                 'errors' => $validate['errors'],
-                'data' => $_POST
+                'data' => $_POST,
+                'categories' => Database::select('categories')
             ]);
         } else {
             $file = $validate['imgPath'];
@@ -36,6 +39,7 @@ class ProductController
             $result = Database::insert('products', [
                 'name' => $_POST['name'],
                 'price' => $_POST['price'],
+                'category_id' => $_POST['category'],
                 'image' => $imgPath,
             ]);
 
@@ -49,7 +53,8 @@ class ProductController
             }
             else {
                 View::redirect('Product/create', [
-                    'errors' => ['Product not created']
+                    'errors' => ['Product not created'],
+                    'categories' => Database::select('categories')
                 ]);
             }
         }
@@ -65,7 +70,8 @@ class ProductController
     public function edit($id)
     {
         View::load('Product/edit', [
-            'product' => Database::select_one('products', $id)
+            'product' => Database::select_one('products', $id),
+            'categories' => Database::select('categories')
         ]);
     }
 
@@ -77,7 +83,8 @@ class ProductController
         if (!empty($validate['errors'])) {
             View::redirect('Product/edit', [
                 'errors' => $validate['errors'],
-                'product' => $_POST
+                'product' => $_POST,
+                'categories' => Database::select('categories')
             ]);
         }
         else {
@@ -88,6 +95,7 @@ class ProductController
             if (!empty($_POST['name'])) $queryData['name'] = $_POST['name'];
             if (!empty($_POST['price'])) $queryData['price'] = $_POST['price'];
             if (!empty($imgPath)) $queryData['image'] = $imgPath;
+            $queryData['category_id'] = $_POST['category'];
             
             $result = Database::update('products', $_POST['id'], $queryData);
 
