@@ -1,5 +1,5 @@
 <?php
-if (!isset($_SESSIN['user'])) {
+if (!isset($_SESSION['user'])) {
     header("Location: /iti-php-cafeteria/public/auth/login");
 }
 
@@ -24,8 +24,9 @@ class CartController
 
             $totalPrice = $this->estimatingTotalPrice($connection);
 
+            $products = Database::select('products');
             return View::load("Cart/index", [
-                "products" => Database::select('products'),
+                "products" => $products,
                 "cart_items" => $cart_items, 
                 "totalPrice" => $totalPrice
             ]);
